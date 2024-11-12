@@ -1619,26 +1619,29 @@
     width: 800px; }
     .sheet-tabs .sheet-tab:nth-of-type(2) > input[type="radio"],
     .sheet-tabs .sheet-tab:nth-of-type(2) > .sheet-tab-label {
-      margin-left: 16.66667%; }
+      margin-left: 14.2857%; }
     .sheet-tabs .sheet-tab:nth-of-type(3) > input[type="radio"],
     .sheet-tabs .sheet-tab:nth-of-type(3) > .sheet-tab-label {
-      margin-left: 33.33333%; }
+      margin-left: 28.5714%; }
     .sheet-tabs .sheet-tab:nth-of-type(4) > input[type="radio"],
     .sheet-tabs .sheet-tab:nth-of-type(4) > .sheet-tab-label {
-      margin-left: 50%; }
+      margin-left: 42.8571%; }
     .sheet-tabs .sheet-tab:nth-of-type(5) > input[type="radio"],
     .sheet-tabs .sheet-tab:nth-of-type(5) > .sheet-tab-label {
-      margin-left: 66.66667%; }
+      margin-left: 57.1428%; }
     .sheet-tabs .sheet-tab:nth-of-type(6) > input[type="radio"],
     .sheet-tabs .sheet-tab:nth-of-type(6) > .sheet-tab-label {
-      margin-left: 83.33333%; }
+      margin-left: 71.4285%; }
+    .sheet-tabs .sheet-tab:nth-of-type(7) > input[type="radio"],
+    .sheet-tabs .sheet-tab:nth-of-type(7) > .sheet-tab-label {
+      margin-left: 85.7142%; }
     .sheet-tabs .sheet-tab > input[type="radio"] {
       height: 30px;
       margin: 0;
       opacity: 0;
       position: absolute;
       top: 0;
-      width: 16.66667%;
+      width: 14.2857%;
       z-index: 1; }
       .sheet-tabs .sheet-tab > input[type="radio"]:hover ~ .sheet-tab-label {
         background: #e5fffb;
@@ -1659,7 +1662,7 @@
       position: absolute;
       text-transform: uppercase;
       top: 0;
-      width: 16.66667%;
+      width: 14.2857%;
       border-left-color: white;
       border-top-color: white;
       border-right-color: white;

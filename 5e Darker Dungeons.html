@@ -5,7 +5,7 @@
 		<input class="sheet-toggle-npc-spells" name="attr_npcspellcastingflag" type="checkbox" value="1" hidden>
 		<input class="sheet-toggle-npc-edit" name="attr_npc_options-flag" type="checkbox" hidden>
 		<div class="sheet-section-roll">
-			<input type="hidden" name="attr_rtype" class="sheet-roll-toggle">
+			<input type="hidden" name="attr_rtype" class="sheet-roll-toggle" value="@{advantagetoggle}">
 			<div class="sheet-section-roll-advantage">
 				<label class="sheet-radio">
 					<input type="radio" name="attr_advantagetoggle" value="{{query=1}} {{advantage=1}} {{r2=[[@{d20}">
@@ -20,7 +20,7 @@
 					<span title="@{advantagetoggle}">Disadvantage</span>
 				</label>
 			</div>
-			<input type="hidden" name="attr_wtype" class="sheet-roll-toggle">
+			<input type="hidden" name="attr_wtype" class="sheet-roll-toggle" value="@{whispertoggle}">
 			<div class="sheet-section-roll-whisper">
 				<label class="sheet-radio">
 					<input type="radio" name="attr_whispertoggle" value="" checked="checked">
@@ -939,9 +939,9 @@
 					<input type="text" name="attr_character_name" title="@{character_name}">
 				</div>
 				<div class="sheet-section-pc-header-details">
-					<div class="sheet-checkbox-cog">
+					<div class="sheet-checkbox-cog" >
 						<input type="checkbox" name="attr_options-class-selection"><span></span>
-						<span class="sheet-toggle-icon"></span>
+						<span class="sheet-toggle-icon" style=" background-color:red;"></span>
 					</div>
 					<input type="checkbox" name="attr_options-class-selection" class="sheet-toggle" hidden>
 					<div class="sheet-toggle-checked">
@@ -965,8 +965,8 @@
 										<option value="Warlock">Warlock</option>
 										<option value="Wizard">Wizard</option>
 									</select>
-									<input type="hidden" name="attr_custom_class" class="sheet-field-toggle" >
-									<input type="text" name="attr_cust_classname">
+									<input type="hidden" name="attr_custom_class" class="sheet-field-toggle" value="1">
+									<input type="text" name="attr_cust_classname" value="Thaumian">
 									<label>Subclass:</label>
 									<input type="text" name="attr_subclass">
 								</div>
@@ -985,19 +985,19 @@
 						<div class="sheet-section-pc-header-details-panel">
 							<div>
 								<label>Class & Level</label>
-								<input type="text" name="attr_class_display" title="@{class_display}">
+								<input type="text" name="attr_class_display" title="@{class_display}" value="Thaumian 1" readonly>
 							</div>
 							<div>
 								<label>Background</label>
-								<input type="text" name="attr_background" title="@{background}">
+								<input type="text" name="attr_background" title="@{background}" >
 							</div>
 							<div>
 								<label>Race</label>
-								<input type="text" name="attr_race_display" title="@{race_display}">
+								<input type="text" name="attr_race_display" title="@{race_display}" readonly>
 							</div>
 							<div>
 								<label>Alignment</label>
-								<input type="text" name="attr_alignment" title="@{alignment}">
+								<input type="text" name="attr_alignment" title="@{alignment}" >
 							</div>
 						</div>
 					</div>
@@ -2163,7 +2163,7 @@
 										<fieldset class="repeating_resource">
 											<div class="sheet-fieldset-item sheet-fieldset-item-resource">
 												<div class="sheet-checkbox-cog">
-													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<input type="checkbox" name="attr_options-flag" checked="checked" ><span></span>
 													<span class="sheet-toggle-icon"></span>
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked" hidden class="sheet-toggle">
@@ -5847,6 +5847,15 @@
 							<input type="hidden" name="attr_spellicon_flag" value="all">
 						</div>
 					</div>
+					<div class="sheet-tab">
+						<input type="radio" name="attr_tab" value="aspects">
+						<span class="sheet-tab-label">Aspects</span>
+						<div class="sheet-tab-content">
+							<div class="sheet-container-well">
+								
+							</div>
+						</div>
+					</div>
 					<div class="sheet-tab sheet-tab-options">
 						<input type="radio" name="attr_tab" value="options">
 						<span class="sheet-tab-label">Options</span>
@@ -6043,14 +6052,14 @@
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
 												<div class="sheet-form-group">
-													<label class="sheet-form-checkbox" title="@{custom_class}">
-														<input type="checkbox" name="attr_custom_class" value="1">
+													<label class="sheet-form-checkbox" title="@{custom_class}" >
+														<input type="checkbox" name="attr_custom_class" value="1" checked="checked">
 														<span>Use Custom Class</span>
 													</label>
 												</div>
 												<div class="sheet-form-group">
 													<label>Class Name:</label>
-													<input type="text" name="attr_cust_classname" title="@{cust_classname}">
+													<input type="text" name="attr_cust_classname" title="@{cust_classname}" value="Thaumian">
 												</div>
 												<div class="sheet-form-group">
 													<label>Hit Die:</label>
@@ -6148,7 +6157,7 @@
 													<label>Roll Queries:</label>
 													<select name="attr_rtype" title="@{rtype}">
 														<option value="{{always=1}} {{r2=[[@{d20}">Always Roll Advantage</option>
-														<option value="@{advantagetoggle}">Advantage Toggle</option>
+														<option value="@{advantagetoggle}" selected="selected">Advantage Toggle</option>
 														<option value="{{query=1}} ?{Advantage?|Normal Roll,&#123&#123normal=1&#125&#125 &#123&#123r2=[[0d20|Advantage,&#123&#123advantage=1&#125&#125 &#123&#123r2=[[@{d20}|Disadvantage,&#123&#123disadvantage=1&#125&#125 &#123&#123r2=[[@{d20}}">Query Advantage</option>
 														<option value="{{normal=1}} {{r2=[[0d20">Never Roll Advantage</option>
 													</select>
@@ -6157,7 +6166,7 @@
 													<label>Whisper Rolls to GM:</label>
 													<select name="attr_wtype" title="@{wtype}">
 														<option value="">Never Whisper Rolls</option>
-														<option value="@{whispertoggle}">Whisper Toggle</option>
+														<option value="@{whispertoggle}" selected="selected">Whisper Toggle</option>
 														<option value="?{Whisper?|Public Roll,|Whisper Roll,/w gm }">Query Whisper</option>
 														<option value="/w gm ">Always Whisper Rolls</option>
 													</select>
@@ -6166,7 +6175,7 @@
 													<label>Auto Damage Roll:</label>
 													<select name="attr_dtype" title="@{dtype}">
 														<option value="pick">Don't Auto Roll Damage</option>
-														<option value="full">Auto Roll Damage & Crit</option>
+														<option value="full" selected="selected">Auto Roll Damage & Crit</option>
 													</select>
 												</div>
 												<div class="sheet-form-group">
