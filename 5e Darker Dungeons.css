@@ -3267,3 +3267,84 @@
   display: none !important; }
 .charsheet .sheet-darkerdungeons .sheet-field-untoggle[value="1"] + * {
   display: none !important; }
+
+.aspect-header-container {
+  position: relative;
+}
+.aspect-header-text {
+  z-index:-1;
+  position: absolute;
+  color: #848181b3;
+  font-weight: bold;
+  font-size: xx-small;
+  top: -4px;
+  left: 1px;
+  white-space: nowrap;
+}
+.aspect-header-input {
+  background-color: #c9c9c93d;
+  display: block;
+  text-align: right;
+  width: 55px !important;
+  border: none;
+  border-bottom-left-radius: 90% 70%;
+  border-top-right-radius: 90% 20%;
+  border-bottom-right-radius: 30%;
+  padding-top: 8px;
+  margin-right: 3px;
+}
+.aspect-header-right-side-group {
+  position: absolute;
+  display: flex;
+  left: 85px;
+}
+.aspect-header-input:hover, .aspect-name:hover {
+  background-color: #c9c9c924 !important;
+}
+.aspect-image {
+  z-index: -1;
+  position: absolute;
+  left: 2px;
+  width: 23px;
+  height: 23px;
+}
+.aspect-name {
+  font-weight: 900;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-color: rgb(0, 0, 0);
+  border: none;
+  border-bottom-left-radius: 100% 30%;
+  border-top-left-radius: 100% 30%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #c9c9c93d;
+  height: fit-content;
+  width: 200px;
+}
+.aspect-image-name {
+  width: 100px;
+}
+.sheet-container-well-aspects {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.sheet-container-well-aspects .sheet-container-spell {
+  min-height: 112px;
+}
+.max-width {
+  width: 100%;
+  padding-top: 24px;
+}
+.max-width > .repcontainer > .repitem {
+  width:33.3333%;
+}
+.max-width > .repcontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.max-width > .repcontrol {
+  position: absolute;
+  top: -3px;
+}
