@@ -3302,9 +3302,7 @@
   background-color: #c9c9c924 !important;
 }
 .aspect-image {
-  z-index: -1;
-  position: absolute;
-  left: 2px;
+  margin-left: 3px;
   width: 23px;
   height: 23px;
 }
@@ -3324,6 +3322,8 @@
 }
 .aspect-image-name {
   width: 100px;
+  display: flex;
+  flex-direction: row;
 }
 .sheet-container-well-aspects {
   display: flex;

@@ -6583,17 +6583,17 @@
 													<div class="aspect-header-container">
 														<span class="aspect-header-text">Proficency </span><input
 															class="aspect-header-input" type="number"
-															name="attr_aspect_pb" title="aspect_pb" value="0">
+															name="attr_aspect_pb" title="aspect_pb" value="0"></input>
 													</div>
 													<div class="aspect-header-container">
 														<span class="aspect-header-text">Experience </span><input
 															class="aspect-header-input" type="number"
-															name="attr_aspect_exp" title="aspect_exp" value="0">
+															name="attr_aspect_exp" title="aspect_exp" value="0"></input>
 													</div>
 													<div class="aspect-header-container">
 														<span class="aspect-header-text">U Reserves </span><input
 															class="aspect-header-input" type="number"
-															name="attr_aspect_remaining" value="0">
+															name="attr_aspect_remaining" value="0"></input>
 
 													</div>
 												</div>
@@ -9018,54 +9018,118 @@
 
 			// Listen for the creation of a new repeating resource in the aspect section
 			on('change:repeating_aspect', function(event) {
-				console.log("change:repeating_aspect ran");
 			
 				// Extract the repeating ID from the sourceAttribute
 				var sourceAttribute = event.sourceAttribute;
 				var repeatingId = sourceAttribute.split('_')[2];  // Get the repeating ID from the sourceAttribute
-				console.log("Repeating ID: " + repeatingId);
 			
 				// Log the full attribute name you want to get
 				var aspectNameAttribute = 'repeating_aspect_' + repeatingId + '_aspect_name';
 				var aspectImageAttribute = 'repeating_aspect_' + repeatingId + '_aspect_image';
-				console.log("Aspect Name Attribute: " + aspectNameAttribute);
-				console.log("Aspect Image Attribute: " + aspectImageAttribute);
 			
 				// Get the current values of the repeating section's attributes
 				getAttrs([aspectNameAttribute, aspectImageAttribute, sourceAttribute], function(values) {
-					console.log("Attribute Info: ", JSON.stringify(values));  // Log all values returned
-			
-					// If the attributes exist, log their values
-					if (values[aspectNameAttribute]) {
-						console.log("Aspect Name: " + values[aspectNameAttribute]);  // Log the current aspect name
-					} else {
-						console.log("Aspect Name is undefined or missing.");
-					}
-			
-					if (values[aspectImageAttribute]) {
-						console.log("Aspect Image: " + values[aspectImageAttribute]);  // Log the current aspect image
-					} else {
-						console.log("Aspect Image is undefined or missing.");
-					}
-			
+					console.log("Attribute Info: ", JSON.stringify(values));  // Log all values returne			
 					// Example of modifying the values (if needed)
-					var newName = event.newValue;
-					console.log("New Value: " + newName);
-					var newImage = "/path/to/new/image.jpg";  // Optional: new image path
-			/*
+					
+			
 					// If the values exist, update them
-					if (values[sourceAttribute] != event.newValue) {
-						console.log("Values updated");
+					if (sourceAttribute == aspectNameAttribute) {
+						var newName = event.newValue;
+						var newImage = `https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/${newName}.png`;
+						
+						
 						setAttrs({
-							[aspectNameAttribute]: newName,
 							[aspectImageAttribute]: newImage
 						});
+						console.log("New Image URL: " + newImage);
+						if (newImage) {
+							processImage(newImage, repeatingId);
+						}
 					}
-			*/		
+					
 				});
 			});
 			
+			// Function to process the image and extract dominant color
+			function processImage(imageUrl, repeatingId) {
+				// Create a hidden image element to load the image
+				console.log("Process Image url: " + imageUrl);
+				var img = new Image();
+				console.log("var img")
+				img.crossOrigin = "anonymous"; // For cross-origin support if needed
+				img.src = imageUrl;
+				console.log("img.src")
 
+				img.onload = function() {
+					// Create a hidden canvas to process the image
+					var canvas = document.createElement('canvas');
+					var context = canvas.getContext('2d');
+
+					// Set the canvas size to the image size
+					canvas.width = img.width;
+					canvas.height = img.height;
+
+					// Draw the image onto the canvas
+					context.drawImage(img, 0, 0);
+
+					// Get image data from the canvas (this contains all the pixel data)
+					var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+					var data = imageData.data;
+
+					// Logic to extract the dominant color
+					var colorCounts = {};
+
+					for (var i = 0; i < data.length; i += 4) {
+						var r = data[i];
+						var g = data[i + 1];
+						var b = data[i + 2];
+						var colorKey = `${r},${g},${b}`;
+						var a = data[i + 3]; // Alpha channel
+
+						// Ignore transparent pixels (where alpha is 0)
+						if (a === 0) continue;
+
+						if (colorCounts[colorKey]) {
+							colorCounts[colorKey]++;
+						} else {
+							colorCounts[colorKey] = 1;
+						}
+					}
+
+					// Find the most common color
+					var maxCount = 0;
+					var predominantColor = null;
+
+					for (var color in colorCounts) {
+						if (colorCounts[color] > maxCount) {
+							maxCount = colorCounts[color];
+							predominantColor = color;
+						}
+					}
+
+					// Log the dominant color (in RGB format)
+					console.log("Dominant color for image", imageUrl, "is", predominantColor);
+
+					// Optionally, set this color as a background or attribute
+					var dominantColorHex = rgbToHex(predominantColor);
+					
+				};
+			}
+
+			// Convert RGB to Hex
+			function rgbToHex(rgb) {
+				var rgbArray = rgb.split(',').map(function(c) {
+					return parseInt(c, 10);
+				});
+
+				var hex = rgbArray.map(function(c) {
+					var hexValue = c.toString(16);
+					return hexValue.length == 1 ? '0' + hexValue : hexValue;
+				}).join('');
+
+				return `#${hex}`;
+			}
 
 			on("change:custom_ac_flag change:custom_ac_base change:custom_ac_part1 change:custom_ac_part2 change:custom_ac_shield", function(eventinfo) {
 				if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
