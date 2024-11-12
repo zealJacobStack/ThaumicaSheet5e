@@ -14,7 +14,7 @@
   .charsheet .sheet-darkerdungeons input:focus,
   .charsheet .sheet-darkerdungeons textarea:hover,
   .charsheet .sheet-darkerdungeons textarea:focus {
-    background: #e5fffb;
+    
     outline: none; }
   .charsheet .sheet-darkerdungeons select:hover,
   .charsheet .sheet-darkerdungeons select:focus {
@@ -3268,6 +3268,9 @@
 .charsheet .sheet-darkerdungeons .sheet-field-untoggle[value="1"] + * {
   display: none !important; }
 
+.fade-shadow {
+    box-shadow: inset 0 0 5px 5px white;
+}
 .aspect-header-container {
   position: relative;
 }
@@ -3308,33 +3311,50 @@
 }
 .aspect-image-background {
   position: absolute;
-  width: 23px;
-  height: 23px;
-  left: 3px;
+  top: 0;
+  left: 0;
+  width: 100%;  /* Make the image fill the container */
+  height: 100%;
+  border-radius: 5px;
+  object-fit: cover;  /* Maintain aspect ratio */
+  z-index: -1; /* Image is in the background */
+}
+.aspect-image-inverse {
   z-index: -1;
+  position: absolute;
+  height: 34px;
+  width: 17px;
+  border-top-right-radius: 70% 90%;
+  border-bottom-right-radius: 70% 90%;
+  border-top-left-radius: 40% 60%;
+  border-bottom-left-radius: 40% 60%;
+  top: 9px;
+  left: 4px;
+  opacity: 0.5;
+  box-shadow: inset 0 0 9px 9px #c9c9c93d;
 }
 .aspect-name {
-  font-weight: 900;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-fill-color: white;
-  -webkit-text-stroke-color: rgb(0, 0, 0);
-  border: none;
-  border-bottom-left-radius: 100% 30%;
-  border-top-left-radius: 100% 30%;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background-color: #c9c9c93d;
-  height: fit-content;
-  width: 200px;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-weight: bold;
+  color: transparent; /* Make the text transparent to use it as a mask */
+  background-clip: text; /* Clip the background image to the text */
+  -webkit-background-clip: text; /* For Webkit browsers (Chrome, Safari) */
+  z-index: 2; /* Text appears above the image */
+  border: none; /* Remove input field border if needed */
+  mix-blend-mode: difference; /* This will make the text appear complementary */
 }
-.aspect-name[value="Aspect"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AspectColor.png')}
-.aspect-name[value="Aer"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AerColor.png')}
-.aspect-name[value="Aqua"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AquaColor.png')}
-.aspect-name[value="Endo"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/EndoColor.png')}
-.aspect-name[value="Ignis"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/IgnisColor.png')}
-.aspect-name[value="Ordo"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/OrdoColor.png')}
-.aspect-name[value="Terra"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/TerraColor.png')}
-
+.aspect-name-container {
+  position: relative;
+  display: inline-block;
+  width: 97%; /* Set the width as per your need */
+  height: 28px; /* Set the height as per your need */
+  margin-left: 1.5%;
+  margin-top: 2px;
+  padding-top: 2px;
+  border-radius: 5px;
+}
 .aspect-image-name {
   width: 100px;
   display: flex;

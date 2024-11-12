@@ -6574,10 +6574,7 @@
 											<div class="sheet-container-header">
 												<span class="aspect-image-name">
 													<img class="aspect-image" name="attr_aspect_image">
-													<img class="aspect-image-background" name="attr_aspect_image_background">
-													<input class="aspect-name" type="text" name="attr_aspect_name"
-														title="aspect_name" value="Aspect"></input>
-
+													<img class="aspect-image-inverse" name="attr_aspect_image_inverse">
 												</span>
 
 												<div class="aspect-header-right-side-group">
@@ -6599,7 +6596,11 @@
 													</div>
 												</div>
 											</div>
-											<span>{{attribute_name=@{repeating_aspect_$0_attr_aspect_name}}}</span>
+											<div class="aspect-name-container fade-shadow">
+												<input class="aspect-name " type="text" name="attr_aspect_name" title="aspect_name" value="Aspect"></input>
+												<img class="aspect-image-background " name="attr_aspect_image_background">
+											</div>
+											
 										</div>
 									</fieldset>
 								</div>
@@ -9028,9 +9029,10 @@
 				var aspectNameAttribute = 'repeating_aspect_' + repeatingId + '_aspect_name';
 				var aspectImageAttribute = 'repeating_aspect_' + repeatingId + '_aspect_image';
 				var aspectImageBackgroundAttribute = aspectImageAttribute + "_background";
+				var aspectImageInverseAttribute = aspectImageAttribute +"_inverse";
 			
 				// Get the current values of the repeating section's attributes
-				getAttrs([aspectNameAttribute, aspectImageAttribute, aspectImageBackgroundAttribute, sourceAttribute], function(values) {
+				getAttrs([aspectNameAttribute, aspectImageAttribute, aspectImageBackgroundAttribute, aspectImageInverseAttribute, sourceAttribute], function(values) {
 					console.log("Attribute Info: ", JSON.stringify(values));  // Log all values returne			
 					// Example of modifying the values (if needed)
 					
@@ -9041,16 +9043,15 @@
 						var urlPrefix = "https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/";
 						var newImage = urlPrefix + newName + ".png";
 						var newBackground = urlPrefix + newName + "Color.png";
+						var newInverse = urlPrefix + newName + "Inverse.png";
 						
 						
 						setAttrs({
 							[aspectImageAttribute]: newImage,
-							[aspectImageBackgroundAttribute]: newBackground
+							[aspectImageBackgroundAttribute]: newBackground,
+							[aspectImageInverseAttribute]: newInverse
 						});
-						console.log("New Image URL: " + newImage);
-						if (newImage) {
-							processImage(newImage, repeatingId);
-						}
+						
 					}
 					
 				});
