@@ -6574,6 +6574,7 @@
 											<div class="sheet-container-header">
 												<span class="aspect-image-name">
 													<img class="aspect-image" name="attr_aspect_image">
+													<img class="aspect-image-background" name="attr_aspect_image_background">
 													<input class="aspect-name" type="text" name="attr_aspect_name"
 														title="aspect_name" value="Aspect"></input>
 
@@ -9026,9 +9027,10 @@
 				// Log the full attribute name you want to get
 				var aspectNameAttribute = 'repeating_aspect_' + repeatingId + '_aspect_name';
 				var aspectImageAttribute = 'repeating_aspect_' + repeatingId + '_aspect_image';
+				var aspectImageBackgroundAttribute = aspectImageAttribute + "_background";
 			
 				// Get the current values of the repeating section's attributes
-				getAttrs([aspectNameAttribute, aspectImageAttribute, sourceAttribute], function(values) {
+				getAttrs([aspectNameAttribute, aspectImageAttribute, aspectImageBackgroundAttribute, sourceAttribute], function(values) {
 					console.log("Attribute Info: ", JSON.stringify(values));  // Log all values returne			
 					// Example of modifying the values (if needed)
 					
@@ -9036,11 +9038,14 @@
 					// If the values exist, update them
 					if (sourceAttribute == aspectNameAttribute) {
 						var newName = event.newValue;
-						var newImage = `https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/${newName}.png`;
+						var urlPrefix = "https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/";
+						var newImage = urlPrefix + newName + ".png";
+						var newBackground = urlPrefix + newName + "Color.png";
 						
 						
 						setAttrs({
-							[aspectImageAttribute]: newImage
+							[aspectImageAttribute]: newImage,
+							[aspectImageBackgroundAttribute]: newBackground
 						});
 						console.log("New Image URL: " + newImage);
 						if (newImage) {
@@ -9051,86 +9056,6 @@
 				});
 			});
 			
-			// Function to process the image and extract dominant color
-			function processImage(imageUrl, repeatingId) {
-				// Create a hidden image element to load the image
-				console.log("Process Image url: " + imageUrl);
-				var img = new Image();
-				console.log("var img")
-				img.crossOrigin = "anonymous"; // For cross-origin support if needed
-				img.src = imageUrl;
-				console.log("img.src")
-
-				img.onload = function() {
-					// Create a hidden canvas to process the image
-					var canvas = document.createElement('canvas');
-					var context = canvas.getContext('2d');
-
-					// Set the canvas size to the image size
-					canvas.width = img.width;
-					canvas.height = img.height;
-
-					// Draw the image onto the canvas
-					context.drawImage(img, 0, 0);
-
-					// Get image data from the canvas (this contains all the pixel data)
-					var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-					var data = imageData.data;
-
-					// Logic to extract the dominant color
-					var colorCounts = {};
-
-					for (var i = 0; i < data.length; i += 4) {
-						var r = data[i];
-						var g = data[i + 1];
-						var b = data[i + 2];
-						var colorKey = `${r},${g},${b}`;
-						var a = data[i + 3]; // Alpha channel
-
-						// Ignore transparent pixels (where alpha is 0)
-						if (a === 0) continue;
-
-						if (colorCounts[colorKey]) {
-							colorCounts[colorKey]++;
-						} else {
-							colorCounts[colorKey] = 1;
-						}
-					}
-
-					// Find the most common color
-					var maxCount = 0;
-					var predominantColor = null;
-
-					for (var color in colorCounts) {
-						if (colorCounts[color] > maxCount) {
-							maxCount = colorCounts[color];
-							predominantColor = color;
-						}
-					}
-
-					// Log the dominant color (in RGB format)
-					console.log("Dominant color for image", imageUrl, "is", predominantColor);
-
-					// Optionally, set this color as a background or attribute
-					var dominantColorHex = rgbToHex(predominantColor);
-					
-				};
-			}
-
-			// Convert RGB to Hex
-			function rgbToHex(rgb) {
-				var rgbArray = rgb.split(',').map(function(c) {
-					return parseInt(c, 10);
-				});
-
-				var hex = rgbArray.map(function(c) {
-					var hexValue = c.toString(16);
-					return hexValue.length == 1 ? '0' + hexValue : hexValue;
-				}).join('');
-
-				return `#${hex}`;
-			}
-
 			on("change:custom_ac_flag change:custom_ac_base change:custom_ac_part1 change:custom_ac_part2 change:custom_ac_shield", function(eventinfo) {
 				if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
 					return;

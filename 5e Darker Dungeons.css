@@ -3306,6 +3306,13 @@
   width: 23px;
   height: 23px;
 }
+.aspect-image-background {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  left: 3px;
+  z-index: -1;
+}
 .aspect-name {
   font-weight: 900;
   -webkit-text-stroke-width: 1px;
@@ -3320,6 +3327,14 @@
   height: fit-content;
   width: 200px;
 }
+.aspect-name[value="Aspect"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AspectColor.png')}
+.aspect-name[value="Aer"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AerColor.png')}
+.aspect-name[value="Aqua"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AquaColor.png')}
+.aspect-name[value="Endo"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/EndoColor.png')}
+.aspect-name[value="Ignis"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/IgnisColor.png')}
+.aspect-name[value="Ordo"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/OrdoColor.png')}
+.aspect-name[value="Terra"] { background-image: url('https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/TerraColor.png')}
+
 .aspect-image-name {
   width: 100px;
   display: flex;
