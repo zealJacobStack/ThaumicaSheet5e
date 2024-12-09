@@ -1,0 +1,238 @@
+<div class="sheet-checkbox-cog">
+    <input type="checkbox" name="attr_options-flag" checked="checked">
+    <span class="sheet-toggle-icon"></span>
+</div>
+<input type="checkbox" name="attr_options-flag" checked="checked"
+    class="sheet-toggle" hidden>
+<div class="sheet-toggle-checked">
+    <!--Checked Section Goes Here-->
+</div>
+<div class="sheet-toggle-unchecked">
+    <!--Unchecked Section Goes Here-->
+</div>
+
+<!--Example of sheet toggle checked section-->
+<div class="sheet-form">
+    <div class="sheet-form-header">Edit Spell</div>
+    <div class="sheet-form-body">
+        <input type="hidden" name="attr_spellattackid">
+        <input type="hidden" name="attr_spelllevel" value="cantrip">
+        <input type="hidden" name="attr_spelloutput">
+        <input type="hidden" name="attr_spellcomp">
+        <div class="sheet-form-group">
+            <label>Name:</label>
+            <input type="text" name="attr_spellname">
+        </div>
+        <div class="sheet-form-group">
+            <label>School:</label>
+            <select name="attr_spellschool">
+                <option value="abjuration">Abjuration</option>
+                <option value="conjuration">Conjuration</option>
+                <option value="divination">Divination</option>
+                <option value="enchantment">Enchantment</option>
+                <option value="evocation">Evocation</option>
+                <option value="illusion">Illusion</option>
+                <option value="necromancy">Necromancy</option>
+                <option value="transmutation">Transmutation</option>
+            </select>
+            <label class="sheet-form-checkbox">
+                <input type="checkbox" name="attr_spellritual"
+                    value="{{ritual=1}}">
+                <span>Ritual</span>
+            </label>
+        </div>
+        <div class="sheet-form-group">
+            <label>Casting Time:</label>
+            <input type="text" name="attr_spellcastingtime">
+        </div>
+        <div class="sheet-form-group">
+            <label>Range:</label>
+            <input type="text" name="attr_spellrange">
+        </div>
+        <div class="sheet-form-group">
+            <label>Target:</label>
+            <input type="text" name="attr_spelltarget">
+        </div>
+        <div class="sheet-form-group">
+            <label>Components:</label>
+            <label class="sheet-form-checkbox">
+                <input type="checkbox" name="attr_spellcomp_v"
+                    value="{{v=1}}" checked="checked">
+                <span>V</span>
+            </label>
+            <label class="sheet-form-checkbox">
+                <input type="checkbox" name="attr_spellcomp_s"
+                    value="{{s=1}}" checked="checked">
+                <span>S</span>
+            </label>
+            <label class="sheet-form-checkbox">
+                <input type="checkbox" name="attr_spellcomp_m"
+                    value="{{m=1}}" checked="checked">
+                <span>M</span>
+            </label>
+            <input type="text" name="attr_spellcomp_materials">
+        </div>
+        <div class="sheet-form-group">
+            <label class="sheet-form-checkbox">
+                <input type="checkbox"
+                    name="attr_spellconcentration"
+                    value="{{concentration=1}}">
+                <span>Concentration</span>
+            </label>
+        </div>
+        <div class="sheet-form-group">
+            <label>Duration:</label>
+            <input type="text" name="attr_spellduration">
+        </div>
+        <div class="sheet-form-group">
+            <label>Spellcasting Ability</label>
+            <select name="attr_spell_ability">
+                <option value="0*">&mdash;</option>
+                <option value="spell">SPELL</option>
+                <option value="@{strength_mod}+">STR</option>
+                <option value="@{dexterity_mod}+">DEX</option>
+                <option value="@{constitution_mod}+">CON</option>
+                <option value="@{intelligence_mod}+">INT</option>
+                <option value="@{wisdom_mod}+">WIS</option>
+                <option value="@{charisma_mod}+">CHA</option>
+            </select>
+        </div>
+        <div class="sheet-form-group">
+            <label>Innate:</label>
+            <input type="text" name="attr_innate" value="">
+        </div>
+        <div class="sheet-form-group">
+            <label>Output:</label>
+            <select name="attr_spelloutput">
+                <option value="SPELLCARD">SPELLCARD</option>
+                <option value="ATTACK">ATTACK</option>
+            </select>
+        </div>
+        <div class="sheet-form-group">
+            <label>Spell Attack:</label>
+            <select name="attr_spellattack">
+                <option value="None">None</option>
+                <option value="Melee">Melee</option>
+                <option value="Ranged">Ranged</option>
+            </select>
+        </div>
+        <div class="sheet-form-group">
+            <label>Damage 1:</label>
+            <input type="text" name="attr_spelldamage">
+            <label>Type:</label>
+            <input type="text" name="attr_spelldamagetype">
+        </div>
+        <div class="sheet-form-group">
+            <label>Damage 2:</label>
+            <input type="text" name="attr_spelldamage2">
+            <label>Type:</label>
+            <input type="text" name="attr_spelldamagetype2">
+        </div>
+        <div class="sheet-form-group">
+            <label>Healing:</label>
+            <input type="text" name="attr_spellhealing">
+        </div>
+        <div class="sheet-form-group">
+            <label class="sheet-form-checkbox">
+                <input type="checkbox" name="attr_spelldmgmod"
+                    value="Yes">
+                <span>Add Ability Mod to Damage or Healing</span>
+            </label>
+        </div>
+        <div class="sheet-form-group">
+            <label>Cantrip Progression:</label>
+            <select name="attr_spell_damage_progression">
+                <option value="" selected="selected">&mdash;
+                </option>
+                <option value="Cantrip Dice">CANTRIP DICE</option>
+                <option value="Cantrip Beam">CANTRIP BEAM</option>
+            </select>
+        </div>
+        <div class="sheet-form-group">
+            <label>Saving Throw:</label>
+            <select name="attr_spellsave">
+                <option value="" selected="selected">&mdash;
+                </option>
+                <option value="Strength">STR</option>
+                <option value="Dexterity">DEX</option>
+                <option value="Constitution">CON</option>
+                <option value="Intelligence">INT</option>
+                <option value="Wisdom">WIS</option>
+                <option value="Charisma">CHA</option>
+            </select>
+            <label>Effect:</label>
+            <input type="text" name="attr_spellsavesuccess">
+        </div>
+        <div class="sheet-form-group">
+            <label>Higher Lvl Cast Dmg:</label>
+            <input type="text" name="attr_spellhldie"
+                placeholder="1">
+            <select name="attr_spellhldietype">
+                <option value="" selected="selected">&mdash;
+                </option>
+                <option value="d4">d4</option>
+                <option value="d6">d6</option>
+                <option value="d8">d8</option>
+                <option value="d10">d10</option>
+                <option value="d12">d12</option>
+                <option value="d20">d20</option>
+            </select>
+            <span>+</span>
+            <input type="text" name="attr_spellhlbonus"
+                placeholder="0">
+        </div>
+        <div class="sheet-form-group">
+            <label>Include Spell Description in Attack:</label>
+            <select name="attr_includedesc">
+                <option value="off" selected="selected">Off</option>
+                <option value="partial">Partial</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div class="sheet-form-group">
+            <label>Description:</label>
+            <textarea name="attr_spelldescription"></textarea>
+        </div>
+        <div class="sheet-form-group">
+            <label>At Higher Levels:</label>
+            <textarea name="attr_spellathigherlevels"></textarea>
+        </div>
+    </div>
+</div>
+
+<!--Example of unchecked section-->
+<div class="sheet-pc-spell">
+    <div class="sheet-checkbox-image">
+        <input type="checkbox" name="attr_spellprepared" value="1">
+        <span></span>
+    </div>
+    <input type="hidden" name="attr_rollcontent"
+        value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+    <button type="roll" name="roll_spell" value="@{rollcontent}"
+        class="sheet-pc-spell-button">
+        <span class="sheet-pc-spell-name">
+            <span name="attr_spellname"></span>
+            <input type="hidden" name="attr_innate" value=""
+                class="sheet-field-toggle">
+            <span name="attr_innate"
+                class="sheet-display-brackets"></span>
+        </span>
+        <span class="sheet-pc-spell-components">
+            <input type="hidden" name="attr_spellritual" value="0"
+                class="sheet-field-toggle">
+            <span>R</span>
+            <input type="hidden" name="attr_spellconcentration"
+                value="0" class="sheet-field-toggle">
+            <span>C</span>
+            <input type="hidden" name="attr_spellcomp_v"
+                value="{{v=1}}" class="sheet-field-toggle">
+            <span>V</span>
+            <input type="hidden" name="attr_spellcomp_s"
+                value="{{s=1}}" class="sheet-field-toggle">
+            <span>S</span>
+            <input type="hidden" name="attr_spellcomp_m"
+                value="{{m=1}}" class="sheet-field-toggle">
+            <span>M</span>
+        </span>
+    </button>
+</div>
