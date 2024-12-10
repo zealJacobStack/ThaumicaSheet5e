@@ -13,6 +13,8 @@ const addParentThaum = (msg, paramsThaum) => {
     //Aspect Symbol
     var aspectSymbol = repeatingBase + "_aspect_image";
     var symbolUrl = baseUrl + indexP + ".png";
+    //costInput
+    var costInput = repeatingBase + "_aspect_remaining";
 
 
     var characterP = findObjs({ type: 'character', name: nameP })[0];
@@ -36,6 +38,17 @@ const addParentThaum = (msg, paramsThaum) => {
             max: 0,
             characterid: characterP.id
         });
+        var defaultVal = 0;
+
+        makeAspectAttr(costInput, defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_aspect_pb", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_aspect_exp", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_cost_reduction", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_skill_mod", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_attk_mod", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_save_mod", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_damage_mod", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_basic_expend", defaultVal, characterP.id);
 
     }
 
@@ -58,9 +71,42 @@ const deleteAspectThaum = (msg, paramsThaum) => {
     }
 };
 
+const expendAttributeThaum = (msg, paramsThaum) => {
+    var toExpend = parseInt(paramsThaum[1]);
+    var aspectName = paramsThaum[2];
+    var discount = parseInt(paramsThaum[3]);
+    var charName = paramsThaum[4];
+    var character = getThaumChar(charName);
+    var repeatingBase = "repeating_aspect_" + aspectName;
+    var aspectPbId = repeatingBase + "_aspect_remaining";
+
+    var cost = getCostThaum(toExpend, discount);
+    var aspectU = findObjs({
+        name: aspectPbId,
+        _type: "attribute",
+        _characterid: character.id
+    })[0];
+    var currentU = aspectU.get("current");
+    if (currentU >= cost) {
+        aspectU.set("current", currentU - cost);
+        var expIndex = repeatingBase + "_aspect_exp";
+        var expAttr = findObjs({
+            name: expIndex,
+            _type: "attribute",
+            _characterid: character.id
+        })[0];
+        expAttr.set("current", expAttr.get("current") + toExpend);
+        sendChat(msg.who, "Exp and Reserves adjusted");
+    } else {
+        sendChat(msg.who, "Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
+    }
+    
+}
+
 const apiMapThaum = {
     "!addParent ": addParentThaum,
-    "!deleteAspect ": deleteAspectThaum
+    "!deleteAspect ": deleteAspectThaum,
+    "!expendAttribute ": expendAttributeThaum
 };
 
 on("chat:message", function (msg) {
@@ -75,6 +121,25 @@ on("chat:message", function (msg) {
     }
 });
 
+function getCostThaum(toExpend, discount) {
+    return Math.ceil(toExpend / 2) > toExpend - discount ? Math.ceil(toExpend / 2) : toExpend - discount;
+}
+function getThaumChar(charName) {
+    var characterP = findObjs({ type: 'character', name: charName })[0];
+    if (characterP) {
+        return characterP;
+    } else {
+        console.log("Character not found: " + charName);
+    }
+}
+function makeAspectAttr(index, value, id) {
+     createObj("attribute", {
+        name: index,
+        current: value, // Set a default value for the spell name
+        max: "",
+        characterid: id
+    });
+}
 function formatStringThaum(inputString) {
     return inputString
         .trim() // Remove leading and trailing whitespace

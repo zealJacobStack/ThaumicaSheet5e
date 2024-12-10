@@ -3463,22 +3463,34 @@
   display: flex;
   align-items: center;
 }
-.expend-row > button, .delete-aspect {
+.expend-row button {
   background-color: transparent;
   background-image: none;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.141) 1.5px 1.5px 0.5px 1.5px;
+
+  border-radius: 50%;
+  aspect-ratio: 1;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
 }
-.expend-row > button:hover, .delete-aspect:hover {
+.expend-row button:hover {
   mix-blend-mode: difference;  
   box-shadow: inset rgb(50, 50, 50) 1.5px 1.5px 0.5px 1.5px;
+  overflow: hidden;
+  margin-right: 3px;
+  margin-bottom: 3px;
 }
-.expend-row > button > img {
-  filter: invert(1);
-  height: 25px;
-  width: 25px;
+.expend-row button > img {
+  mix-blend-mode: difference;
+  height: 20px;
+  width: 20px;
 } 
-.expend-row > button > div {
+.expend-row button:hover > img {
+  transform: translate(3px, 3px);
+}
+.expend-row button > div {
   background-clip: text; /* Clip the background image to the text */
   -webkit-background-clip: text;
   color: white !important;
@@ -3489,10 +3501,13 @@
   -webkit-font-smoothing: antialiased; /* Chrome, Safari, Opera */
   -moz-osx-font-smoothing: grayscale;
   padding-bottom: 2px;
+  width: 15px;
+  height: 15px;
 }
-.expend-row > button:hover > div {
+.expend-row button:hover > div {
   background-clip: border-box;
   -webkit-background-clip: border-box;
+  transform: translate(3px, 3px);
 }
 .expend-row .expend-input {
   background-color:  rgba(15, 15, 15);
@@ -3520,9 +3535,7 @@ div:has(> .aspect-cost-text) {
 .delete-aspect {
   background-color: transparent;
   background-image: none;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
+
   margin: auto !important;
 }
 .aspect-repeating-resource .sheet-checkbox-cog{
@@ -3575,5 +3588,22 @@ div:has(> .aspect-cost-text) {
   height: 80px;
   background-image: linear-gradient(transparent, white, transparent);
   mix-blend-mode: difference;
-  margin-right: 3px;
+}
+
+.aspect-simple-use-container{
+  align-self: baseline;
+  align-content: center;
+  width: auto;
+}
+.quick-use-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.quick-use-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 50px;
+  min-width: 20px;
 }
