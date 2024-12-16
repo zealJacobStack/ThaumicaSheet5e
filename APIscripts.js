@@ -72,14 +72,20 @@ const deleteAspectThaum = (msg, paramsThaum) => {
 };
 
 const expendAttributeThaum = (msg, paramsThaum) => {
-    var toExpend = parseInt(paramsThaum[1]);
+    //var toExpendArray = paramsThaum[1].split(",");
+    //var aspectNameArray = paramsThaum[2].split(",");
+    //var discountArray = paramsThaum[3].split(",");
+    var toExpend = paramsThaum[1];
     var aspectName = paramsThaum[2];
-    var discount = parseInt(paramsThaum[3]);
-    var charName = paramsThaum[4];
+    var discount = paramsThaum[3];
+    var rollName = paramsThaum[4]
+    var charName = paramsThaum[5];
     var character = getThaumChar(charName);
     var repeatingBase = "repeating_aspect_" + aspectName;
     var aspectPbId = repeatingBase + "_aspect_remaining";
+    //if (toExpendArray.length === aspectNameArray.length && aspectNameArray.length === discountArray.length) {
 
+    //}
     var cost = getCostThaum(toExpend, discount);
     var aspectU = findObjs({
         name: aspectPbId,
@@ -96,11 +102,11 @@ const expendAttributeThaum = (msg, paramsThaum) => {
             _characterid: character.id
         })[0];
         expAttr.set("current", expAttr.get("current") + toExpend);
-        sendChat(msg.who, "Exp and Reserves adjusted");
+        aspectBasicAttackRoll(charName, character.id, aspectName, rollName);
     } else {
         sendChat(msg.who, "Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
     }
-    
+
 }
 
 const apiMapThaum = {
@@ -133,7 +139,7 @@ function getThaumChar(charName) {
     }
 }
 function makeAspectAttr(index, value, id) {
-     createObj("attribute", {
+    createObj("attribute", {
         name: index,
         current: value, // Set a default value for the spell name
         max: "",
@@ -150,7 +156,7 @@ function formatStringThaum(inputString) {
         })
         .join("_"); // Join the array back into a string with underscores
 }
-function deleteRepeatingSectionRowThaum(rowid, characterid) {
+function deleteRepeatingSectionRowThaum(rowid, characterid, aspect) {
     const regex = new RegExp(`^repeating_.*?_${rowid}_.*?$`);
     const attrsInRow = filterObjs(function (obj) {
         if (obj.get('type') !== 'attribute' || obj.get('characterid') !== characterid) return false;
@@ -159,4 +165,69 @@ function deleteRepeatingSectionRowThaum(rowid, characterid) {
     _.each(attrsInRow, function (attribute) {
         attribute.remove();
     });
+}
+function getAttributeThaum(charId, attr) {
+    return findObjs({ name: attr, _type: "attribute", _characterid: charId })[0];
+}
+function addToInlineRoll(inlineRoll, addition, tag) {
+
+}
+async function aspectSkillCheck(characterName, charId, aspect, rollName) {
+    var base = "repeating_aspect_" + aspect;
+    let aspectGlobal = "[[" + findObjs({ name: `${base}_skill_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
+
+    var template = `@{${characterName}|wtype}&{template:simple} {{rname=${rollName} (Skill)}} {{rnamec=${rollName} (Skill)}} {{mod=@{${characterName}|${base}_aspect_pb}}} {{r1=[[@{${characterName}|d20}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} @{${characterName}|rtype}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} {{global=@{${characterName}|global_skill_mod}${aspectGlobal} }} @{${characterName}|charname_output}`;
+    sendChat(`character|${charId}`, template);
+}
+async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
+    var base = "repeating_aspect_" + aspect;
+    //let aspectGlobal = "[[" + findObjs({ name: `${base}_attk_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
+    //let global = findObjs({ name: 'global_attack_mod', _type: "attribute", _characterid: charId })[0].get("current");
+
+    let expression = await makeExpressionThaum(characterName, ['global_attack_mod', `${base}_attk_mod`]);
+
+    var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{spelllevel=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
+    sendChat(`character|${charId}`, template);
+}
+function aspectDescriptionRoll(characterName, charId, aspect) {
+
+}
+function aspectDamageRoll(characterName, charId, aspect) {
+
+}
+
+async function getRollThaum(roll) {
+    let rollOnce = await new Promise((resolve, reject) => {
+        sendChat("", "/r 0" + roll, function (ops) {
+            resolve(ops[0]);
+        });
+    });
+    return rollOnce.inlinerolls;
+}
+
+function getRollResult(roll) {
+    let results = (roll.length > 0) ? roll.results.total : "";
+    return results;
+}
+function getRollExpression(roll) {
+    let expression = (roll.length > 0) ? roll.expression : "";
+    return expression;
+}
+
+function makeRollInThaum(charName, attr) {
+    return `@{${charName}|${attr}}`;
+}
+async function getExpression(charName, attr) {
+    let rollIn = makeRollInThaum(charName, attr);
+    let rollOut = await getRollThaum(rollIn);
+    return getRollExpression(rollOut);
+
+}
+async function makeExpressionThaum(charName, rollList) {
+    let expression = await getExpression(charName, rollList[0]);
+    for (let i = 1; i < rollList.length; i++) {
+        let nextExpression = await getExpression(charName, rollList[i]);
+        expression = (!!nextExpression) ? expression + " + " + nextExpression : expression;
+    }
+    return expression;
 }

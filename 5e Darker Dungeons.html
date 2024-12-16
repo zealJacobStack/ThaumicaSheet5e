@@ -6652,7 +6652,7 @@
 																<input title="U Cost" class="expend-input" name="attr_basic_expend" type="number" value="0"/>
 															</div>
 															<div class="quick-use-buttons">
-																<button title="Expend Button" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{character_name}">
+																<button title="Expend Button" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{aspect_name}|@{character_name}">
 																	<img class="roll-icon" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20Icon.png">
 																</button>
 																<button title="Reverse Expenditure" class="un-expend-button" type="roll" value="!unExpendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{character_name}">
@@ -7814,6 +7814,9 @@
 							<span>{{charname}}</span>
 						</div>
 						{{/charname}}
+						<div class="use-mastery-reroll">
+							<span>[click me](!%NEWLINE%&amp;{template:default} {{name=tests}} {{are=fun}})</span>
+						</div>
 					</div>
 					{{#desc}}
 					<div class="desc info">
