@@ -850,7 +850,7 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-header {
-  background: #5b1c04;
+  background: radial-gradient( #5b1c04, transparent);
   color: rgb(255, 255, 255);
   font-size: 9px;
   font-weight: bold;
@@ -860,8 +860,7 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body {
-  background-image:linear-gradient(to right bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.0), rgba(255,255,255,0.0)),
-   url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/PaperFullHeight.png);
+  background-image: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/PaperFullHeight.png);
   -moz-background-size:100% 100%;
   -webkit-background-size:100% 100%;
   background-size:100% 100%;
@@ -904,10 +903,9 @@
 }
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea {
   border: none;
-  background-image: linear-gradient(0deg, rgba(126, 45, 64, 0.35) 2px,transparent 1px);
-  background-size: 100% 18px;
-  background-attachment:local;
-  width:100%;
+  border-style: solid;
+  border-width: 2px;
+  border-image: linear-gradient(to bottom right, rgba(126, 45, 64, 0.35), transparent) 1;
 }
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body label {
   text-shadow: 0px 0px 2px rgba(126, 45, 64, 0.7), 0px 0px 3px rgba(151, 54, 77, 0.5), 0px 0px 5px rgba(202, 82, 110, 0.35);
