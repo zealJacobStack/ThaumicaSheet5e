@@ -4552,7 +4552,7 @@
 										</span>
 									</div>
 									<div class="sheet-container-body">
-										<fieldset class="repeating_spell-2">
+										<fieldset class="repeating_spellaspect">
 											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked">
@@ -6565,9 +6565,13 @@
 						<input type="radio" name="attr_tab" value="aspects">
 						<span class="sheet-tab-label">Aspects</span>
 						<div class="sheet-tab-content">
-							<button type="roll" value="!addParent |?{Aspect Name}|@{character_name}|@{base_img_url}">
-								Add Aspect
-							</button>		
+							<div class="quick-use-row">
+								<h3>Aspects</h3>	
+								<button style="margin-left: auto;" type="roll" value="!addParent |?{Aspect Name}|@{character_name}|@{base_img_url}">
+									Add Aspect
+								</button>
+							</div>
+							
 							<div class="sheet-container-well sheet-container-well-aspects">
 								<div class="max-width">
 									<!--Start of Aspect Repeating Resource-->
@@ -6577,9 +6581,35 @@
 												<span class="aspect-image-name">
 													<img class="aspect-image" name="attr_aspect_image" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/Aspect.png">
 													<img class="aspect-image-inverse" name="attr_aspect_image_background" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/AspectInverse.png">
+													<!--<div class="aspect-header-container sheet-checkbox-image">
+														<div style="top: 1px;left: 3px;" class="aspect-header-text">Mastery </div>
+														<input style="margin-top: 15px;" type="checkbox" class="aspect-header-input" name="mastery" />
+														<span></span>
+													</div> -->
+													<input type="hidden" class="mastery-toggle" name="attr_mastery" value="0">
+													<div class="aspect-header-container mastery-section">
+														<span style="top: 1px;left: 3px;" class="aspect-header-text">Mastery </span>
+														<div class="quick-use-row" style="margin-top: 5px;margin-left: 1px;">
+															<div class="custom-checkbox-image">
+																<input type="checkbox" class="aspect-header-input" name="attr_mastery0" />
+																<span></span>
+															</div>
+															<div class="custom-checkbox-image">
+																<input type="checkbox" class="aspect-header-input" name="attr_mastery1" />
+																<span></span>
+															</div>
+															<div class="custom-checkbox-image">
+																<input type="checkbox" class="aspect-header-input" name="attr_mastery2" />
+																<span></span>
+															</div>
+														</div>
+													</div>
+													
 												</span>
 												<img class="aspect-image-background " name="attr_aspect_image_background" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/@{aspect_name}Color.png">
+												
 												<div class="aspect-header-right-side-group">
+																						
 													<div class="aspect-header-container">
 														<span class="aspect-header-text">Proficency </span><input
 															class="aspect-header-input" type="number"
@@ -6672,6 +6702,169 @@
 										</div>
 									</fieldset>
 								</div>
+							</div>
+							<h3>Spells</h3>
+							<div class="sheet-container-well sheet-container-well-aspect-spells">
+								<fieldset class="repeating_spellaspect">
+									<div class="sheet-fieldset-item">
+										<div class="sheet-checkbox-cog">
+											<input type="checkbox" name="attr_options-flag" checked="checked">
+											<span class="sheet-toggle-icon"></span>
+										</div>
+										<input type="checkbox" name="attr_options-flag" checked="checked"
+											class="sheet-toggle" hidden>
+										<div class="sheet-toggle-checked">
+											<div class="sheet-form">
+												<div class="sheet-form-header">Edit Spell</div>
+												<div class="sheet-form-body">
+													<input type="hidden" name="attr_spellattackid">
+													<input type="hidden" name="attr_spelloutput">
+													<input type="hidden" name="attr_spellcomp">
+													<div class="sheet-form-group">
+														<label>Name:</label>
+														<input type="text" name="attr_spellname">
+													</div>
+													<div class="sheet-form-group">
+														<label>Arcane Formula:</label>
+														<input type="text" name="attr_arcaneformula">
+														<label class="sheet-form-checkbox">
+															<input type="checkbox" name="attr_spellritual"
+																value="{{ritual=1}}">
+															<span>Ritual</span>
+														</label>
+													</div>
+													<div class="sheet-form-group">
+														<label>Casting Time:</label>
+														<input type="text" name="attr_spellcastingtime">
+													</div>
+													<div class="sheet-form-group">
+														<label>Range:</label>
+														<input type="text" name="attr_spellrange">
+													</div>
+													<div class="sheet-form-group">
+														<label>Target:</label>
+														<input type="text" name="attr_spelltarget">
+													</div>
+													<div class="sheet-form-group">
+														<label class="sheet-form-checkbox">
+															<input type="checkbox"
+																name="attr_spellconcentration"
+																value="{{concentration=1}}">
+															<span>Concentration</span>
+														</label>
+													</div>
+													<div class="sheet-form-group">
+														<label>Duration:</label>
+														<input type="text" name="attr_spellduration">
+													</div>
+													<div class="sheet-form-group">
+														<label>Spellcasting Ability</label>
+														<select name="attr_spell_ability">
+															<option value="0*">&mdash;</option>
+															<option value="spell">SPELL</option>
+															<option value="@{strength_mod}+">STR</option>
+															<option value="@{dexterity_mod}+">DEX</option>
+															<option value="@{constitution_mod}+">CON</option>
+															<option value="@{intelligence_mod}+">INT</option>
+															<option value="@{wisdom_mod}+">WIS</option>
+															<option value="@{charisma_mod}+">CHA</option>
+														</select>
+													</div>
+													<div class="sheet-form-group">
+														<label>Reminder Text:</label>
+														<input type="text" name="attr_innate" value="">
+													</div>
+													<div class="sheet-form-group">
+														<label>Output:</label>
+														<select name="attr_spelloutput">
+															<option value="SPELLCARD">SPELLCARD</option>
+															<option value="ATTACK">ATTACK</option>
+														</select>
+													</div>
+													<div class="sheet-form-group">
+														<label>Spell Attack:</label>
+														<select name="attr_spellattack">
+															<option value="None">None</option>
+															<option value="Melee">Melee</option>
+															<option value="Ranged">Ranged</option>
+														</select>
+													</div>
+													<div class="sheet-form-group">
+														<label>Damage 1:</label>
+														<input type="text" name="attr_spelldamage">
+														<label>Type:</label>
+														<input type="text" name="attr_spelldamagetype">
+													</div>
+													<div class="sheet-form-group">
+														<label>Damage 2:</label>
+														<input type="text" name="attr_spelldamage2">
+														<label>Type:</label>
+														<input type="text" name="attr_spelldamagetype2">
+													</div>
+													<div class="sheet-form-group">
+														<label>Healing:</label>
+														<input type="text" name="attr_spellhealing">
+													</div>
+													<div class="sheet-form-group">
+														<label class="sheet-form-checkbox">
+															<input type="checkbox" name="attr_spelldmgmod"
+																value="Yes">
+															<span>Add Ability Mod to Damage or Healing</span>
+														</label>
+													</div>
+													<div class="sheet-form-group">
+														<label>Saving Throw:</label>
+														<select name="attr_spellsave">
+															<option value="" selected="selected">&mdash;
+															</option>
+															<option value="Strength">STR</option>
+															<option value="Dexterity">DEX</option>
+															<option value="Constitution">CON</option>
+															<option value="Intelligence">INT</option>
+															<option value="Wisdom">WIS</option>
+															<option value="Charisma">CHA</option>
+														</select>
+														<label>Effect:</label>
+														<input type="text" name="attr_spellsavesuccess">
+													</div>
+													<div class="sheet-form-group">
+														<label>Include Spell Description in Attack:</label>
+														<select name="attr_includedesc">
+															<option value="off" selected="selected">Off</option>
+															<option value="partial">Partial</option>
+															<option value="on">On</option>
+														</select>
+													</div>
+													<div class="sheet-form-group">
+														<label>Description:</label>
+														<textarea name="attr_spelldescription"></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="custom-toggle-unchecked">
+											<div class="custom-pc-spell">
+												<input type="hidden" name="attr_rollcontent"
+													value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+												<button type="roll" name="roll_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
+													<span class="custom-pc-spell-name">
+														<span name="attr_spellname"></span>
+														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">
+														<span name="attr_innate" class="custom-display-brackets"></span>
+													</span>
+													<span class="custom-pc-spell-components">
+														<input type="hidden" name="attr_spellritual" value="0" class="sheet-field-toggle">
+														<span>R</span>
+														<input type="hidden" name="attr_spellconcentration" value="0" class="sheet-field-toggle">
+														<span>C</span>
+													</span>
+												</button>
+											</div>
+										</div>
+										
+									</div>
+									
+								</fieldset>
 							</div>
 						</div>
 					</div>
@@ -7148,8 +7341,7 @@
 									</div>
 								</div>
 								<div class="sheet-container-panel sheet-pc-option-gdd">
-									<div class="sheet-container-header">Giffyglyph's Darker Dungeons I wouldn't mess
-										with this unless you want to turn off the exhaustion table</div>
+									<div class="sheet-container-header">Giffyglyph's Darker Dungeons Advanced Options</div>
 									<div class="sheet-container-body">
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
@@ -9045,86 +9237,73 @@
 				update_ac();
 			});
 
-			['spell-cantrip', 'spell-1', 'spell-2', 'spell-3', 'spell-4', 'spell-5', 'spell-6', 'spell-7', 'spell-8', 'spell-9'].forEach(attr => {
+			['spell-cantrip','spell-1','spell-2','spell-3','spell-4','spell-5','spell-6','spell-7','spell-8','spell-9'].forEach(attr => {
 				on(`change:repeating_${attr}:includedesc change:repeating_${attr}:innate change:repeating_${attr}:spell_ability change:repeating_${attr}:spell_updateflag change:repeating_${attr}:spellathigherlevels change:repeating_${attr}:spellattack change:repeating_${attr}:spelldamage change:repeating_${attr}:spelldamage2 change:repeating_${attr}:spelldamagetype change:repeating_${attr}:spelldamagetype2 change:repeating_${attr}:spelldescription change:repeating_${attr}:spelldmgmod change:repeating_${attr}:spellhealing change:repeating_${attr}:spellhlbonus change:repeating_${attr}:spellhldie change:repeating_${attr}:spellhldietype change:repeating_${attr}:spellname change:repeating_${attr}:spellprepared change:repeating_${attr}:spellrange change:repeating_${attr}:spellsave change:repeating_${attr}:spellsavesuccess change:repeating_${attr}:spelltarget change:repeating_${attr}:spell_damage_progression`, (eventinfo) => {
-					if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
-						return;
-					}
-
-					const spellid = eventinfo.sourceAttribute.split("_")[2],
-						repeating_source = `repeating_${attr}_${spellid}`;
-					getAttrs([repeating_source + "_spellattackid", repeating_source + "_spelllevel"], function(v) {
-						var attackid = v[repeating_source + "_spellattackid"];
-						var lvl = v[repeating_source + "_spelllevel"];
-
-						if (attackid && lvl && spellid) {
+					if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") { return; }
+		
+					const spellid = eventinfo.sourceAttribute.split("_")[2], repeating_source = `repeating_${attr}_${spellid}`;
+					getAttrs([`${repeating_source}_spellattackid`], (v) => {
+						var attackid = v[`${repeating_source}_spellattackid`];
+						var lvl      = attr.split("spell-")[1];
+						if(attackid && lvl && spellid) {
 							update_attack_from_spell(lvl, spellid, attackid)
 						}
 					});
 				});
 			});
-
-			['spell-cantrip', 'spell-1', 'spell-2', 'spell-3', 'spell-4', 'spell-5', 'spell-6', 'spell-7', 'spell-8', 'spell-9'].forEach(attr => {
+		
+			['spell-cantrip','spell-1','spell-2','spell-3','spell-4','spell-5','spell-6','spell-7','spell-8','spell-9'].forEach(attr => {
 				on(`change:repeating_${attr}:spelloutput`, (eventinfo) => {
-					if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
-						return;
-					}
-
-					const spellid = eventinfo.sourceAttribute.split("_")[2],
-						repeating_source = `repeating_${attr}_${spellid}`;
+					if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {return;}
+		
+					const spellid = eventinfo.sourceAttribute.split("_")[2], repeating_source = `repeating_${attr}_${spellid}`;
 					getAttrs([`${repeating_source}_spellattackid`, `${repeating_source}_spelllevel`, `${repeating_source}_spellathigherlevels`, "character_id"], function(v) {
-						const attackid = v[repeating_source + "_spellattackid"];
+						const attackid     = v[repeating_source + "_spellattackid"];
 						const higherlevels = v[repeating_source + "_spellathigherlevels"];
-						const spelloutput = eventinfo.newValue;
-						let lvl = v[repeating_source + "_spelllevel"];
-
+						const spelloutput  = eventinfo.newValue;
+						let lvl            = v[repeating_source + "_spelllevel"];
+		
 						if (spelloutput && spelloutput === "ATTACK") {
 							create_attack_from_spell(lvl, spellid, v["character_id"]);
 						} else if (spelloutput && spelloutput === "SPELLCARD" && attackid && attackid != "") {
 							let lvl = parseInt(v[repeating_source + "_spelllevel"], 10);
 							remove_attack(attackid);
-							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput);
+							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput, licensedsheet);
 						}
 					});
 				});
 			});
-
-			['spell-cantrip', 'spell-1', 'spell-2', 'spell-3', 'spell-4', 'spell-5', 'spell-6', 'spell-7', 'spell-8', 'spell-9'].forEach(attr => {
+		
+			['spell-cantrip','spell-1','spell-2','spell-3','spell-4','spell-5','spell-6','spell-7','spell-8','spell-9'].forEach(attr => {
 				on(`change:repeating_${attr}:spellathigherlevels`, (eventinfo) => {
-					if (eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
-						return;
-					}
-
-					const spellid = eventinfo.sourceAttribute.split("_")[2],
-						repeating_source = `repeating_${attr}_${spellid}`;
+					if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {return;}
+		
+					const spellid = eventinfo.sourceAttribute.split("_")[2], repeating_source = `repeating_${attr}_${spellid}`;
 					getAttrs([`${repeating_source}_spelllevel`, `${repeating_source}_spelloutput`], function(v) {
 						const higherlevels = eventinfo.newValue;
-						const lvl = parseInt(v[repeating_source + "_spelllevel"], 10);
-						const spelloutput = v[repeating_source + "_spelloutput"];
-
+						const lvl          = parseInt(v[repeating_source + "_spelllevel"], 10);
+						const spelloutput  = v[repeating_source + "_spelloutput"];
+		
 						if (spelloutput && spelloutput === "SPELLCARD") {
-							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput);
+							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput, licensedsheet);
 						}
 					});
 				});
 			});
-
-			const update_spelloutput = (higherlevels, lvl, repeating_source, spelloutput) => {
+		
+			const update_spelloutput = (higherlevels, lvl, repeating_source, spelloutput, licensedsheet)  => {
 				let spelllevel = "@{spelllevel}";
 				let update = {};
-
+		
 				if (higherlevels) {
-					for (i = 0; i < 10 - lvl; i++) {
+					for(i = 0; i < 10-lvl; i++) {
 						let tot = parseInt(i, 10) + parseInt(lvl, 10);
 						spelllevel = spelllevel + "|Level " + tot + "," + tot;
 					}
 					spelllevel = `?{Cast at what level? ${spelllevel}}`;
 				}
-				update[repeating_source + "_rollcontent"] = "@{wtype}&{template:spell} {{level=@{spellschool} " + spelllevel + "}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}";
-
-				setAttrs(update, {
-					silent: true
-				});
+				update[repeating_source + "_rollcontent"] = `@{wtype}&{template:spell} {{level=@{spellschool} ${spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output} {{licensedsheet=@{licensedsheet}}}`;
+				setAttrs(update, {silent: true});
 			};
 
 			on("change:class change:custom_class change:cust_classname change:cust_hitdietype change:cust_spellcasting_ability change:cust_spellslots change:cust_strength_save_prof change:cust_dexterity_save_prof change:cust_constitution_save_prof change:cust_intelligence_save_prof change:cust_wisdom_save_prof change:cust_charisma_save_prof change:subclass change:multiclass1 change:multiclass1_subclass change:multiclass2 change:multiclass2_subclass change:multiclass3 change:multiclass3_subclass", function(eventinfo) {

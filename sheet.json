@@ -267,7 +267,7 @@
       "attribute": "use_inventory_slots",
       "displayname": "Use Inventory Slots",
       "type": "checkbox",
-      "value": "1",
+      "value": "0",
       "checked": "checked",
       "description": "[Giffyglyph's Darker Dungeons] Track your inventory using slots instead of weight."
     },

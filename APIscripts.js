@@ -49,6 +49,10 @@ const addParentThaum = (msg, paramsThaum) => {
         makeAspectAttr(repeatingBase + "_save_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_damage_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_basic_expend", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_mastery", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_mastery0", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_mastery1", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_mastery2", defaultVal, characterP.id);
 
     }
 
@@ -117,16 +121,26 @@ const apiMapThaum = {
 
 on("chat:message", function (msg) {
     if (msg.type == "api") {
-        var paramsThaum = msg.content.split("|");
-        var apiCall = paramsThaum[0];
-        if (apiMapThaum[apiCall]) {
-            apiMapThaum[apiCall](msg, paramsThaum);
-        } else {
-            console.log("No Thaum specific logic found for api: " + apiCall);
+        try {
+            var paramsThaum = msg.content.split("|");
+            var apiCall = paramsThaum[0];
+            if (apiMapThaum[apiCall]) {
+                apiMapThaum[apiCall](msg, paramsThaum);
+            } else {
+                console.log("No Thaum specific logic found for api: " + apiCall);
+            }
+        } catch (error) {
+            thaumError(error, msg.content);
         }
+        
     }
 });
-
+function thaumError(error, custom) {
+    console.log("Error Trying: " + custom);
+    console.log(error);
+    sendChat("Error Trying: ", custom);
+    sendChat("Error", error.message);
+}
 function getCostThaum(toExpend, discount) {
     return Math.ceil(toExpend / 2) > toExpend - discount ? Math.ceil(toExpend / 2) : toExpend - discount;
 }
@@ -173,13 +187,19 @@ function addToInlineRoll(inlineRoll, addition, tag) {
 
 }
 async function aspectSkillCheck(characterName, charId, aspect, rollName) {
-    var base = "repeating_aspect_" + aspect;
-    let aspectGlobal = "[[" + findObjs({ name: `${base}_skill_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
+    try {
+        var base = "repeating_aspect_" + aspect;
+        let aspectGlobal = "[[" + findObjs({ name: `${base}_skill_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
+    
+        var template = `@{${characterName}|wtype}&{template:simple} {{rname=${rollName} (Skill)}} {{rnamec=${rollName} (Skill)}} {{mod=@{${characterName}|${base}_aspect_pb}}} {{r1=[[@{${characterName}|d20}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} @{${characterName}|rtype}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} {{global=@{${characterName}|global_skill_mod}${aspectGlobal} }} @{${characterName}|charname_output}`;
+        sendChat(`character|${charId}`, template);
+    } catch (error) {
+        thaumError(error, "AspectSkillCheck");
+    }
 
-    var template = `@{${characterName}|wtype}&{template:simple} {{rname=${rollName} (Skill)}} {{rnamec=${rollName} (Skill)}} {{mod=@{${characterName}|${base}_aspect_pb}}} {{r1=[[@{${characterName}|d20}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} @{${characterName}|rtype}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} {{global=@{${characterName}|global_skill_mod}${aspectGlobal} }} @{${characterName}|charname_output}`;
-    sendChat(`character|${charId}`, template);
 }
 async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
+    try {
     var base = "repeating_aspect_" + aspect;
     //let aspectGlobal = "[[" + findObjs({ name: `${base}_attk_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
     //let global = findObjs({ name: 'global_attack_mod', _type: "attribute", _characterid: charId })[0].get("current");
@@ -188,6 +208,10 @@ async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
 
     var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{spelllevel=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
     sendChat(`character|${charId}`, template);
+    } catch (error) {
+        thaumError(error, "AspectBasicAttackRoll");
+    }
+    
 }
 function aspectDescriptionRoll(characterName, charId, aspect) {
 
@@ -197,12 +221,17 @@ function aspectDamageRoll(characterName, charId, aspect) {
 }
 
 async function getRollThaum(roll) {
-    let rollOnce = await new Promise((resolve, reject) => {
-        sendChat("", "/r 0" + roll, function (ops) {
-            resolve(ops[0]);
+    try {
+        let rollOnce = await new Promise((resolve, reject) => {
+            sendChat("", "/r 0" + roll, function (ops) {
+                resolve(ops[0]);
+            });
         });
-    });
-    return rollOnce.inlinerolls;
+        return rollOnce.inlinerolls;
+    } catch (error) {
+        thaumError(error, "GetRollThaum");
+    }
+    
 }
 
 function getRollResult(roll) {
@@ -218,16 +247,24 @@ function makeRollInThaum(charName, attr) {
     return `@{${charName}|${attr}}`;
 }
 async function getExpression(charName, attr) {
-    let rollIn = makeRollInThaum(charName, attr);
-    let rollOut = await getRollThaum(rollIn);
-    return getRollExpression(rollOut);
 
+    try {
+        let rollIn = makeRollInThaum(charName, attr);
+        let rollOut = await getRollThaum(rollIn);
+        return getRollExpression(rollOut);
+    } catch (error) {
+        thaumError(error, "GetExpression");
+    }
 }
 async function makeExpressionThaum(charName, rollList) {
-    let expression = await getExpression(charName, rollList[0]);
-    for (let i = 1; i < rollList.length; i++) {
-        let nextExpression = await getExpression(charName, rollList[i]);
-        expression = (!!nextExpression) ? expression + " + " + nextExpression : expression;
+    try {
+        let expression = await getExpression(charName, rollList[0]);
+        for (let i = 1; i < rollList.length; i++) {
+            let nextExpression = await getExpression(charName, rollList[i]);
+            expression = (!!nextExpression) ? expression + " + " + nextExpression : expression;
+        }
+        return expression;    
+    } catch (error) {
+        thaumError(error, "MakeExpressionThaum");
     }
-    return expression;
 }
