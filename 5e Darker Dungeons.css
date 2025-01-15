@@ -850,7 +850,7 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-header {
-  background: radial-gradient( #5b1c04, transparent);
+  background: #5b1c04;
   color: rgb(255, 255, 255);
   font-size: 9px;
   font-weight: bold;
@@ -860,12 +860,14 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body {
+  
   background-image: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/PaperFullHeight.png);
   -moz-background-size:100% 100%;
   -webkit-background-size:100% 100%;
   background-size:100% 100%;
   flex-grow: 1;
   padding: 7px;
+  padding-top: 12px;
 }
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input,
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select,
@@ -5195,16 +5197,15 @@ div:has(> .aspect-cost-text) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border: none;
+  background-color: #f9f9f900;
+  
 }
 
 .custom-pc-spell-button {
-  background-color: #4CAF50;
-  /* Example button color */
-  color: white;
-  border-radius: 5px;
+  background-image: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/ScrollFurled.png);
+  background-size: 100%, 100%;
+  border:none;
   display: flex;
   justify-content: space-between;
   align-items: center;
