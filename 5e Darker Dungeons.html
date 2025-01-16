@@ -6848,7 +6848,10 @@
 											<div class="custom-pc-spell">
 												<input type="hidden" name="attr_rollcontent"
 													value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-												<button type="roll" name="roll_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
+												<button type="roll" name="send_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
+													<button type="roll" name="use_aspect_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="use-aspect-spell-button">
+														<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+													</button>
 													<span class="custom-pc-spell-name">
 														<span name="attr_spellname"></span>
 														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">

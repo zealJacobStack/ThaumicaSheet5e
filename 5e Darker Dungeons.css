@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
+.charsheet {
+  background-image: url();
+}
 .charsheet .sheet-darkerdungeons {
-  background: white;
+  background: none;
   color: black;
   font-size: 13px;
   line-height: 18px;
@@ -5026,6 +5029,17 @@
 
 .sheet-tab-aspects .sheet-container-well-aspects .repcontrol_edit {
   display: none !important;
+}
+.use-aspect-spell-button {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  height: fit-content;
+  width: fit-content;
+  box-shadow: none;
+}
+.wax-seal-img {
+  height: 50%;;
 }
 
 .expend-row {
