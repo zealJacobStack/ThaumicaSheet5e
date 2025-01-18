@@ -358,7 +358,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-attribute {
-  background: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-attribute-bg.png");
+  background: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/SheetAttributeThaum.png");
   background-size: 100% 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -432,7 +432,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-bar::before {
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-bar-border.png") 103 103 103 103 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-bar-border-thaum.png") 103 103 103 103 fill stretch;
   border-style: solid;
   border-width: 30px 30px 0;
   box-sizing: border-box;
@@ -470,7 +470,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-bar .sheet-container-header::after {
-  background: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-bar-spacer.png");
+  background: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-bar-spacer-thaum.png");
   background-size: 100% 100%;
   content: '';
   display: inline-block;
@@ -505,7 +505,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-box::before {
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-box-border.png") 50 50 50 50 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-box-border-thaum.png") 50 50 50 50 fill stretch;
   border-style: solid;
   border-width: 15px 15px;
   box-sizing: border-box;
@@ -694,7 +694,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-panel::before {
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-box-border.png") 50 50 50 50 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-box-border-thaum.png") 50 50 50 50 fill stretch;
   border-style: solid;
   border-width: 15px 15px;
   box-sizing: border-box;
@@ -779,7 +779,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-spell::before {
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-box-border.png") 50 50 50 50 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-box-border-thaum.png") 50 50 50 50 fill stretch;
   border-style: solid;
   border-width: 15px 15px;
   box-sizing: border-box;
@@ -867,7 +867,7 @@ form:has(> div.charsheet) {
   top: 0;
   width: 100%;
   z-index: -1;
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-spell-header.png") 155 82 155 82 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-spell-header-thaum.png") 155 82 155 82 fill stretch;
   border-width: 52px 28px 0;
 }
 
@@ -904,7 +904,7 @@ form:has(> div.charsheet) {
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-well::before {
-  border-image: url("https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/5e%20Darker%20Dungeons/img/sheet-well-border.png") 96 314 96 314 fill stretch;
+  border-image: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-well-border-thaum.png") 96 314 96 314 fill stretch;
   border-style: solid;
   border-width: 32px 101px;
   box-sizing: border-box;
