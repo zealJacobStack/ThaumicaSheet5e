@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
-.charsheet {
-  background: black;
+
+form:has(> div.charsheet) {
+  background-color: transparent !important;
 }
+
+.charsheet {
+  background: transparent;
+  background-clip: padding-box;
+}
+
 .charsheet .sheet-darkerdungeons {
   background: none;
   color: black;
@@ -10,39 +17,63 @@
   margin: 0;
   overflow: visible;
   padding: 0;
+
 }
 
 
 /* ---------- Fog ---------- */
-.fogwrapper {
+.fogovercontainer {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 100%;
+  min-width: 840px;
+  z-index: -1;
+}
+
+.fogwrapper {
+  z-index: -3;
+  width: 100%;
   position: absolute;
+  left: 0;
   top: 0;
   width: 100%;
   -webkit-filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
   filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
+
+  overflow: hidden;
 }
-#foglayer_01, #foglayer_02, #foglayer_03 {
+
+#foglayer_01,
+#foglayer_02,
+#foglayer_03 {
   height: 100%;
-  position: absolute;
-  width: 200%;
+  width: 100%;
 }
-#foglayer_01 .image01, #foglayer_01 .image02,
-#foglayer_02 .image01, #foglayer_02 .image02,
-#foglayer_03 .image01, #foglayer_03 .image02 {
+
+#foglayer_01 .image01,
+#foglayer_01 .image02,
+#foglayer_02 .image01,
+#foglayer_02 .image02,
+#foglayer_03 .image01,
+#foglayer_03 .image02 {
+  position: absolute;
   float: left;
   height: 100%;
-  width: 50%;
+  width: 100%;
 }
+
 #foglayer_01 {
-  -webkit-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
-  -moz-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
-  animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
+  animation: foglayer_01_opacity 120s linear infinite alternate, foglayer_moveme 120s ease alternate infinite;
 }
-#foglayer_02, #foglayer_03 {
-  -webkit-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
-  -moz-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
-  animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
+
+#foglayer_02 {
+  animation: foglayer_02_opacity 120s linear infinite alternate, foglayer_moveme 120s ease-in-out alternate infinite;
+}
+
+#foglayer_03 {
+  animation: foglayer_03_opacity 240s linear infinite alternate, foglayer_moveme 240s linear alternate infinite;
 }
 
 /* ---------- Moving Fog ---------- */
@@ -51,133 +82,115 @@
   'attachment: scroll' can be added or removed; results remain the same
   'attachment: fixed' causing unexpected results in Chrome
   'repeat-x' || 'no-repeat'; results remain the same
-*/ 
-#foglayer_01 .image01, #foglayer_01 .image02 {
-  background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png") center center/cover no-repeat transparent;
+*/
+#foglayer_01 .image01,
+#foglayer_01 .image02 {
+  background-blend-mode: difference;
+  background: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/TestFog0.png") center center/cover no-repeat transparent;
+  background-size: cover;
 }
-#foglayer_02 .image01, #foglayer_02 .image02,
-#foglayer_03 .image01, #foglayer_03 .image02{
-  background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png") center center/cover no-repeat transparent;
+
+#foglayer_02 .image01,
+#foglayer_02 .image02,
+#foglayer_03 .image01,
+#foglayer_03 .image02 {
+  background-blend-mode: difference;
+  background: url("https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/TestFog0.png") center center/cover no-repeat transparent;
+  background-size: cover;
 }
 
 /* ---------- Keyframe Layer 1 ---------- */
-@-webkit-keyframes foglayer_01_opacity {
-  0% { opacity: .1; }
-  22% { opacity: .5; }
-  40% { opacity: .28; }
-  58% { opacity: .4; }
-  80% { opacity: .16; }
-  100% { opacity: .1; }
-}
-@-moz-keyframes foglayer_01_opacity {
-  0% { opacity: .1; }
-  22% { opacity: .5; }
-  40% { opacity: .28; }
-  58% { opacity: .4; }
-  80% { opacity: .16; }
-  100% { opacity: .1; }
-}
-@-o-keyframes foglayer_01_opacity {
-  0% { opacity: .1; }
-  22% { opacity: .5; }
-  40% { opacity: .28; }
-  58% { opacity: .4; }
-  80% { opacity: .16; }
-  100% { opacity: .1; }
-}
+
 @keyframes foglayer_01_opacity {
-  0% { opacity: .1; }
-  22% { opacity: .5; }
-  40% { opacity: .28; }
-  58% { opacity: .4; }
-  80% { opacity: .16; }
-  100% { opacity: .1; }
-}
-/* ---------- Keyframe Layer 2 ---------- */
-@-webkit-keyframes foglayer_02_opacity {
-  0% { opacity: .5; }
-  25% { opacity: .2; }
-  50% { opacity: .1; }
-  80% { opacity: .3; }
-  100% { opacity: .5; }
-}
-@-moz-keyframes foglayer_02_opacity {
-  0% { opacity: .5; }
-  25% { opacity: .2; }
-  50% { opacity: .1; }
-  80% { opacity: .3; }
-  100% { opacity: .5; }
-}
-@-o-keyframes foglayer_02_opacity {
-  0% { opacity: .5; }
-  25% { opacity: .2; }
-  50% { opacity: .1; }
-  80% { opacity: .3; }
-  100% { opacity: .5; }
-}
-@keyframes foglayer_02_opacity {
-  0% { opacity: .5; }
-  25% { opacity: .2; }
-  50% { opacity: .1; }
-  80% { opacity: .3; }
-  100% { opacity: .5; }
-}
-/* ---------- Keyframe Layer 3 ---------- */
-@-webkit-keyframes foglayer_03_opacity {
-  0% { opacity: .8 }
-  27% { opacity: .2; }
-  52% { opacity: .6; }
-  68% { opacity: .3; }
-  100% { opacity: .8; }
-}
-@-moz-keyframes foglayer_03_opacity {
-  0% { opacity: .8 }
-  27% { opacity: .2; }
-  52% { opacity: .6; }
-  68% { opacity: .3; }
-  100% { opacity: .8; }
-}
-@-o-keyframes foglayer_03_opacity {
-  0% { opacity: .8 }
-  27% { opacity: .2; }
-  52% { opacity: .6; }
-  68% { opacity: .3; }
-  100% { opacity: .8; }
-}
-@keyframes foglayer_03_opacity {
-  0% { opacity: .8; }
-  27% { opacity: .2; }
-  52% { opacity: .6; }
-  68% { opacity: .3; }
-  100% { opacity: .8; }
-}
-/* ---------- Keyframe moveMe ---------- */
-@-webkit-keyframes foglayer_moveme {
-  0% { top: 0; }
-  100% { top: -100%; }
-}
-@-moz-keyframes foglayer_moveme {
-  0% { top: 0; }
-  100% { top: -100%; }
-}
-@-o-keyframes foglayer_moveme {
-  0% { top: 0; }
-  100% { top: -100%; }
-}
-@keyframes foglayer_moveme {
-  0% { top: 0; }
-  100% { top: -100%; }
+  0% {
+    opacity: .25;
+  }
+
+  22% {
+    opacity: .3;
+  }
+
+  40% {
+    opacity: .1;
+  }
+
+  58% {
+    opacity: .2;
+  }
+
+  80% {
+    opacity: .6;
+  }
+
+  100% {
+    opacity: .25;
+  }
 }
 
-@media only screen
-  and (min-width: 280px)
-  and (max-width: 767px) {
-    #foglayer_01 .image01, #foglayer_01 .image02,
-    #foglayer_02 .image01, #foglayer_02 .image02,
-    #foglayer_03 .image01, #foglayer_03 .image02 {
-      width: 100%;
-    }
+/* ---------- Keyframe Layer 2 ---------- */
+
+@keyframes foglayer_02_opacity {
+  0% {
+    opacity: .25;
   }
+
+  25% {
+    opacity: .3;
+  }
+
+  50% {
+    opacity: .15;
+  }
+
+  80% {
+    opacity: .4;
+  }
+
+  100% {
+    opacity: .25;
+  }
+}
+
+/* ---------- Keyframe Layer 3 ---------- */
+
+@keyframes foglayer_03_opacity {
+  0% {
+    opacity: .25;
+  }
+
+  27% {
+    opacity: .2;
+  }
+
+  52% {
+    opacity: .3;
+  }
+
+  68% {
+    opacity: .2;
+  }
+
+  100% {
+    opacity: .25;
+  }
+}
+
+@keyframes foglayer_moveme {
+  0% {
+    transform: translateY(0);
+    height: 100%;
+  }
+
+  /* Start from below the visible area */
+
+  100% {
+    transform: translateY(-100%);
+    height: 3782px;
+  }
+
+  /* Move upwards, off the screen */
+}
+
 
 .charsheet .sheet-darkerdungeons *,
 .charsheet .sheet-darkerdungeons *::after,
@@ -240,7 +253,8 @@
   font-size: var(--checkbox-size);
   line-height: var(--checkbox-size);
 }
-.charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-container-box .sheet-container-body  .sheet-checkbox-image span::after {
+
+.charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-container-box .sheet-container-body .sheet-checkbox-image span::after {
   --checkbox-size: 14px;
   font-size: var(--checkbox-size);
   line-height: var(--checkbox-size);
@@ -262,14 +276,26 @@
   background-clip: text;
   -webkit-background-clip: text;
   transition: text-shadow 1.5s ease-in;
-  animation: showHide 1s cubic-bezier(.96,.69,.02,1);
-  
+  animation: showHide 1s cubic-bezier(.96, .69, .02, 1);
+
 }
+
 @keyframes showHide {
-  0% {width:0%}
-  40% {width:33%}
-  80% {width:100%;}
-  100% {width:100%;}
+  0% {
+    width: 0%
+  }
+
+  40% {
+    width: 33%
+  }
+
+  80% {
+    width: 100%;
+  }
+
+  100% {
+    width: 100%;
+  }
 }
 
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image [type=checkbox]~span {
@@ -284,16 +310,17 @@
   position: absolute;
   top: -18%;
   left: 20%;
-  transform:scaleX(2);
+  transform: scaleX(2);
   transform: scaleY(0.8);
   transform: rotate(5deg);
 }
+
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image [type=checkbox]:not(:checked)~span::after {
   -webkit-text-fill-color: transparent;
 }
 
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image span {
-  
+
   padding: 2px;
   background: none;
   border-radius: none;
@@ -1055,20 +1082,37 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body {
-  
+
+  background: #fffdd082;
+  flex-grow: 1;
+  padding: 5px;
+}
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select option {
+  background-color: transparent;
+  border: none;
+  border-style: solid;
+  border-width: 2px;
+  border-image: linear-gradient(to bottom right, rgba(126, 45, 64, 0.35), transparent) 1;
+}
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell {
+
   background-image: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/PaperFullHeight.png);
-  -moz-background-size:100% 100%;
-  -webkit-background-size:100% 100%;
-  background-size:100% 100%;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
   flex-grow: 1;
   padding: 7px;
   padding-top: 12px;
 }
 
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select option  {
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell input,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell textarea,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select option {
   /*text-shadow: 0px 0px 1px #ff850436;
   background: -webkit-linear-gradient(rgb(241 230 12), rgb(255 158 2));*/
   text-shadow: 0px 0px 1px black, 0px 0px 4px #6885A5, 0px 0px 2px #6885A5;
@@ -1082,6 +1126,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .charsheet .sheet-darkerdungeons .sheet-container-well-aspect-spells .custom-pc-spell-button {
   /*text-shadow: 0px 0px 1px #ff850436;
   background: -webkit-linear-gradient(rgb(241 230 12), rgb(255 158 2));*/
@@ -1091,39 +1136,44 @@
   -webkit-background-clip: text;
   text-shadow: 0px 0px 1px black, 0px 0px 4px #6885A5, 0px 0px 2px #6885A5;
 }
+
 .charsheet .sheet-darkerdungeons .sheet-container-well-aspect-spells .custom-pc-spell-button:not(:hover) {
   -webkit-text-fill-color: transparent;
 }
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input:focus,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select:focus,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea:focus,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input:hover,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select:hover,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea:hover {
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell input:focus,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select:focus,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell textarea:focus,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell input:hover,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select:hover,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell textarea:hover {
   /*text-shadow: 0px 0px 2px #ff850436, 0px 0px 3px #eeff01, 0px 0px 5px rgb(255 158 2);
   color: rgba(255 158 2 0.5);
   background: -webkit-linear-gradient(rgb(241 230 12), rgb(255 158 2));*/
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color:unset;
+  -webkit-text-fill-color: unset;
   color: silver;
   transition: color 2s ease-out;
 }
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body input,
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body select,
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell input,
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select,
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image span {
   border: none;
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-image: linear-gradient(45deg, rgba(126, 45, 64, 0.35) 25%, transparent 65%) 1;
 }
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body textarea {
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell textarea {
   border: none;
   border-style: solid;
   border-width: 2px;
   border-image: linear-gradient(to bottom right, rgba(126, 45, 64, 0.35), transparent) 1;
 }
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body label,
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell label,
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image [type=checkbox]:checked~span::after {
   text-shadow: 0px 0px 1px rgba(126, 45, 64, 1), 0px 0px 4px rgba(151, 54, 77, 1), 0px 0px 2px rgba(202, 82, 110, 1);
   color: rgba(126, 45, 64, 0.0);
@@ -1132,7 +1182,8 @@
   background-clip: text;
   -webkit-background-clip: text;
 }
-.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body label {
+
+.charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell label {
   font-size: 14px;
   vertical-align: text-top;
 }
@@ -3226,7 +3277,7 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-container-well-health .sheet-pc-wounds .sheet-pc-wound .sheet-checkbox-image {
-  --checkbox-size:10px;
+  --checkbox-size: 10px;
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   font-size: var(--checkbox-size);
@@ -3620,7 +3671,7 @@
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-pc-attack-modifier .sheet-checkbox-image,
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-pc-attack-damage-modifier .sheet-checkbox-image,
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-pc-ac-modifier .sheet-checkbox-image {
-  --checkbox-size:10px;
+  --checkbox-size: 10px;
   height: var(--checkbox-size);
   margin-right: 5px;
   width: var(--checkbox-size);
@@ -4542,7 +4593,7 @@
 }
 
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-spells .sheet-pc-spell .sheet-checkbox-image {
-  --checkbox-size:10px;
+  --checkbox-size: 10px;
   margin-right: 5px;
   flex-shrink: 0;
   height: var(--checkbox-size);
@@ -5197,6 +5248,7 @@
 .sheet-tab-aspects .sheet-container-well-aspects .repcontrol_edit {
   display: none !important;
 }
+
 .use-aspect-spell-button {
   background-color: transparent;
   background-image: none;
@@ -5205,8 +5257,10 @@
   width: fit-content;
   box-shadow: none;
 }
+
 .wax-seal-img {
-  height: 50%;;
+  height: 50%;
+  ;
 }
 
 .expend-row {
@@ -5381,6 +5435,7 @@ div:has(> .aspect-cost-text) {
   min-height: 50px;
   min-width: 20px;
 }
+
 .charsheet .sheet-darkerdungeons .sheet-container-well-aspect-spells .sheet-form {
   border-radius: 0;
   border: none;
@@ -5441,13 +5496,13 @@ div:has(> .aspect-cost-text) {
   align-items: center;
   border: none;
   background-color: #f9f9f900;
-  
+
 }
 
 .custom-pc-spell-button {
   position: relative;
   background-color: transparent;
-  border:none;
+  border: none;
   box-shadow: none;
   display: flex;
   justify-content: space-between;
@@ -5456,6 +5511,7 @@ div:has(> .aspect-cost-text) {
   max-height: 38px;
   align-items: center;
 }
+
 .custom-pc-spell-button::after {
   content: "";
   background-image: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/ScrollFurled.png);
@@ -5471,12 +5527,14 @@ div:has(> .aspect-cost-text) {
   z-index: -1;
   border: none;
 }
+
 button[type=roll].custom-pc-spell-button {
   padding-left: 5% !important;
   padding-right: 5% !important;
   background: none;
   border: none;
 }
+
 .custom-pc-spell-button:hover {
   background-position: 0;
   background-color: transparent;
@@ -5556,12 +5614,14 @@ button[type=roll].custom-pc-spell-button {
   width: 100% !important;
 }
 
-.mastery-toggle[value="0"] ~ .mastery-section {
+.mastery-toggle[value="0"]~.mastery-section {
   display: none;
 }
-.mastery-toggle[value="1"] ~ .mastery-section {
-  display:flex;
+
+.mastery-toggle[value="1"]~.mastery-section {
+  display: flex;
 }
+
 .sheet-container-well-aspect-spells .repcontainer {
   display: flex;
   justify-content: space-between;
