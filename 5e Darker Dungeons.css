@@ -290,15 +290,6 @@ form:has(> div.charsheet) {
   0% {
     width: 0%
   }
-
-  40% {
-    width: 33%
-  }
-
-  80% {
-    width: 100%;
-  }
-
   100% {
     width: 100%;
   }
@@ -1117,7 +1108,7 @@ form:has(> div.charsheet) {
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell select option {
   /*text-shadow: 0px 0px 1px #ff850436;
   background: -webkit-linear-gradient(rgb(241 230 12), rgb(255 158 2));*/
-  text-shadow: 0px 0px 1px black, 0px 0px 4px #6885A5, 0px 0px 2px #6885A5;
+  text-shadow: 0px 0px 1px rgb(10, 1, 95), 0px 0px 4px #6885A5, 0px 0px 2px #6885A5;
   color: rgba(0, 0, 0, 0.25);
   font-family: 'Felipa';
   line-height: 18px;
@@ -1126,7 +1117,7 @@ form:has(> div.charsheet) {
 
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: black;
 }
 
 .charsheet .sheet-darkerdungeons .sheet-container-well-aspect-spells .custom-pc-spell-button {
@@ -1152,11 +1143,11 @@ form:has(> div.charsheet) {
   /*text-shadow: 0px 0px 2px #ff850436, 0px 0px 3px #eeff01, 0px 0px 5px rgb(255 158 2);
   color: rgba(255 158 2 0.5);
   background: -webkit-linear-gradient(rgb(241 230 12), rgb(255 158 2));*/
-  background-clip: text;
+  /*background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: unset;
   color: rgb(38, 0, 255);
-  transition: color 2s ease-out;
+  transition: color 2s ease-out;*/
   
 }
 
@@ -1173,8 +1164,8 @@ form:has(> div.charsheet) {
 
 .charsheet .sheet-darkerdungeons .sheet-form .sheet-form-body-spell label,
 .charsheet .sheet-darkerdungeons .sheet-checkbox-image [type=checkbox]:checked~span::after {
-  text-shadow: 0px 0px 1px rgba(126, 45, 64, 1), 0px 0px 4px rgba(151, 54, 77, 1), 0px 0px 2px rgba(202, 82, 110, 1);
-  color: rgba(126, 45, 64, 0.0);
+  text-shadow: 0px 0px 1px rgba(151, 54, 77, 1), 0px 0px 4px rgba(126, 45, 64, 1), 0px 0px 2px rgba(202, 82, 110, 1);
+  color: rgb(27 0 7 / 100%);
   font-family: 'Felipa';
   /*background: -webkit-linear-gradient(rgba(126, 45, 64, 0.35), rgba(126, 45, 64, 0.805), rgba(126, 45, 64, 0.129));*/
   background-clip: text;
@@ -2573,12 +2564,11 @@ form:has(> div.charsheet) {
 
 .sheet-tabs .sheet-tab>input[type="radio"]:hover~.sheet-tab-label {
   mix-blend-mode: difference;
-  border-bottom-color: #dbfff9;
+  border-bottom-color: var(--deepred);
 }
 
 .sheet-tabs .sheet-tab>.sheet-tab-label {
   align-items: center;
-
   border-radius: 6px 6px 0 0;
   border: 2px solid #dddddd;
   opacity: 0.65;
@@ -2599,6 +2589,13 @@ form:has(> div.charsheet) {
   border-right-color: white;
   border-bottom-color: lightgrey;
 }
+.sheet-tabs .sheet-tab>.sheet-tab-label>span {
+  background-clip: text;
+  color: white;
+  mix-blend-mode: difference;
+  opacity: 1;
+}
+
 
 .sheet-tabs .sheet-tab>input[type="radio"]:checked~.sheet-tab-label {
   opacity: 1;
