@@ -1887,22 +1887,71 @@
 										<input type="text" name="attr_speed" title="@{speed}">
 									</div>
 								</div>
-
+								<div class="sheet-container-bar sheet-pc-reputation">
+									<span class="badreptitle">Bad</span>
+									<div class="badrep">
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repbad4"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repbad3"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repbad2"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repbad1"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repbad0"
+												 >
+											<span></span>
+										</div>
+									</div>
+									
+									<span class="reptitle">Reputation</span>
+									<div class="goodrep">
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repgood0"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repgood1"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repgood2"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repgood3"
+												 >
+											<span></span>
+										</div>
+										<div class="sheet-checkbox-image">
+											<input type="checkbox" name="attr_repgood4"
+												 >
+											<span></span>
+										</div>
+									</div>
+									
+									<span class="goodreptitle">Good</span>
+								</div>
 								<div class="sheet-container-bar sheet-pc-inspiration">
 									<div class="sheet-container-header">Inspiration</div>
 									<div class="sheet-container-body">
-										<div class="sheet-checkbox-image">
-											<input type="checkbox" name="attr_inspiration_1" title="@{inspiration_1}">
-											<span></span>
-										</div>
-										<div class="sheet-checkbox-image">
-											<input type="checkbox" name="attr_inspiration_2" title="@{inspiration_2}">
-											<span></span>
-										</div>
-										<div class="sheet-checkbox-image">
-											<input type="checkbox" name="attr_inspiration_3" title="@{inspiration_3}">
-											<span></span>
-										</div>
+										<input type="number" name="attr_inspiration">
 									</div>
 								</div>
 							</div>
@@ -2059,7 +2108,7 @@
 										</div>
 									</div>
 									<div class="sheet-container-panel sheet-pc-wounds">
-										<div class="sheet-container-header">Wounds & Injuries</div>
+										<div class="sheet-container-header">Magic Item Quick Sheet</div>
 										<div class="sheet-container-body">
 											<div class="sheet-container-body-header">
 												<span></span>
@@ -2078,7 +2127,7 @@
 														class="sheet-toggle" hidden>
 													<div class="sheet-toggle-checked">
 														<div class="sheet-form">
-															<div class="sheet-form-header">Edit Wound/Injury</div>
+															<div class="sheet-form-header">Edit Item</div>
 															<div class="sheet-form-body">
 																<div class="sheet-form-group">
 																	<input type="text" name="attr_wound_description">
@@ -2088,7 +2137,7 @@
 																		<input type="checkbox"
 																			name="attr_wound_untreated" value="1"
 																			checked="checked">
-																		<span>Is untreated</span>
+																		<span>Attuned</span>
 																	</label>
 																</div>
 															</div>
@@ -4079,10 +4128,50 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+												<div class="custom-toggle-unchecked">
+													<div class="custom-pc-spell">
+														
+														<input type="hidden" name="attr_rollcontent"
+															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+														<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+															<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+														</button>
+														<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+															class="custom-pc-spell-button">
+															<span class="custom-pc-spell-name">
+																<span name="attr_spellname"></span>
+																<input type="hidden" name="attr_innate" value=""
+																	class="sheet-field-toggle">
+																<span name="attr_innate"
+																	class="sheet-display-brackets"></span>
+															</span>
+															<span class="custom-pc-spell-components">
+																<input type="hidden" name="attr_spellritual" value="0"
+																	class="sheet-field-toggle">
+																<span>R</span>
+																<input type="hidden" name="attr_spellconcentration"
+																	value="0" class="sheet-field-toggle">
+																<span>C</span>
+																<input type="hidden" name="attr_spellcomp_v"
+																	value="{{v=1}}" class="sheet-field-toggle">
+																<span>V</span>
+																<input type="hidden" name="attr_spellcomp_s"
+																	value="{{s=1}}" class="sheet-field-toggle">
+																<span>S</span>
+																<input type="hidden" name="attr_spellcomp_m"
+																	value="{{m=1}}" class="sheet-field-toggle">
+																<span>M</span>
+															</span>
+														</button>
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_spellprepared" value="1">
+															<span></span>
+														</div>
+													</div>
+												</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="cantrip">
 															<input type="hidden" name="attr_spelloutput">
@@ -4268,43 +4357,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
+												
 											</div>
 										</fieldset>
 									</div>
@@ -4328,10 +4381,50 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="1">
 															<input type="hidden" name="attr_spelloutput">
@@ -4517,43 +4610,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
+												
 											</div>
 										</fieldset>
 									</div>
@@ -4576,10 +4633,50 @@
 													<span class="sheet-toggle-icon"></span>
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+												<div class="custom-toggle-unchecked">
+													<div class="custom-pc-spell">
+														
+														<input type="hidden" name="attr_rollcontent"
+															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+														<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+															<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+														</button>
+														<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+															class="custom-pc-spell-button">
+															<span class="custom-pc-spell-name">
+																<span name="attr_spellname"></span>
+																<input type="hidden" name="attr_innate" value=""
+																	class="sheet-field-toggle">
+																<span name="attr_innate"
+																	class="sheet-display-brackets"></span>
+															</span>
+															<span class="custom-pc-spell-components">
+																<input type="hidden" name="attr_spellritual" value="0"
+																	class="sheet-field-toggle">
+																<span>R</span>
+																<input type="hidden" name="attr_spellconcentration"
+																	value="0" class="sheet-field-toggle">
+																<span>C</span>
+																<input type="hidden" name="attr_spellcomp_v"
+																	value="{{v=1}}" class="sheet-field-toggle">
+																<span>V</span>
+																<input type="hidden" name="attr_spellcomp_s"
+																	value="{{s=1}}" class="sheet-field-toggle">
+																<span>S</span>
+																<input type="hidden" name="attr_spellcomp_m"
+																	value="{{m=1}}" class="sheet-field-toggle">
+																<span>M</span>
+															</span>
+														</button>
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_spellprepared" value="1">
+															<span></span>
+														</div>
+													</div>
+												</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="2">
 															<input type="hidden" name="attr_spelloutput">
@@ -4753,34 +4850,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}" class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value="" class="sheet-field-toggle">
-																<span name="attr_innate" class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0" class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration" value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v" value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s" value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m" value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
+												
 											</div>
 										</fieldset>
 									</div>
@@ -4804,10 +4874,50 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="3">
 															<input type="hidden" name="attr_spelloutput">
@@ -4993,43 +5103,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
+												
 											</div>
 										</fieldset>
 									</div>
@@ -5053,10 +5127,50 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="4">
 															<input type="hidden" name="attr_spelloutput">
@@ -5242,43 +5356,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
+												
 											</div>
 										</fieldset>
 									</div>
@@ -5302,10 +5380,51 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+												
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="5">
 															<input type="hidden" name="attr_spelloutput">
@@ -5491,43 +5610,6 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
 											</div>
 										</fieldset>
 									</div>
@@ -5551,10 +5633,51 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+												
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="6">
 															<input type="hidden" name="attr_spelloutput">
@@ -5740,43 +5863,6 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
 											</div>
 										</fieldset>
 									</div>
@@ -5800,10 +5886,51 @@
 												</div>
 												<input type="checkbox" name="attr_options-flag" checked="checked"
 													class="sheet-toggle" hidden>
+												
+												<div class="custom-toggle-unchecked">
+													<div class="custom-pc-spell">
+														
+														<input type="hidden" name="attr_rollcontent"
+															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+														<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+															<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+														</button>
+														<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+															class="custom-pc-spell-button">
+															<span class="custom-pc-spell-name">
+																<span name="attr_spellname"></span>
+																<input type="hidden" name="attr_innate" value=""
+																	class="sheet-field-toggle">
+																<span name="attr_innate"
+																	class="sheet-display-brackets"></span>
+															</span>
+															<span class="custom-pc-spell-components">
+																<input type="hidden" name="attr_spellritual" value="0"
+																	class="sheet-field-toggle">
+																<span>R</span>
+																<input type="hidden" name="attr_spellconcentration"
+																	value="0" class="sheet-field-toggle">
+																<span>C</span>
+																<input type="hidden" name="attr_spellcomp_v"
+																	value="{{v=1}}" class="sheet-field-toggle">
+																<span>V</span>
+																<input type="hidden" name="attr_spellcomp_s"
+																	value="{{s=1}}" class="sheet-field-toggle">
+																<span>S</span>
+																<input type="hidden" name="attr_spellcomp_m"
+																	value="{{m=1}}" class="sheet-field-toggle">
+																<span>M</span>
+															</span>
+														</button>
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_spellprepared" value="1">
+															<span></span>
+														</div>
+													</div>
+												</div>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Spell</div>
-														<div class="sheet-form-body">
+														<div class="sheet-form-body-spell">
 															<input type="hidden" name="attr_spellattackid">
 															<input type="hidden" name="attr_spelllevel" value="7">
 															<input type="hidden" name="attr_spelloutput">
@@ -5989,43 +6116,6 @@
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-spell">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_spellprepared" value="1">
-															<span></span>
-														</div>
-														<input type="hidden" name="attr_rollcontent"
-															value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-														<button type="roll" name="roll_spell" value="@{rollcontent}"
-															class="sheet-pc-spell-button">
-															<span class="sheet-pc-spell-name">
-																<span name="attr_spellname"></span>
-																<input type="hidden" name="attr_innate" value=""
-																	class="sheet-field-toggle">
-																<span name="attr_innate"
-																	class="sheet-display-brackets"></span>
-															</span>
-															<span class="sheet-pc-spell-components">
-																<input type="hidden" name="attr_spellritual" value="0"
-																	class="sheet-field-toggle">
-																<span>R</span>
-																<input type="hidden" name="attr_spellconcentration"
-																	value="0" class="sheet-field-toggle">
-																<span>C</span>
-																<input type="hidden" name="attr_spellcomp_v"
-																	value="{{v=1}}" class="sheet-field-toggle">
-																<span>V</span>
-																<input type="hidden" name="attr_spellcomp_s"
-																	value="{{s=1}}" class="sheet-field-toggle">
-																<span>S</span>
-																<input type="hidden" name="attr_spellcomp_m"
-																	value="{{m=1}}" class="sheet-field-toggle">
-																<span>M</span>
-															</span>
-														</button>
-													</div>
-												</div>
 											</div>
 										</fieldset>
 									</div>
@@ -6052,10 +6142,51 @@
 													</div>
 													<input type="checkbox" name="attr_options-flag" checked="checked"
 														class="sheet-toggle" hidden>
+													
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 													<div class="sheet-toggle-checked">
 														<div class="sheet-form">
-															<div class="sheet-form-header">Edit Spell</div>
-															<div class="sheet-form-body">
+															<div class="sheet-form-body-spell">
 																<input type="hidden" name="attr_spellattackid">
 																<input type="hidden" name="attr_spelllevel" value="8">
 																<input type="hidden" name="attr_spelloutput">
@@ -6249,44 +6380,6 @@
 															</div>
 														</div>
 													</div>
-													<div class="sheet-toggle-unchecked">
-														<div class="sheet-pc-spell">
-															<div class="sheet-checkbox-image">
-																<input type="checkbox" name="attr_spellprepared"
-																	value="1">
-																<span></span>
-															</div>
-															<input type="hidden" name="attr_rollcontent"
-																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-															<button type="roll" name="roll_spell" value="@{rollcontent}"
-																class="sheet-pc-spell-button">
-																<span class="sheet-pc-spell-name">
-																	<span name="attr_spellname"></span>
-																	<input type="hidden" name="attr_innate" value=""
-																		class="sheet-field-toggle">
-																	<span name="attr_innate"
-																		class="sheet-display-brackets"></span>
-																</span>
-																<span class="sheet-pc-spell-components">
-																	<input type="hidden" name="attr_spellritual"
-																		value="0" class="sheet-field-toggle">
-																	<span>R</span>
-																	<input type="hidden" name="attr_spellconcentration"
-																		value="0" class="sheet-field-toggle">
-																	<span>C</span>
-																	<input type="hidden" name="attr_spellcomp_v"
-																		value="{{v=1}}" class="sheet-field-toggle">
-																	<span>V</span>
-																	<input type="hidden" name="attr_spellcomp_s"
-																		value="{{s=1}}" class="sheet-field-toggle">
-																	<span>S</span>
-																	<input type="hidden" name="attr_spellcomp_m"
-																		value="{{m=1}}" class="sheet-field-toggle">
-																	<span>M</span>
-																</span>
-															</button>
-														</div>
-													</div>
 												</div>
 											</fieldset>
 										</div>
@@ -6312,10 +6405,51 @@
 													</div>
 													<input type="checkbox" name="attr_options-flag" checked="checked"
 														class="sheet-toggle" hidden>
+													
+													<div class="custom-toggle-unchecked">
+														<div class="custom-pc-spell">
+															
+															<input type="hidden" name="attr_rollcontent"
+																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+															<button type="roll" name="roll_spell" value="@{rollcontent}" class="use-aspect-spell-button">
+																<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+															</button>
+															<button type="roll" name="roll_output" value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}"
+																class="custom-pc-spell-button">
+																<span class="custom-pc-spell-name">
+																	<span name="attr_spellname"></span>
+																	<input type="hidden" name="attr_innate" value=""
+																		class="sheet-field-toggle">
+																	<span name="attr_innate"
+																		class="sheet-display-brackets"></span>
+																</span>
+																<span class="custom-pc-spell-components">
+																	<input type="hidden" name="attr_spellritual" value="0"
+																		class="sheet-field-toggle">
+																	<span>R</span>
+																	<input type="hidden" name="attr_spellconcentration"
+																		value="0" class="sheet-field-toggle">
+																	<span>C</span>
+																	<input type="hidden" name="attr_spellcomp_v"
+																		value="{{v=1}}" class="sheet-field-toggle">
+																	<span>V</span>
+																	<input type="hidden" name="attr_spellcomp_s"
+																		value="{{s=1}}" class="sheet-field-toggle">
+																	<span>S</span>
+																	<input type="hidden" name="attr_spellcomp_m"
+																		value="{{m=1}}" class="sheet-field-toggle">
+																	<span>M</span>
+																</span>
+															</button>
+															<div class="sheet-checkbox-image">
+																<input type="checkbox" name="attr_spellprepared" value="1">
+																<span></span>
+															</div>
+														</div>
+													</div>
 													<div class="sheet-toggle-checked">
 														<div class="sheet-form">
-															<div class="sheet-form-header">Edit Spell</div>
-															<div class="sheet-form-body">
+															<div class="sheet-form-body-spell">
 																<input type="hidden" name="attr_spellattackid">
 																<input type="hidden" name="attr_spelllevel" value="9">
 																<input type="hidden" name="attr_spelloutput">
@@ -6509,44 +6643,6 @@
 															</div>
 														</div>
 													</div>
-													<div class="sheet-toggle-unchecked">
-														<div class="sheet-pc-spell">
-															<div class="sheet-checkbox-image">
-																<input type="checkbox" name="attr_spellprepared"
-																	value="1">
-																<span></span>
-															</div>
-															<input type="hidden" name="attr_rollcontent"
-																value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-															<button type="roll" name="roll_spell" value="@{rollcontent}"
-																class="sheet-pc-spell-button">
-																<span class="sheet-pc-spell-name">
-																	<span name="attr_spellname"></span>
-																	<input type="hidden" name="attr_innate" value=""
-																		class="sheet-field-toggle">
-																	<span name="attr_innate"
-																		class="sheet-display-brackets"></span>
-																</span>
-																<span class="sheet-pc-spell-components">
-																	<input type="hidden" name="attr_spellritual"
-																		value="0" class="sheet-field-toggle">
-																	<span>R</span>
-																	<input type="hidden" name="attr_spellconcentration"
-																		value="0" class="sheet-field-toggle">
-																	<span>C</span>
-																	<input type="hidden" name="attr_spellcomp_v"
-																		value="{{v=1}}" class="sheet-field-toggle">
-																	<span>V</span>
-																	<input type="hidden" name="attr_spellcomp_s"
-																		value="{{s=1}}" class="sheet-field-toggle">
-																	<span>S</span>
-																	<input type="hidden" name="attr_spellcomp_m"
-																		value="{{m=1}}" class="sheet-field-toggle">
-																	<span>M</span>
-																</span>
-															</button>
-														</div>
-													</div>
 												</div>
 											</fieldset>
 										</div>
@@ -6562,7 +6658,7 @@
 						<div class="sheet-tab-content">
 							<div class="quick-use-row">
 								<h3>Aspects</h3>	
-								<button style="margin-left: auto;" type="roll" value="!addParent |?{Aspect Name}|@{character_name}|@{base_img_url}">
+								<button style="margin-left: auto;" type="roll" value="!addParent |?{Aspect Name}|@{character_name}|@{base_img_url}" class="add-aspect">
 									Add Aspect
 								</button>
 							</div>
@@ -6708,6 +6804,28 @@
 										</div>
 										<input type="checkbox" name="attr_options-flag" checked="checked"
 											class="sheet-toggle" hidden>
+										<div class="custom-toggle-unchecked">
+											<div class="custom-pc-spell">
+												<input type="hidden" name="attr_rollcontent"
+													value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
+												<button type="roll" name="use_aspect_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="use-aspect-spell-button">
+													<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
+												</button>
+												<button type="roll" name="send_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
+													<span class="custom-pc-spell-name">
+														<span name="attr_spellname"></span>
+														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">
+														<span name="attr_innate" class="custom-display-brackets"></span>
+													</span>
+													<span class="custom-pc-spell-components">
+														<input type="hidden" name="attr_spellritual" value="0" class="sheet-field-toggle">
+														<span>R</span>
+														<input type="hidden" name="attr_spellconcentration" value="0" class="sheet-field-toggle">
+														<span>C</span>
+													</span>
+												</button>
+											</div>
+										</div>
 										<div class="sheet-toggle-checked">
 											<div class="sheet-form">
 												<div class="sheet-form-body-spell">
@@ -6839,28 +6957,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="custom-toggle-unchecked">
-											<div class="custom-pc-spell">
-												<input type="hidden" name="attr_rollcontent"
-													value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-												<button type="roll" name="use_aspect_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="use-aspect-spell-button">
-													<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
-												</button>
-												<button type="roll" name="send_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
-													<span class="custom-pc-spell-name">
-														<span name="attr_spellname"></span>
-														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">
-														<span name="attr_innate" class="custom-display-brackets"></span>
-													</span>
-													<span class="custom-pc-spell-components">
-														<input type="hidden" name="attr_spellritual" value="0" class="sheet-field-toggle">
-														<span>R</span>
-														<input type="hidden" name="attr_spellconcentration" value="0" class="sheet-field-toggle">
-														<span>C</span>
-													</span>
-												</button>
-											</div>
-										</div>
+										
 										
 									</div>
 									
@@ -8006,8 +8103,8 @@
 							<span>{{charname}}</span>
 						</div>
 						{{/charname}}
-						<div class="use-mastery-reroll">
-							<span>[click me](!%NEWLINE%&amp;{template:default} {{name=tests}} {{are=fun}})</span>
+						<div class="reroll-d20">
+							<span>{{reroll}}</span>
 						</div>
 					</div>
 					{{#desc}}
@@ -9268,7 +9365,7 @@
 						} else if (spelloutput && spelloutput === "SPELLCARD" && attackid && attackid != "") {
 							let lvl = parseInt(v[repeating_source + "_spelllevel"], 10);
 							remove_attack(attackid);
-							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput, licensedsheet);
+							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput);
 						}
 					});
 				});
@@ -9285,13 +9382,13 @@
 						const spelloutput  = v[repeating_source + "_spelloutput"];
 		
 						if (spelloutput && spelloutput === "SPELLCARD") {
-							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput, licensedsheet);
+							update_spelloutput(higherlevels, lvl, repeating_source, spelloutput);
 						}
 					});
 				});
 			});
 		
-			const update_spelloutput = (higherlevels, lvl, repeating_source, spelloutput, licensedsheet)  => {
+			const update_spelloutput = (higherlevels, lvl, repeating_source, spelloutput)  => {
 				let spelllevel = "@{spelllevel}";
 				let update = {};
 		
@@ -9302,7 +9399,7 @@
 					}
 					spelllevel = `?{Cast at what level? ${spelllevel}}`;
 				}
-				update[repeating_source + "_rollcontent"] = `@{wtype}&{template:spell} {{level=@{spellschool} ${spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output} {{licensedsheet=@{licensedsheet}}}`;
+				update[repeating_source + "_rollcontent"] = `@{wtype}&{template:spell} {{level=@{spellschool} ${spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}`;
 				setAttrs(update, {silent: true});
 			};
 
