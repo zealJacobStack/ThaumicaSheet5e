@@ -1354,7 +1354,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .sheet-container.sheet-atkold,
 .sheet-rolltemplate-dmg .sheet-atkold {
   width: 189px;
-  background: url(http://i.imgur.com/4RCRsAd.png) top left;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20roll.png) top left;
   background-size: 189px 100%;
   background-repeat: no-repeat;
   color: black;
@@ -1365,16 +1365,16 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-dmg .sheet-atk {
   width: 189px;
   color: black;
-  border: 1px solid black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: white;
+  border: none;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20roll.png) top left;
+  background-size: 189px 100%;
+  background-repeat: no-repeat;
 }
 
 .sheet-rolltemplate-dmg .sheet-containerold,
 .sheet-rolltemplate-atkdmg .sheet-container.sheet-damagetemplateold {
   width: 189px;
-  background: url(http://i.imgur.com/gw9HTsq.png) top left;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/dmgroll.png) top left;
   background-size: 189px 100%;
   background-repeat: no-repeat;
   color: black;
@@ -1384,10 +1384,10 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .sheet-container.sheet-damagetemplate {
   width: 189px;
   color: black;
-  border: 1px solid black;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: white;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/dmgroll.png) top left;
+  background-size: 189px 100%;
+  background-repeat: no-repeat;
+  color: black;
 }
 
 .sheet-rolltemplate-simple .sheet-result,
@@ -1515,7 +1515,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullcrit,
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullfail,
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.importantroll {
-  color: #A0A0A0;
+  color: #530101;
   border: 0px;
   font-weight: normal;
 }
@@ -1670,7 +1670,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .sheet-descold,
 .sheet-rolltemplate-dmg .sheet-descold {
   width: 189px;
-  background: url(http://i.imgur.com/4988JS0.png) top left;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/rolldesc.png) top left;
   background-size: 189px 100%;
   background-repeat: no-repeat;
   color: black;
@@ -1684,12 +1684,13 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-dmg .sheet-desc,
 .sheet-rolltemplate-desc .sheet-desc {
   width: 189px;
-  border: 1px solid black;
+  background: url(https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/rolldesc.png) top left;
+  background-size: 189px 100%;
+  background-repeat: no-repeat;
   color: black;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: white;
 }
 
 .sheet-rolltemplate-atk .sheet-desc span,
@@ -1724,14 +1725,20 @@ form:has(> div.charsheet) {
   font-size: 10px;
   font-weight: normal;
   margin-top: -5px;
-  color: #A0A0A0;
+  color: #a0a0a000;
+  background-color: white;
+  mix-blend-mode: difference;
+  background-clip: text;
 }
 
 .sheet-rolltemplate-atk .sheet-sublabel span,
 .sheet-rolltemplate-atkdmg .sheet-sublabel span,
 .sheet-rolltemplate-dmg .sheet-sublabel span {
   font-weight: normal;
-  color: black;
+  color: #a0a0a000;
+  background-color: white;
+  mix-blend-mode: difference;
+  background-clip: text;
 }
 
 .sheet-rolltemplate-atk .sheet-spacer,
@@ -1961,8 +1968,12 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-dmg .sheet-charname span,
 .sheet-rolltemplate-atkdmg .sheet-charname span {
   font-size: 11px;
-  font-weight: normal;
-  color: #A0A0A0;
+  font-weight: bold;
+  color: #a0a0a000;
+  background-color: white;
+  background-clip: text;
+  mix-blend-mode: difference;
+  text-shadow: 0 0 1 black;
 }
 
 .sheet-rolltemplate-dmg .sheet-label .sheet-rolltemplate-inline,
