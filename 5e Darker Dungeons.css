@@ -1515,7 +1515,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullcrit,
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullfail,
 .sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.importantroll {
-  color: #530101;
+  color: #3000008b;
   border: 0px;
   font-weight: normal;
 }
@@ -1544,6 +1544,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .inlinerollresult.fullcrit,
 .sheet-rolltemplate-dmg .inlinerollresult.fullcrit {
   color: #3FB315;
+  text-shadow: 0 0 1 black;
   border: 0px;
 }
 
@@ -1552,6 +1553,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .inlinerollresult.fullfail,
 .sheet-rolltemplate-dmg .inlinerollresult.fullfail {
   color: #B31515;
+  text-shadow: 0 0 1 black;
   border: 0px;
 }
 
@@ -1752,10 +1754,26 @@ form:has(> div.charsheet) {
   position: relative;
 }
 
+.sheet-reroll-d20 span,
+.textchatcontainer .sheet-rolltemplate-atk a[href^="!"],
+.textchatcontainer .sheet-rolltemplate-atkdmg a[href^="!"],
+.textchatcontainer .sheet-rolltemplate-dmg a[href^="!"] {
+  background-color: white;
+  background-clip: text;
+  mix-blend-mode: difference;
+  color: transparent;
+  text-decoration: underline;
+  margin-left: 50px;
+}
+
 .sheet-rolltemplate-atk a[href^="~"] {
-  background-color: transparent;
+  background-color: white;
+  background-clip: text;
+  mix-blend-mode: difference;
+  color: transparent;
+  text-decoration: underline;
+
   padding: 0px;
-  color: black;
   border: 0px;
 }
 
@@ -1921,6 +1939,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcatk .inlinerollresult.fullcrit,
 .sheet-rolltemplate-npcdmg .inlinerollresult.fullcrit {
   color: #3FB315;
+  text-shadow: 0 0 1 black;
   border: none;
 }
 
@@ -1929,6 +1948,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcatk .inlinerollresult.fullfail,
 .sheet-rolltemplate-npcdmg .inlinerollresult.fullfail {
   color: #B31515;
+  text-shadow: 0 0 1 black;
   border: none;
 }
 
@@ -1941,9 +1961,12 @@ form:has(> div.charsheet) {
 }
 
 .sheet-rolltemplate-npcatk a[href^="~"] {
-  background-color: transparent;
+  background-color: white;
+  background-clip: text;
+  mix-blend-mode: difference;
+  color: transparent;
+  text-decoration: underline;
   padding: 0px;
-  color: black;
   border: 0px;
 }
 

@@ -113,10 +113,40 @@ const expendAttributeThaum = (msg, paramsThaum) => {
 
 }
 
+const rerolld20= (msg, paramsThaum) => {
+    try {
+        var r1 = paramsThaum[1];
+        var r2 = paramsThaum[2];
+        var mod = paramsThaum[3];
+        var globalattack = paramsThaum[4];
+        var range = paramsThaum[5];
+        var desc = paramsThaum[6];
+        var innate = paramsThaum[7];
+        var rname = paramsThaum[9];
+        var charname = paramsThaum[8];
+        var rstart = "cs>";
+        var r1start = r1.indexOf(rstart);
+        var r2start = r2.indexOf(rstart);
+        var gstart = " Rolling ".length;
+        var r1end = r1.indexOf("=");
+        var r2end = r2.indexOf("=");
+        var gend = globalattack.indexOf("=");
+        var r1substring = r1.substring(r1start, r1end);
+        var r2substring = r2.substring(r2start, r2end);
+        var globalattacksubstring = globalattack.substring(gstart, gend);
+
+        var template = `@{${charname}|wtype}&{template:atk} {{mod=${mod}}} {{rname=${rname}}} {{rnamec=${rname}}} {{r1=[[@{${charname}|d20}${r1substring}]]}} @{${charname}|rtype}${r2substring}]]}} {{range=${range}}} {{desc=${desc}}} {{innate=${innate}}} {{globalattack=[[${globalattacksubstring}]]}} ammo= {{charname=${charname}}}`
+        sendChat(charname, template );
+    } catch(error) {
+        thaumError(error, "rerolld20 MSG: " + msg.content);
+    }
+}
+
 const apiMapThaum = {
     "!addParent ": addParentThaum,
     "!deleteAspect ": deleteAspectThaum,
-    "!expendAttribute ": expendAttributeThaum
+    "!expendAttribute ": expendAttributeThaum,
+    "!rerolld20 ": rerolld20
 };
 
 on("chat:message", function (msg) {
@@ -130,7 +160,7 @@ on("chat:message", function (msg) {
                 console.log("No Thaum specific logic found for api: " + apiCall);
             }
         } catch (error) {
-            thaumError(error, msg.content);
+            thaumError(error, "Chat:message MSG: " + msg.content);
         }
         
     }
@@ -206,7 +236,7 @@ async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
 
     let expression = await makeExpressionThaum(characterName, ['global_attack_mod', `${base}_attk_mod`]);
 
-    var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{spelllevel=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
+    var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
     sendChat(`character|${charId}`, template);
     } catch (error) {
         thaumError(error, "AspectBasicAttackRoll");
@@ -227,6 +257,7 @@ async function getRollThaum(roll) {
                 resolve(ops[0]);
             });
         });
+        sendChat("Get roll thaum", "/r 0" + roll);
         return rollOnce.inlinerolls;
     } catch (error) {
         thaumError(error, "GetRollThaum");
