@@ -6731,6 +6731,7 @@
 											<input type="checkbox" name="attr_options-flag"
 												class="sheet-toggle" hidden>
 											<div class="sheet-toggle-checked">
+												<input type="hidden" name="attr_spelloutput">
 												<!--Checked Section Goes Here-->
 												<div class="expend-row">
 													
@@ -6759,7 +6760,7 @@
 																<div class="aspect-cost-text">Damage:</div>
 																<input type="number" value="0" name="attr_damage_mod">
 															</div>
-															<button class="delete-aspect" type="roll" value="!deleteAspect |?{Are you sure you want to delete this aspect?|Yes|No}|@{aspect_name}|@{character_name}">
+															<button class="delete-aspect" type="roll" value="!deleteAspect |?{Are you sure you want to delete this aspect?|No|Yes}|@{aspect_name}|@{character_name}">
 																<div>&#128465;</div>
 															</button>
 														</div>
@@ -6768,15 +6769,26 @@
 													<div class="aspect-simple-use-container">
 														<span style="margin-left: 8px;" class="aspect-text">Quick Use</span>
 														<div class="quick-use-row">
+															
 															<div>
-																<div class="aspect-cost-text">Cost:</div>
-																<input title="U Cost" class="expend-input" name="attr_basic_expend" type="number" value="0"/>
+																<div class="sheet-form-group">
+																	<select name="attr_spelloutput">
+																		<option value="NONE">NONE</option>
+																		<option value="ATTACK">ATTACK</option>
+																		<option value="ABILITY">ABILITY</option>
+																		<option value="SAVE">SAVE</option>
+																	</select>
+																</div>
+																<div>
+																	<div class="aspect-cost-text">Cost:</div>
+																	<input title="U Cost" class="expend-input" name="attr_basic_expend" type="number" value="0"/>
+																</div>
 															</div>
 															<div class="quick-use-buttons">
-																<button title="Expend Button" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{aspect_name}|@{character_name}">
+																<button title="Expend Button" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{aspect_name}|@{spelloutput}|@{character_name}">
 																	<img class="roll-icon" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20Icon.png">
 																</button>
-																<button title="Reverse Expenditure" class="un-expend-button" type="roll" value="!unExpendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{character_name}">
+																<button title="Reverse Expenditure" class="un-expend-button" type="roll" value="!unExpendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{spelloutput}|@{character_name}">
 																	<div>
 																		&#8634;
 																	</div>
@@ -6806,12 +6818,10 @@
 											class="sheet-toggle" hidden>
 										<div class="custom-toggle-unchecked">
 											<div class="custom-pc-spell">
-												<input type="hidden" name="attr_rollcontent"
-													value="@{wtype}&{template:spell} {{level=@{spellschool} @{spelllevel}}} {{name=@{spellname}}} {{castingtime=@{spellcastingtime}}} {{range=@{spellrange}}} {{target=@{spelltarget}}} @{spellcomp_v} @{spellcomp_s} @{spellcomp_m} {{material=@{spellcomp_materials}}} {{duration=@{spellduration}}} {{description=@{spelldescription}}} {{athigherlevels=@{spellathigherlevels}}} @{spellritual} {{innate=@{innate}}} @{spellconcentration} @{charname_output}">
-												<button type="roll" name="use_aspect_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="use-aspect-spell-button">
+												<button type="roll" title="Use Spell" name="use_aspect_spell" value="!aspectspell |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{character_name}" class="use-aspect-spell-button">
 													<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
 												</button>
-												<button type="roll" name="send_spell" value="!aspectspell |@{spellname}|@{arcaneformula}|@{character_name}" class="custom-pc-spell-button">
+												<button type="roll" title="Spellcard" name="send_spell" value="!aspectspellcard |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{character_name}" class="custom-pc-spell-button">
 													<span class="custom-pc-spell-name">
 														<span name="attr_spellname"></span>
 														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">
@@ -6893,6 +6903,8 @@
 														<select name="attr_spelloutput">
 															<option value="SPELLCARD">SPELLCARD</option>
 															<option value="ATTACK">ATTACK</option>
+															<option value="ABILITY">ABILITY</option>
+															<option value="SAVE">SAVE</option>
 														</select>
 													</div>
 													<div class="sheet-form-group">
@@ -8437,8 +8449,13 @@
 							<span>{{charname}}</span>
 						</div>
 						{{/charname}}
+						
 						{{/attack}}
+						<div class="reroll-effect">
+							<span>[Reroll Effect](`!rerolleffect |{{charname}}|{{range}}|{{damage}}|{{dmg1flag}}|{{dmg1}}|{{dmg1type}}|{{dmg2flag}}|{{dmg2}}|{{dmg2type}}|{{spelllevel}}|{{innate}}|{{globaldamage}}|{{globaldamagetype}}|{{rname}})</span>
+						</div>
 					</div>
+					
 					{{/damage}}
 				</rolltemplate>
 
@@ -8543,6 +8560,9 @@
 							<span>{{charname}}</span>
 						</div>
 						{{/charname}}
+						<div class="reroll-effect">
+							<span>[Reroll Effect](`!rerolleffect |{{charname}}|{{range}}|{{damage}}|{{dmg1flag}}|{{dmg1}}|{{dmg1type}}|{{dmg2flag}}|{{dmg2}}|{{dmg2type}}|{{spelllevel}}|{{innate}}|{{globaldamage}}|{{globaldamagetype}}|{{rname}})</span>
+						</div>
 						{{/attack}}
 					</div>
 				</rolltemplate>

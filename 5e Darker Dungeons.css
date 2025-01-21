@@ -1349,7 +1349,12 @@ form:has(> div.charsheet) {
   border-radius: 10px;
   background-color: white;
 }
-
+.sheet-rolltemplate-darkmode .sheet-container span{
+  background-color: white;
+  color: transparent;
+  background-clip: text;
+  mix-blend-mode: difference;
+}
 .sheet-rolltemplate-atk .sheet-containerold,
 .sheet-rolltemplate-atkdmg .sheet-container.sheet-atkold,
 .sheet-rolltemplate-dmg .sheet-atkold {
@@ -1440,7 +1445,6 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-dmg .sheet-solo span {
   width: 30px;
   font-size: 20px;
-  background-color: transparent;
   border: 0px;
   padding: 0px;
 }
@@ -1484,38 +1488,45 @@ form:has(> div.charsheet) {
 }
 
 .sheet-rolltemplate-simple .sheet-grey,
-.sheet-rolltemplate-simple .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-simple .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-simple .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-simple .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-simple .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-simple .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-simple .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-simple .sheet-label span span,
 .sheet-rolltemplate-atk .sheet-label span span,
 .sheet-rolltemplate-atk .sheet-grey,
-.sheet-rolltemplate-atk .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-atk .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-atk .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-atk .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-atk .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-atk .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-atk .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-atkdmg .sheet-label span span,
 .sheet-rolltemplate-atkdmg .sheet-grey,
-.sheet-rolltemplate-atkdmg .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-atkdmg .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-atkdmg .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-atkdmg .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-atkdmg .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-atkdmg .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-atkdmg .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-dmg .sheet-label span span,
 .sheet-rolltemplate-dmg .sheet-grey,
-.sheet-rolltemplate-dmg .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-dmg .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-dmg .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-dmg .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-dmg .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-dmg .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-dmg .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-npc .sheet-grey,
-.sheet-rolltemplate-npc .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-npc .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-npc .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-npc .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-npc .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-npc .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-npc .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-npcaction .sheet-grey,
-.sheet-rolltemplate-npcaction .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-npcaction .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-npcaction .sheet-grey .inlinerollresult.importantroll,
+.sheet-rolltemplate-npcaction .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-npcaction .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-npcaction .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-npcaction .sheet-grey span.inlinerollresult.importantroll,
 .sheet-rolltemplate-npcatk .sheet-grey,
-.sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullcrit,
-.sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.fullfail,
-.sheet-rolltemplate-npcatk .sheet-grey .inlinerollresult.importantroll {
-  color: #3000008b;
+.sheet-rolltemplate-npcatk .sheet-grey span.inlinerollresult,
+.sheet-rolltemplate-npcatk .sheet-grey span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-npcatk .sheet-grey span.inlinerollresult.fullfail,
+.sheet-rolltemplate-npcatk .sheet-grey span.inlinerollresult.importantroll {
+  color: #303030;
   border: 0px;
   font-weight: normal;
 }
@@ -1542,18 +1553,30 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-simple .inlinerollresult.fullcrit,
 .sheet-rolltemplate-atk .inlinerollresult.fullcrit,
 .sheet-rolltemplate-atkdmg .inlinerollresult.fullcrit,
-.sheet-rolltemplate-dmg .inlinerollresult.fullcrit {
-  color: #3FB315;
-  text-shadow: 0 0 1 black;
+.sheet-rolltemplate-dmg .inlinerollresult.fullcrit,
+.sheet-rolltemplate-simple span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-atk span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-atkdmg .sheet-damagetemplate span.inlinerollresult.fullcrit,
+.sheet-rolltemplate-dmg .sheet-damagetemplate span.inlinerollresult.fullcrit 
+ {
+  color: #b500a4;
+  -webkit-text-stroke-color: #6b6b6b;
+  -webkit-text-stroke-width: 1px;
+  background-color: green;
   border: 0px;
 }
 
 .sheet-rolltemplate-simple .inlinerollresult.fullfail,
 .sheet-rolltemplate-atk .inlinerollresult.fullfail,
 .sheet-rolltemplate-atkdmg .inlinerollresult.fullfail,
-.sheet-rolltemplate-dmg .inlinerollresult.fullfail {
-  color: #B31515;
-  text-shadow: 0 0 1 black;
+.sheet-rolltemplate-dmg .inlinerollresult.fullfail,
+.sheet-rolltemplate-atkdmg .sheet-damagetemplate span.inlinerollresult.fullfail,
+.sheet-rolltemplate-dmg .sheet-damagetemplate span.inlinerollresult.fullfail {
+
+  color: #35a58c;
+  -webkit-text-stroke-color: #6b6b6b;
+  -webkit-text-stroke-width: 1px;
+  background-color: #b500a4;
   border: 0px;
 }
 
@@ -1750,20 +1773,7 @@ form:has(> div.charsheet) {
 }
 
 .sheet-rolltemplate-dmg {
-  margin-top: -7px;
   position: relative;
-}
-
-.sheet-reroll-d20 span,
-.textchatcontainer .sheet-rolltemplate-atk a[href^="!"],
-.textchatcontainer .sheet-rolltemplate-atkdmg a[href^="!"],
-.textchatcontainer .sheet-rolltemplate-dmg a[href^="!"] {
-  background-color: white;
-  background-clip: text;
-  mix-blend-mode: difference;
-  color: transparent;
-  text-decoration: underline;
-  margin-left: 50px;
 }
 
 .sheet-rolltemplate-atk a[href^="~"] {
@@ -1938,8 +1948,10 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcaction .inlinerollresult.fullcrit,
 .sheet-rolltemplate-npcatk .inlinerollresult.fullcrit,
 .sheet-rolltemplate-npcdmg .inlinerollresult.fullcrit {
-  color: #3FB315;
-  text-shadow: 0 0 1 black;
+  color: #b500a4;
+  -webkit-text-stroke-color: #6b6b6b;
+  -webkit-text-stroke-width: 1px;
+  background-color: green;
   border: none;
 }
 
@@ -1947,8 +1959,10 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-npcaction .inlinerollresult.fullfail,
 .sheet-rolltemplate-npcatk .inlinerollresult.fullfail,
 .sheet-rolltemplate-npcdmg .inlinerollresult.fullfail {
-  color: #B31515;
-  text-shadow: 0 0 1 black;
+  color: #35a58c;
+  -webkit-text-stroke-color: #6b6b6b;
+  -webkit-text-stroke-width: 1px;
+  background-color: #b500a4;
   border: none;
 }
 
@@ -5555,7 +5569,29 @@ div:has(> .aspect-cost-text) {
   flex-direction: row;
   align-items: center;
 }
-
+.quick-use-row .sheet-form-group {
+  margin-left: 8px;
+  width: 3.5em;
+  height: 26px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.quick-use-row .sheet-form-group select {
+  width: 3.5em;
+  height: 26px;
+  font-size: small;
+  font-weight: lighter;
+  background-color: rgba(15, 15, 15);
+  color: white;
+  mix-blend-mode: difference;
+  border: none;
+  box-shadow: inset rgb(50, 50, 50) 1.5px 1.5px 0.5px 1.5px;
+  padding-top: 7px;
+  padding-bottom: 1px;
+}
+.quick-use-row .sheet-form-group select option {
+  color: black;
+}
 .quick-use-buttons {
   display: flex;
   flex-direction: column;
@@ -5571,9 +5607,15 @@ div:has(> .aspect-cost-text) {
 }
 
 .sheet-rolltemplate-simple .sheet-reroll-d20,
-.sheet-rolltemplate-atk .sheet-reroll-d20 {
+.sheet-rolltemplate-atk .sheet-reroll-d20,
+.sheet-rolltemplate-atkdmg .sheet-reroll-d20,
+.sheet-rolltemplate-dmg .sheet-reroll-d20,
+.sheet-rolltemplate-simple .sheet-reroll-effect,
+.sheet-rolltemplate-atk .sheet-reroll-effect,
+.sheet-rolltemplate-atkdmg .sheet-reroll-effect,
+.sheet-rolltemplate-dmg .sheet-reroll-effect 
+{
   text-align: center;
-  margin-top: -7px;
 }
 
 /* Generic styling for custom spell section */
@@ -5766,7 +5808,8 @@ div:has(> .aspect-cost-text) {
   margin-right: 2%;
 }
 
-.sheet-container-well-aspect-spells .repitem {
+.charsheet .sheet-darkerdungeons .sheet-container-well-aspect-spells .repitem {
+  margin-bottom: 12px;
   width: 32%;
 }
 .charsheet .sheet-darkerdungeons .sheet-section-pc .sheet-tab-core .sheet-pc-reputation {

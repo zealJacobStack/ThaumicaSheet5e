@@ -53,6 +53,7 @@ const addParentThaum = (msg, paramsThaum) => {
         makeAspectAttr(repeatingBase + "_mastery0", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_mastery1", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_mastery2", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_spelloutput", "ATTACK", characterP.id);
 
     }
 
@@ -76,44 +77,192 @@ const deleteAspectThaum = (msg, paramsThaum) => {
 };
 
 const expendAttributeThaum = (msg, paramsThaum) => {
-    //var toExpendArray = paramsThaum[1].split(",");
-    //var aspectNameArray = paramsThaum[2].split(",");
-    //var discountArray = paramsThaum[3].split(",");
-    var toExpend = paramsThaum[1];
-    var aspectName = paramsThaum[2];
-    var discount = paramsThaum[3];
-    var rollName = paramsThaum[4]
-    var charName = paramsThaum[5];
-    var character = getThaumChar(charName);
-    var repeatingBase = "repeating_aspect_" + aspectName;
-    var aspectPbId = repeatingBase + "_aspect_remaining";
-    //if (toExpendArray.length === aspectNameArray.length && aspectNameArray.length === discountArray.length) {
-
-    //}
-    var cost = getCostThaum(toExpend, discount);
-    var aspectU = findObjs({
-        name: aspectPbId,
-        _type: "attribute",
-        _characterid: character.id
-    })[0];
-    var currentU = aspectU.get("current");
-    if (currentU >= cost) {
-        aspectU.set("current", currentU - cost);
-        var expIndex = repeatingBase + "_aspect_exp";
-        var expAttr = findObjs({
-            name: expIndex,
+    try {
+        //var toExpendArray = paramsThaum[1].split(",");
+        //var aspectNameArray = paramsThaum[2].split(",");
+        //var discountArray = paramsThaum[3].split(",");
+        var toExpend = paramsThaum[1];
+        var aspectName = paramsThaum[2];
+        var discount = paramsThaum[3];
+        var rollName = paramsThaum[4];
+        var rollType = paramsThaum[5];
+        var charName = paramsThaum[6];
+        var character = getThaumChar(charName);
+        var repeatingBase = "repeating_aspect_" + aspectName;
+        var aspectPbId = repeatingBase + "_aspect_remaining";
+        //if (toExpendArray.length === aspectNameArray.length && aspectNameArray.length === discountArray.length) {
+        sendChat(`character|${character.id}`,  `toExpend: ${toExpend} %NEWLINE%
+                                                aspectName: ${aspectName} %NEWLINE%
+                                                discount: ${discount} %NEWLINE%
+                                                rollName: ${rollName} %NEWLINE%
+                                                rollType: ${rollType} %NEWLINE%
+                                                charName: ${charName} %NEWLINE%
+                                                `);
+        //}
+        /*
+        var cost = getCostThaum(toExpend, discount);
+        var aspectU = findObjs({
+            name: aspectPbId,
             _type: "attribute",
             _characterid: character.id
         })[0];
-        expAttr.set("current", expAttr.get("current") + toExpend);
-        aspectBasicAttackRoll(charName, character.id, aspectName, rollName);
-    } else {
-        sendChat(msg.who, "Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
+        var currentU = aspectU.get("current");
+        if (currentU >= cost) {
+            aspectU.set("current", currentU - cost);
+            var expIndex = repeatingBase + "_aspect_exp";
+            var expAttr = findObjs({
+                name: expIndex,
+                _type: "attribute",
+                _characterid: character.id
+            })[0];
+            expAttr.set("current", expAttr.get("current") + toExpend);
+            aspectBasicAttackRoll(charName, character.id, aspectName, rollName);
+        } else {
+            sendChat(msg.who, "Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
+        }
+            */
+    } catch (error) {
+        thaumError(error, "ExpendAttr: " + msg.content);
+    }
+
+
+}
+const unExpendAttributeThaum = (msg, paramsThaum) => {
+    try {
+        var toUnExpend = paramsThaum[1];
+        var aspectName = paramsThaum[2];
+        var discount = paramsThaum[3];
+        var rollType = paramsThaum[4];
+        var charName = paramsThaum[5];
+        var character = getThaumChar(charName);
+
+        sendChat(`character|${character.id}`,  `toUnExpend: ${toUnExpend} %NEWLINE%
+            aspectName: ${aspectName} %NEWLINE%
+            discount: ${discount} %NEWLINE%
+            rollType: ${rollType} %NEWLINE%
+            charName: ${charName} %NEWLINE%
+            `);
+    } catch (error) {
+        thaumError(error, "UnExpendAttribute");
     }
 
 }
+const aspectspellThaum = (msg, paramsThaum) => {
+    var innate = paramsThaum[1];
+    var spellritual = paramsThaum[2];
+    var spellconcentration = paramsThaum[3];
+    var spellattackid = paramsThaum[4];
+    var spelloutput = paramsThaum[5];
+    var spellcomp = paramsThaum[6];
+    var spellname = paramsThaum[7];
+    var arcaneformula = paramsThaum[8];
+    var spellcastingtime = paramsThaum[9];
+    var spellrange = paramsThaum[10];
+    var spelltarget = paramsThaum[11];
+    var spellduration = paramsThaum[12];
+    var spell_ability = paramsThaum[13];
+    var spelloutput = paramsThaum[14];
+    var spellattack = paramsThaum[15];
+    var spelldamage = paramsThaum[16];
+    var spelldamagetype = paramsThaum[17];
+    var spelldamage2 = paramsThaum[18];
+    var spelldamagetype2 = paramsThaum[19];
+    var spellhealing = paramsThaum[20];
+    var spelldmgmod = paramsThaum[21];
+    var spellsave = paramsThaum[22];
+    var spellsavesuccess = paramsThaum[23];
+    var includedesc = paramsThaum[24];
+    var spelldescription = paramsThaum[25];
+    var charname = paramsThaum[26];
+    var character = getThaumChar(charname);
 
-const rerolld20= (msg, paramsThaum) => {
+    sendChat(`character|${character.id}`, `
+        innate = ${innate} %NEWLINE%
+        spellritual = ${spellritual} %NEWLINE%
+        spellconcentration = ${spellconcentration} %NEWLINE%
+        spellattackid = ${spellattackid} %NEWLINE%
+        spelloutput = ${spelloutput} %NEWLINE%
+        spellcomp = ${spellcomp} %NEWLINE%
+        spellname = ${spellname} %NEWLINE%
+        arcaneformula = ${arcaneformula} %NEWLINE%
+        spellcastingtime = ${spellcastingtime} %NEWLINE%
+        spellrange = ${spellrange} %NEWLINE%
+        spelltarget = ${spelltarget} %NEWLINE%
+        spellduration = ${spellduration} %NEWLINE%
+        spell_ability = ${spell_ability} %NEWLINE%
+        spelloutput = ${spelloutput} %NEWLINE%
+        spellattack = ${spellattack} %NEWLINE%
+        spelldamage = ${spelldamage} %NEWLINE%
+        spelldamagetype = ${spelldamagetype} %NEWLINE%
+        spelldamage2 = ${spelldamage2} %NEWLINE%
+        spelldamagetype2 = ${spelldamagetype2} %NEWLINE%
+        spellhealing = ${spellhealing} %NEWLINE%
+        spelldmgmod = ${spelldmgmod} %NEWLINE%
+        spellsave = ${spellsave} %NEWLINE%
+        spellsavesuccess = ${spellsavesuccess} %NEWLINE%
+        includedesc = ${includedesc} %NEWLINE%
+        spelldescription = ${spelldescription} %NEWLINE%
+                                        ` );
+}
+const aspectspellcardThaum = (msg, paramsThaum) => {
+    var innate = paramsThaum[1];
+    var spellritual = paramsThaum[2];
+    var spellconcentration = paramsThaum[3];
+    var spellattackid = paramsThaum[4];
+    var spelloutput = paramsThaum[5];
+    var spellcomp = paramsThaum[6];
+    var spellname = paramsThaum[7];
+    var arcaneformula = paramsThaum[8];
+    var spellcastingtime = paramsThaum[9];
+    var spellrange = paramsThaum[10];
+    var spelltarget = paramsThaum[11];
+    var spellduration = paramsThaum[12];
+    var spell_ability = paramsThaum[13];
+    var spelloutput = paramsThaum[14];
+    var spellattack = paramsThaum[15];
+    var spelldamage = paramsThaum[16];
+    var spelldamagetype = paramsThaum[17];
+    var spelldamage2 = paramsThaum[18];
+    var spelldamagetype2 = paramsThaum[19];
+    var spellhealing = paramsThaum[20];
+    var spelldmgmod = paramsThaum[21];
+    var spellsave = paramsThaum[22];
+    var spellsavesuccess = paramsThaum[23];
+    var includedesc = paramsThaum[24];
+    var spelldescription = paramsThaum[25];
+    var charname = paramsThaum[26];
+    var character = getThaumChar(charname);
+
+    sendChat(`character|${character.id}`, `
+        innate = ${innate} %NEWLINE%
+        spellritual = ${spellritual} %NEWLINE%
+        spellconcentration = ${spellconcentration} %NEWLINE%
+        spellattackid = ${spellattackid} %NEWLINE%
+        spelloutput = ${spelloutput} %NEWLINE%
+        spellcomp = ${spellcomp} %NEWLINE%
+        spellname = ${spellname} %NEWLINE%
+        arcaneformula = ${arcaneformula} %NEWLINE%
+        spellcastingtime = ${spellcastingtime} %NEWLINE%
+        spellrange = ${spellrange} %NEWLINE%
+        spelltarget = ${spelltarget} %NEWLINE%
+        spellduration = ${spellduration} %NEWLINE%
+        spell_ability = ${spell_ability} %NEWLINE%
+        spelloutput = ${spelloutput} %NEWLINE%
+        spellattack = ${spellattack} %NEWLINE%
+        spelldamage = ${spelldamage} %NEWLINE%
+        spelldamagetype = ${spelldamagetype} %NEWLINE%
+        spelldamage2 = ${spelldamage2} %NEWLINE%
+        spelldamagetype2 = ${spelldamagetype2} %NEWLINE%
+        spellhealing = ${spellhealing} %NEWLINE%
+        spelldmgmod = ${spelldmgmod} %NEWLINE%
+        spellsave = ${spellsave} %NEWLINE%
+        spellsavesuccess = ${spellsavesuccess} %NEWLINE%
+        includedesc = ${includedesc} %NEWLINE%
+        spelldescription = ${spelldescription} %NEWLINE%
+                                        ` );
+}
+
+const rerolld20 = (msg, paramsThaum) => {
     try {
         var r1 = paramsThaum[1];
         var r2 = paramsThaum[2];
@@ -136,9 +285,53 @@ const rerolld20= (msg, paramsThaum) => {
         var globalattacksubstring = globalattack.substring(gstart, gend);
 
         var template = `@{${charname}|wtype}&{template:atk} {{mod=${mod}}} {{rname=${rname}}} {{rnamec=${rname}}} {{r1=[[@{${charname}|d20}${r1substring}]]}} @{${charname}|rtype}${r2substring}]]}} {{range=${range}}} {{desc=${desc}}} {{innate=${innate}}} {{globalattack=[[${globalattacksubstring}]]}} ammo= {{charname=${charname}}}`
-        sendChat(charname, template );
-    } catch(error) {
+        sendChat(charname, template);
+    } catch (error) {
         thaumError(error, "rerolld20 MSG: " + msg.content);
+    }
+}
+const rerolleffect = (msg, paramsThaum) => {
+    try {
+        var charname = paramsThaum[1];
+        var range = paramsThaum[2];
+        var damage = paramsThaum[3];
+        var dmg1flag = paramsThaum[4];
+        var dmg1 = paramsThaum[5];
+        var dmg1type = paramsThaum[6];
+        var dmg2flag = paramsThaum[7];
+        var dmg2 = paramsThaum[8];
+        var dmg2type = paramsThaum[9];
+        var spelllevel = paramsThaum[10];
+        var innate = paramsThaum[11];
+        var globaldamage = paramsThaum[12];
+        var globaldamagetype = paramsThaum[13];
+        var rname = escapeChars(paramsThaum[14]);
+        var character = getThaumChar(charname);
+
+        var dmgstart = " Rolling ".length;
+        var dmg1roll = dmg1;
+        if (dmg1) {
+            var d1end = dmg1.indexOf("=");
+            dmg1roll = dmg1.substring(dmgstart, d1end);
+        }
+        var dmg2roll = dmg2;
+        if (dmg2) {
+            var d2end = dmg2.indexOf("=");
+            dmg2roll = dmg2.substring(dmgstart, d2end);
+        }
+        var gdroll = globaldamage;
+        if (globaldamage) {
+            var gend = globaldamage.indexOf("=");
+            gdroll = globaldamage.substring(dmgstart, gend);
+        }
+
+
+        var template = `@{${charname}|wtype}&{template:dmg} {{rname=${rname}}} 0 {{range=${range}}} {{damage=${damage}}} {{dmg1flag=${dmg1flag}}} {{dmg1=[[${dmg1roll}]]}} {{dmg1type=${dmg1type} }} {{damage=${damage}}} {{dmg2flag=${dmg2flag}}} {{dmg2=[[${dmg2roll}]]}} {{dmg2type=${dmg2type} }} 0 {{desc=}}  {{spelllevel=${spelllevel}}} {{innate=${innate}}} {{globaldamage=[[${gdroll}]]}} {{globaldamagetype=@{${charname}|global_damage_mod_type}}} ammo=  @{${charname}|charname_output}`
+
+        sendChat(`character|${character.id}`, template);
+        
+    } catch (error) {
+        thaumError(error, "rerolleffect MSG: " + msg.content);
     }
 }
 
@@ -146,7 +339,11 @@ const apiMapThaum = {
     "!addParent ": addParentThaum,
     "!deleteAspect ": deleteAspectThaum,
     "!expendAttribute ": expendAttributeThaum,
-    "!rerolld20 ": rerolld20
+    "!unExpendAttribute ": unExpendAttributeThaum,
+    "!rerolld20 ": rerolld20,
+    "!rerolleffect ": rerolleffect,
+    "!aspectspell ": aspectspellThaum,
+    "!aspectspellcard ": aspectspellcardThaum 
 };
 
 on("chat:message", function (msg) {
@@ -162,7 +359,7 @@ on("chat:message", function (msg) {
         } catch (error) {
             thaumError(error, "Chat:message MSG: " + msg.content);
         }
-        
+
     }
 });
 function thaumError(error, custom) {
@@ -220,7 +417,7 @@ async function aspectSkillCheck(characterName, charId, aspect, rollName) {
     try {
         var base = "repeating_aspect_" + aspect;
         let aspectGlobal = "[[" + findObjs({ name: `${base}_skill_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
-    
+
         var template = `@{${characterName}|wtype}&{template:simple} {{rname=${rollName} (Skill)}} {{rnamec=${rollName} (Skill)}} {{mod=@{${characterName}|${base}_aspect_pb}}} {{r1=[[@{${characterName}|d20}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} @{${characterName}|rtype}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} {{global=@{${characterName}|global_skill_mod}${aspectGlobal} }} @{${characterName}|charname_output}`;
         sendChat(`character|${charId}`, template);
     } catch (error) {
@@ -230,18 +427,18 @@ async function aspectSkillCheck(characterName, charId, aspect, rollName) {
 }
 async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
     try {
-    var base = "repeating_aspect_" + aspect;
-    //let aspectGlobal = "[[" + findObjs({ name: `${base}_attk_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
-    //let global = findObjs({ name: 'global_attack_mod', _type: "attribute", _characterid: charId })[0].get("current");
+        var base = "repeating_aspect_" + aspect;
+        //let aspectGlobal = "[[" + findObjs({ name: `${base}_attk_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
+        //let global = findObjs({ name: 'global_attack_mod', _type: "attribute", _characterid: charId })[0].get("current");
 
-    let expression = await makeExpressionThaum(characterName, ['global_attack_mod', `${base}_attk_mod`]);
+        let expression = await makeExpressionThaum(characterName, ['global_attack_mod', `${base}_attk_mod`]);
 
-    var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
-    sendChat(`character|${charId}`, template);
+        var template = `@{${characterName}|wtype}&{template:atk} {{mod=@{${characterName}|${base}_aspect_pb}}} {{rname=[${rollName} (Attack Roll)]}} {{rnamec=[${rollName} (Attack Roll)]}} {{r1=[[@{${characterName}|d20}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} @{${characterName}|rtype}cs>20 + @{${characterName}|${base}_aspect_pb}[ASPECT PROF]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=[[${expression}]]}} ammo= @{${characterName}|charname_output}`
+        sendChat(`character|${charId}`, template);
     } catch (error) {
         thaumError(error, "AspectBasicAttackRoll");
     }
-    
+
 }
 function aspectDescriptionRoll(characterName, charId, aspect) {
 
@@ -262,7 +459,7 @@ async function getRollThaum(roll) {
     } catch (error) {
         thaumError(error, "GetRollThaum");
     }
-    
+
 }
 
 function getRollResult(roll) {
@@ -294,8 +491,13 @@ async function makeExpressionThaum(charName, rollList) {
             let nextExpression = await getExpression(charName, rollList[i]);
             expression = (!!nextExpression) ? expression + " + " + nextExpression : expression;
         }
-        return expression;    
+        return expression;
     } catch (error) {
         thaumError(error, "MakeExpressionThaum");
     }
 }
+function escapeChars(string) {
+    var sanitized = string.replace(/\(/g, "&#40;");
+    sanitized = sanitized.replace(/\)/g, "&#41;");
+    return sanitized;
+} 
