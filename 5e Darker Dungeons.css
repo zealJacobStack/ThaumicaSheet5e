@@ -1350,7 +1350,7 @@ form:has(> div.charsheet) {
   background-color: white;
 }
 .sheet-rolltemplate-darkmode .sheet-container span{
-  background-color: white;
+  background-color: white !important;
   color: transparent;
   background-clip: text;
   mix-blend-mode: difference;
@@ -1584,7 +1584,7 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atk .inlinerollresult.importantroll,
 .sheet-rolltemplate-atkdmg .inlinerollresult.importantroll,
 .sheet-rolltemplate-dmg .inlinerollresult.importantroll {
-  color: #4A57ED;
+  color: #4A57ED !important;
   border: 0px;
 }
 
@@ -2018,6 +2018,12 @@ form:has(> div.charsheet) {
 .sheet-rolltemplate-atkdmg .sheet-savedc .sheet-rolltemplate-inline,
 .sheet-rolltemplate-atkdmg .sheet-label .sheet-rolltemplate-inline {
   display: inline-block;
+}
+
+.userscript-thaum-table-cell {
+  overflow: clip;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .charsheet .sheet-darkerdungeons .sheet-section-npc-display .sheet-npc-header .sheet-npc-header-name {
@@ -5466,6 +5472,7 @@ form:has(> div.charsheet) {
   box-shadow: inset rgb(50, 50, 50) 1.5px 1.5px 0.5px 1.5px;
   padding-top: 7px;
   padding-bottom: 1px;
+  width: 3.5em;
 }
 
 .charsheet .sheet-darkerdungeons .sheet-tab-aspects .add-aspect{
@@ -5544,6 +5551,7 @@ div:has(> .aspect-cost-text) {
   padding-top: 7px;
   padding-bottom: 1px;
   border: none;
+  width: 3.5em;
 }
 
 .aspect-text {

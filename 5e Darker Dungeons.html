@@ -6737,32 +6737,37 @@
 													
 													<img class="aspect-image-background" name="attr_aspect_image_background" value="@{base_img_url}@{aspect_name}Color.png">
 													<div>
+														<button class="delete-aspect" type="roll" value="!deleteAspect |?{Are you sure you want to delete this aspect?|No|Yes}|@{aspect_name}|@{character_name}">
+															<div>&#128465;</div>
+														</button>
 														<span class="aspect-text" name="attr_aspect_name"></span>
 														<span class="aspect-text">Global Modifiers</span>
 														<div class="aspect-global-section">
 															<div>
 																<div class="aspect-cost-text">Cost:</div>
-																<input type="number" value="0" name="attr_cost_reduction">
+																<input type="text" value="0" name="attr_cost_reduction">
 															</div>
 															<div>
 																<div class="aspect-cost-text">Skill:</div>
-																<input type="number" value="0" name="attr_skill_mod">
+																<input type="text" value="0" name="attr_skill_mod">
 															</div>
 															<div>
 																<div class="aspect-cost-text">Attack:</div>
-																<input type="number" value="0" name="attr_attk_mod">
+																<input type="text" value="0" name="attr_attk_mod">
 															</div>
 															<div>
 																<div class="aspect-cost-text">Save:</div>
-																<input type="number" value="0" name="attr_save_mod">
+																<input type="text" value="0" name="attr_save_mod">
+															</div>
+															<div>
+																<div class="aspect-cost-text">Save DC:</div>
+																<input type="text" value="0" name="attr_spellsave_mod">
 															</div>
 															<div>
 																<div class="aspect-cost-text">Damage:</div>
-																<input type="number" value="0" name="attr_damage_mod">
+																<input type="text" value="0" name="attr_damage_mod">
 															</div>
-															<button class="delete-aspect" type="roll" value="!deleteAspect |?{Are you sure you want to delete this aspect?|No|Yes}|@{aspect_name}|@{character_name}">
-																<div>&#128465;</div>
-															</button>
+															
 														</div>
 													</div>
 													<div class="aspect-divider"></div>
@@ -6780,18 +6785,16 @@
 																	</select>
 																</div>
 																<div>
-																	<div class="aspect-cost-text">Cost:</div>
-																	<input title="U Cost" class="expend-input" name="attr_basic_expend" type="number" value="0"/>
+																	<div class="aspect-cost-text">U:</div>
+																	<input title="U Amount" class="expend-input" name="attr_basic_expend" type="text" value="0"/>
 																</div>
 															</div>
 															<div class="quick-use-buttons">
-																<button title="Expend Button" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{aspect_name}|@{spelloutput}|@{character_name}">
+																<button title="Use Apect" class="expend-button" type="roll" value="!expendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{aspect_name}|@{spelloutput}|@{character_name}">
 																	<img class="roll-icon" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20Icon.png">
 																</button>
-																<button title="Reverse Expenditure" class="un-expend-button" type="roll" value="!unExpendAttribute |@{basic_expend}|@{aspect_name}|@{cost_reduction}|@{spelloutput}|@{character_name}">
-																	<div>
-																		&#8634;
-																	</div>
+																<button title="Gain Aspect" class="expend-button" type="roll" value="!gainAttribute |@{basic_expend}|@{aspect_name}|@{character_name}">
+																	<img class="roll-icon" style="filter: invert(1);" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/Aspect.png">
 																</button>
 															</div>
 														</div>														

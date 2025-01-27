@@ -1,10 +1,11 @@
+const aspectBase = "repeating_aspect_";
 const addParentThaum = (msg, paramsThaum) => {
     var indexP = paramsThaum[1]; // Extract the index
     var nameP = paramsThaum[2]; // The remaining part is the name
     var baseUrl = paramsThaum[3];
     indexP = formatStringThaum(indexP);
 
-    var repeatingBase = "repeating_aspect_" + indexP;
+    var repeatingBase = aspectBase + indexP;
     //Name Input
     var aspectNameAttrP = repeatingBase + "_aspect_name";
     //Backround Image
@@ -47,6 +48,7 @@ const addParentThaum = (msg, paramsThaum) => {
         makeAspectAttr(repeatingBase + "_skill_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_attk_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_save_mod", defaultVal, characterP.id);
+        makeAspectAttr(repeatingBase + "_spellsave_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_damage_mod", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_basic_expend", defaultVal, characterP.id);
         makeAspectAttr(repeatingBase + "_mastery", defaultVal, characterP.id);
@@ -71,12 +73,12 @@ const deleteAspectThaum = (msg, paramsThaum) => {
         if (characterD) {
             deleteRepeatingSectionRowThaum(rowID, characterD.id);
         } else {
-            sendChat(msg.who, "Character not found: " + paramsThaum[3]);
+            sendChat(msg.who, "/w gm Character not found: " + paramsThaum[3]);
         }
     }
 };
 
-const expendAttributeThaum = (msg, paramsThaum) => {
+const expendAttributeThaum = async (msg, paramsThaum) => {
     try {
         //var toExpendArray = paramsThaum[1].split(",");
         //var aspectNameArray = paramsThaum[2].split(",");
@@ -88,39 +90,55 @@ const expendAttributeThaum = (msg, paramsThaum) => {
         var rollType = paramsThaum[5];
         var charName = paramsThaum[6];
         var character = getThaumChar(charName);
-        var repeatingBase = "repeating_aspect_" + aspectName;
+        var repeatingBase = aspectBase + aspectName;
         var aspectPbId = repeatingBase + "_aspect_remaining";
         //if (toExpendArray.length === aspectNameArray.length && aspectNameArray.length === discountArray.length) {
-        sendChat(`character|${character.id}`,  `toExpend: ${toExpend} %NEWLINE%
-                                                aspectName: ${aspectName} %NEWLINE%
-                                                discount: ${discount} %NEWLINE%
-                                                rollName: ${rollName} %NEWLINE%
-                                                rollType: ${rollType} %NEWLINE%
-                                                charName: ${charName} %NEWLINE%
-                                                `);
+        // sendChat(`character|${character.id}`, `toExpend: ${toExpend} %NEWLINE%
+        //                                         aspectName: ${aspectName} %NEWLINE%
+        //                                         discount: ${discount} %NEWLINE%
+        //                                         rollName: ${rollName} %NEWLINE%
+        //                                         rollType: ${rollType} %NEWLINE%
+        //                                         charName: ${charName} %NEWLINE%
+        //                                         `);
         //}
+
+        thaumAspectSpell([aspectName], [toExpend], character.id, rollType, rollName);
         /*
-        var cost = getCostThaum(toExpend, discount);
+        toExpend = Number(await getRollThaum(toExpend));
+        discount = Number(await getRollThaum(discount));
+        var cost = await getCostThaum(toExpend, discount);
+        
         var aspectU = findObjs({
             name: aspectPbId,
             _type: "attribute",
             _characterid: character.id
         })[0];
-        var currentU = aspectU.get("current");
+        var currentU = Number(aspectU.get("current"));
         if (currentU >= cost) {
+            
             aspectU.set("current", currentU - cost);
             var expIndex = repeatingBase + "_aspect_exp";
+            var profIndex = repeatingBase + "_aspect_pb";
             var expAttr = findObjs({
                 name: expIndex,
                 _type: "attribute",
                 _characterid: character.id
             })[0];
-            expAttr.set("current", expAttr.get("current") + toExpend);
-            aspectBasicAttackRoll(charName, character.id, aspectName, rollName);
+            var pbAttr = getAttributeThaum(character.id, profIndex);
+            var newExp = Number(expAttr.get("current")) + toExpend;
+            var oldPb = Number(pbAttr.get("current"));
+            if (!(rollType == "SPELLCARD" || rollType == "NONE" || rollType == "SAVE")) {
+                
+                aspectD20Roll(charName, character.id, aspectName, rollName, oldPb, rollType);
+            }
+            
+            expAttr.set("current", newExp);
+            pbAttr.set("current", aspectProf(newExp));
+            
         } else {
-            sendChat(msg.who, "Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
+            sendChat(msg.who, "/w gm Not enough " + aspectName + ". Cost: " + cost + ", and Reserves: " + currentU);
         }
-            */
+        */
     } catch (error) {
         thaumError(error, "ExpendAttr: " + msg.content);
     }
@@ -129,19 +147,17 @@ const expendAttributeThaum = (msg, paramsThaum) => {
 }
 const unExpendAttributeThaum = (msg, paramsThaum) => {
     try {
-        var toUnExpend = paramsThaum[1];
-        var aspectName = paramsThaum[2];
-        var discount = paramsThaum[3];
-        var rollType = paramsThaum[4];
-        var charName = paramsThaum[5];
-        var character = getThaumChar(charName);
+        var aspects = paramsThaum[1];
+        var charId = paramsThaum[2];
+        var rname = paramsThaum[3];
+        var rtype = paramsThaum[4];
+        
 
-        sendChat(`character|${character.id}`,  `toUnExpend: ${toUnExpend} %NEWLINE%
-            aspectName: ${aspectName} %NEWLINE%
-            discount: ${discount} %NEWLINE%
-            rollType: ${rollType} %NEWLINE%
-            charName: ${charName} %NEWLINE%
+        sendChat(`character|${charId}`, `aspects: ${aspects} %NEWLINE%
+            rname: ${rname} %NEWLINE%
+            rtype: ${rtype} %NEWLINE%
             `);
+        basicMessage(`character|${charId}`, `${msg.who} undid ${rtype} ${rname}`);
     } catch (error) {
         thaumError(error, "UnExpendAttribute");
     }
@@ -282,9 +298,14 @@ const rerolld20 = (msg, paramsThaum) => {
         var gend = globalattack.indexOf("=");
         var r1substring = r1.substring(r1start, r1end);
         var r2substring = r2.substring(r2start, r2end);
-        var globalattacksubstring = globalattack.substring(gstart, gend);
+        if (gend >= 0) {
+            var globalattacksubstring = "[[" + globalattack.substring(gstart, gend) + "]]";
+        } else {
+            var globalattacksubstring = globalattack;
+        }
 
-        var template = `@{${charname}|wtype}&{template:atk} {{mod=${mod}}} {{rname=${rname}}} {{rnamec=${rname}}} {{r1=[[@{${charname}|d20}${r1substring}]]}} @{${charname}|rtype}${r2substring}]]}} {{range=${range}}} {{desc=${desc}}} {{innate=${innate}}} {{globalattack=[[${globalattacksubstring}]]}} ammo= {{charname=${charname}}}`
+
+        var template = `@{${charname}|wtype}&{template:atk} {{mod=${mod}}} {{rname=${rname}}} {{rnamec=${rname}}} {{r1=[[@{${charname}|d20}${r1substring}]]}} @{${charname}|rtype}${r2substring}]]}} {{range=${range}}} {{desc=${desc}}} {{innate=${innate}}} {{globalattack=${globalattacksubstring}}} ammo= {{charname=${charname}}}`
         sendChat(charname, template);
     } catch (error) {
         thaumError(error, "rerolld20 MSG: " + msg.content);
@@ -329,12 +350,28 @@ const rerolleffect = (msg, paramsThaum) => {
         var template = `@{${charname}|wtype}&{template:dmg} {{rname=${rname}}} 0 {{range=${range}}} {{damage=${damage}}} {{dmg1flag=${dmg1flag}}} {{dmg1=[[${dmg1roll}]]}} {{dmg1type=${dmg1type} }} {{damage=${damage}}} {{dmg2flag=${dmg2flag}}} {{dmg2=[[${dmg2roll}]]}} {{dmg2type=${dmg2type} }} 0 {{desc=}}  {{spelllevel=${spelllevel}}} {{innate=${innate}}} {{globaldamage=[[${gdroll}]]}} {{globaldamagetype=@{${charname}|global_damage_mod_type}}} ammo=  @{${charname}|charname_output}`
 
         sendChat(`character|${character.id}`, template);
-        
+
     } catch (error) {
         thaumError(error, "rerolleffect MSG: " + msg.content);
     }
 }
+const gainAttribute = async (msg, paramsThaum) => {
+    try {
+        let uValue = Number(await getRollThaum(paramsThaum[1]));
+        let aspect = paramsThaum[2];
+        let charName = paramsThaum[3];
 
+        let character = getThaumChar(charName);
+        let base = aspectBase + aspect;
+        let reserves = getAttributeThaum(character.id, base + "_aspect_remaining");
+        let currentReserves = Number(reserves.get("current"));
+        reserves.set("current", currentReserves + uValue);
+        basicMessage(`character|${character.id}`, `${charName} gained ${uValue} ${aspect}`);
+
+    } catch (error) {
+        thaumError(error, "rerolleffect MSG: " + msg.content);
+    }
+}
 const apiMapThaum = {
     "!addParent ": addParentThaum,
     "!deleteAspect ": deleteAspectThaum,
@@ -343,8 +380,17 @@ const apiMapThaum = {
     "!rerolld20 ": rerolld20,
     "!rerolleffect ": rerolleffect,
     "!aspectspell ": aspectspellThaum,
-    "!aspectspellcard ": aspectspellcardThaum 
+    "!aspectspellcard ": aspectspellcardThaum,
+    "!gainAttribute ": gainAttribute
 };
+/*
+const aspectSpellThaum = {
+    "ATTACK": aspectAttackRoll,
+    "ABILITY": aspectAbilityRoll,
+    "SAVE": aspectSave,
+    "SPELLCARD": aspectSpellCard
+};
+*/
 
 on("chat:message", function (msg) {
     if (msg.type == "api") {
@@ -365,11 +411,21 @@ on("chat:message", function (msg) {
 function thaumError(error, custom) {
     console.log("Error Trying: " + custom);
     console.log(error);
-    sendChat("Error Trying: ", custom);
-    sendChat("Error", error.message);
+    sendChat("Error Trying: ", "/w gm " + custom);
+    sendChat("Error", "/w gm " + error.message);
+}
+function basicMessage(sender, content) {
+    let backgroundImgSrc = `https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/rolldesc.png`;
+    let background = `background: url(${backgroundImgSrc}) top left; background-size: 100% 100%; background-repeat: no-repeat;`
+    let div = `<div style="${background} margin-left:-15%; display:flex; padding:5px; background-color:transparent; color:black; text-align:center; width:115%;">${content}</div>`
+    sendChat(sender, div);
 }
 function getCostThaum(toExpend, discount) {
-    return Math.ceil(toExpend / 2) > toExpend - discount ? Math.ceil(toExpend / 2) : toExpend - discount;
+    //discount can only reduce the cost to half at most
+    toExpend = Number(toExpend);
+    discount = Number(discount);
+    let finalCost = Math.ceil(toExpend / 2) > toExpend - discount ? Math.ceil(toExpend / 2) : toExpend - discount;
+    return finalCost;
 }
 function getThaumChar(charName) {
     var characterP = findObjs({ type: 'character', name: charName })[0];
@@ -415,7 +471,7 @@ function addToInlineRoll(inlineRoll, addition, tag) {
 }
 async function aspectSkillCheck(characterName, charId, aspect, rollName) {
     try {
-        var base = "repeating_aspect_" + aspect;
+        var base = aspectBase + aspect;
         let aspectGlobal = "[[" + findObjs({ name: `${base}_skill_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
 
         var template = `@{${characterName}|wtype}&{template:simple} {{rname=${rollName} (Skill)}} {{rnamec=${rollName} (Skill)}} {{mod=@{${characterName}|${base}_aspect_pb}}} {{r1=[[@{${characterName}|d20}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} @{${characterName}|rtype}+@{${characterName}|${base}_aspect_pb}@{${characterName}|pbd_safe}]]}} {{global=@{${characterName}|global_skill_mod}${aspectGlobal} }} @{${characterName}|charname_output}`;
@@ -427,7 +483,7 @@ async function aspectSkillCheck(characterName, charId, aspect, rollName) {
 }
 async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
     try {
-        var base = "repeating_aspect_" + aspect;
+        var base = aspectBase + aspect;
         //let aspectGlobal = "[[" + findObjs({ name: `${base}_attk_mod`, _type: "attribute", _characterid: charId })[0].get("current") + "]]";
         //let global = findObjs({ name: 'global_attack_mod', _type: "attribute", _characterid: charId })[0].get("current");
 
@@ -440,6 +496,55 @@ async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
     }
 
 }
+async function aspectD20Roll(characterName, charId, aspect, rollName, pb, rolltype) {
+    try {
+        sendChat("d20", "aspectd20roll start");
+        var base = aspectBase + aspect;
+        var global = getd20globalAspect(charId, base, rolltype);
+        sendChat("d20Roll", global);
+
+        var template = `@{${characterName}|wtype}&{template:atk} {{mod=${pb}}} {{rname=${rollName} *${rolltype}*}} {{rnamec=${rollName} *${rolltype}*}} {{r1=[[@{${characterName}|d20}cs>20 + ${pb}[${aspect} PB]]]}} @{${characterName}|rtype}cs>20 + ${pb}[${aspect} PB]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=${global}}} ammo= @{${characterName}|charname_output}`
+        sendChat(`character|${charId}`, template);
+    } catch (error) {
+        thaumError(error, "aspectD20Roll");
+    }
+
+}
+function getd20globalAspect(charId, base, rolltype) {
+    try {
+        var global = getAttributeThaum(charId, "global_" + (rolltype == "ATTACK" ? "attack" : "skill") + "_mod").get("current");
+        var aspectGlobal = getAttributeThaum(charId, base + (rolltype == "ATTACK" ? "_attk_mod" : "_skill_mod")).get("current");
+        var hasGlobal = (global) && (global.indexOf("[[") >= 0);
+        var hasAspectGlobal = (aspectGlobal) && aspectGlobal != 0;
+        var allGlobal = "";
+        if (hasGlobal || hasAspectGlobal) {
+            allGlobal = "[[";
+            allGlobal = (hasGlobal) ? allGlobal + global.slice(2, -2) : allGlobal;
+            allGlobal = (hasGlobal && hasAspectGlobal) ? allGlobal + " + " : allGlobal;
+            allGlobal = (hasAspectGlobal) ? allGlobal + aspectGlobal : allGlobal;
+            allGlobal = allGlobal + "]]";
+        }
+        return allGlobal;
+    } catch (error) {
+        thaumError(error, "getd20globalAspect, " + global);
+    }
+
+}
+function aspectProf(experience) {
+
+    if (experience < 20) {
+        return 0;
+    } else if (experience < 60) {
+        return 1;
+    } else if (experience < 180) {
+        return 2;
+    } else if (experience < 540) {
+        return 3;
+    } else if (experience < 1620) {
+        return 4
+    }
+    return 6;
+}
 function aspectDescriptionRoll(characterName, charId, aspect) {
 
 }
@@ -450,16 +555,19 @@ function aspectDamageRoll(characterName, charId, aspect) {
 async function getRollThaum(roll) {
     try {
         let rollOnce = await new Promise((resolve, reject) => {
-            sendChat("", "/r 0" + roll, function (ops) {
+            roll = roll ? "[[" + roll + "]]" : "[[" + 0 + "]]";
+            sendChat("", roll, function (ops) {
                 resolve(ops[0]);
             });
+
         });
-        sendChat("Get roll thaum", "/r 0" + roll);
-        return rollOnce.inlinerolls;
+
+        //sendChat("Get roll thaum", JSON.stringify(rollOnce.inlinerolls[0].results.total));
+
+        return rollOnce.inlinerolls[0].results.total;
     } catch (error) {
         thaumError(error, "GetRollThaum");
     }
-
 }
 
 function getRollResult(roll) {
@@ -500,4 +608,224 @@ function escapeChars(string) {
     var sanitized = string.replace(/\(/g, "&#40;");
     sanitized = sanitized.replace(/\)/g, "&#41;");
     return sanitized;
-} 
+}
+
+async function thaumAspectSpell(aspects, costs, charId, rolltype, rname) {
+    try {
+        let allCostDetails = [];
+        for (let i = 0; i < costs.length; i++) {
+            costs[i] = Number(await getRollThaum(costs[i]));
+        }
+        let canCast = await canCastThaumSpells(aspects, costs, charId, allCostDetails);
+        if (canCast) {
+            successfulCastMessage(allCostDetails, charId, rname, rolltype, costs);
+            updateAspectsExp(aspects, costs, allCostDetails, charId);
+        } else {
+            notEnoughAspectError(allCostDetails, charId);
+        }
+    } catch (error) {
+        thaumError(error, "thaumAspectSpell");
+    }
+
+}
+function notEnoughAspectError(allCostDetails, charId) {
+    // Define the headers and columns as an array of objects
+    const tableData = {
+        title: '<span style="color:red;font-weight:bolder;">ERROR: NOT ENOUGH ASPECT</span>',
+        headers: ['<span style="color:black;">Aspect</span>', '<span style="color:black;">Reserves</span>', '<span style="color:black;">Required</span>'],
+    };
+    const colors = {
+        true: "red",
+        false: "transparent"
+    }
+
+    // Define column widths as percentages, where the first two columns are 20% and the last column takes 60%
+    const columnWidths = [60, 15, 15];
+    const textAlign = ["left", "center", "center"];
+    const cellTwoBorder = "border-left:1px solid black; border-right:1px solid black;";
+
+    // Start building the table HTML string
+    let backgroundImgSrc = `https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-box-border-thaum.png`;
+    let background = `background: url(${backgroundImgSrc}) top left; background-size: 100% 100%; background-repeat: no-repeat;`
+    
+    let tableHTML = `<div style="${background}width:100%; max-width: 100%; margin-left: -15%; padding-left:10%;padding-right:10%;"><table style="background:none;width:100%; max-width: 100%; margin-left:-1%">`;
+
+    // Generate the full-width table header
+    tableHTML += '<thead>';
+    tableHTML += '<tr>';
+    tableHTML += `<th colspan="${tableData.headers.length}" style="border:none; padding:5px; background-color:transparent; color:red !important; text-align:center; width:100%;">${tableData.title}</th>`;
+    tableHTML += '</tr>';
+    tableHTML += '</thead>';
+
+
+    // Generate the table headers dynamically
+    tableHTML += '<tbody style="width:90%; max-width: 100%; margin:5%;">';
+    tableHTML += '<tr >';
+    tableData.headers.forEach((header, index) => {
+        tableHTML += `<th style="${(index == 1) ? cellTwoBorder : ""} padding:5px; background-color:transparent; width:${columnWidths[index]}%;">${header}</th>`;
+    });
+    tableHTML += '</tr>';
+
+    // Generate the table rows dynamically
+    allCostDetails.forEach(row => {
+        let aspectImg = `<img style="height:98%; margin-right: 5px;" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/${row[0]}.png">`
+        tableHTML += '<tr style="width:100%; max-width: 100%; overflow: clip;">';
+        row.forEach((cell, index) => {
+            let errorSource = (row[1] < row[2]);
+            let content = `<span style="text-wrap:wrap;">${cell}</span>`
+            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""}border-top:1px solid black;text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:${colors[(errorSource)]}; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:140px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
+        });
+        tableHTML += '</tr>';
+    });
+
+    // Generate the full-width table footer
+    tableHTML += '<tfoot>';
+    tableHTML += '<tr>';
+    tableHTML += `<td colspan="${tableData.headers.length}" style="border:none; padding:5px; background-color:transparent; color:red !important; text-align:center; width:100%;">${tableData.title}</td>`;
+    tableHTML += '</tr>';
+    tableHTML += '</tfoot>';
+
+    // Close the table tag
+    tableHTML += '</tbody>';
+    tableHTML += '</table></div>';
+
+    // Send the generated table to the chat
+    sendChat(`character|${charId}`, '/w gm ' + tableHTML);
+
+}
+function getUnExpendCommand(allCostDetails, costs, charId, rname, rtype) {
+    let aspects = "";
+    for (let i = 0; i < allCostDetails.length; i++) {
+        aspects += (i > 0) ? "," : "";
+        aspects += allCostDetails[i][0] + " ";
+        aspects += allCostDetails[i][2] + " ";
+        aspects += costs[i];
+    }
+    return "`!unExpendAttribute |" + aspects + "|" + charId + "|" + rname + "|" + rtype;
+}
+function successfulCastMessage(allCostDetails, charId, rname, rtype, costs) {
+    for (let i = 0; i < allCostDetails.length; i++) {
+        let reserveOld = Number(allCostDetails[i][1]);
+        let expend = Number(allCostDetails[i][2]);
+        allCostDetails[i][1] = reserveOld - expend;
+    }
+    // Define the headers and columns as an array of objects
+    const colors = {
+        true: "blue",
+        false: "black"
+    }
+    const tableData = {
+        title: `<span style="color:${colors.true};font-weight:bolder;">[Undo ${rtype} ${rname}](${getUnExpendCommand(allCostDetails, costs, charId, rname, rtype)})</span>`,
+        headers: ['Aspect', 'Reserves', 'Expended'],
+    };
+
+
+    // Define column widths as percentages, where the first two columns are 20% and the last column takes 60%
+    const columnWidths = [60, 20, 20];
+    const textAlign = ["left", "center", "center"];
+    const cellTwoBorder = "border-left:1px solid black; border-right:1px solid black;";
+
+    // Start building the table HTML string
+    let backgroundImgSrc = `https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/sheet-box-border-thaum.png`;
+    let background = `background: url(${backgroundImgSrc}) top left; background-size: 100% 100%; background-repeat: no-repeat;`
+    
+    let tableHTML = `<div style="${background}width:100%; max-width: 100%; margin-left: -15%; padding-left:10%;padding-right:10%;"><table style="background:none;width:100%; max-width: 100%; margin-left:-1%">`;
+
+    // Generate the full-width table header
+    tableHTML += '<thead>';
+    tableHTML += '<tr>';
+    tableHTML += `<th colspan="${tableData.headers.length}" style="padding:5px; background-color:transparent; color:red !important; text-align:center; width:100%;">${tableData.title}</th>`;
+    tableHTML += '</tr>';
+    tableHTML += '</thead>';
+
+
+    // Generate the table headers dynamically
+    tableHTML += '<tbody style="width:100%; max-width: 100%;">';
+    tableHTML += '<tr >';
+    tableData.headers.forEach((header, index) => {
+        tableHTML += `<th style="${(index == 1) ? cellTwoBorder : ""} padding:5px; background-color:transparent; width:${columnWidths[index]}%;"><span style="color:black">${header}</span></th>`;
+    });
+    tableHTML += '</tr>';
+
+    // Generate the table rows dynamically
+    allCostDetails.forEach((row, i) => {
+        let aspectImg = `<img style="height:98%; margin-right: 5px;" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/${row[0]}.png">`
+        tableHTML += '<tr style="width:100%; max-width: 100%; overflow: clip;">';
+        row.forEach((cell, index) => {
+            let colorTheme = (i % 2 == 0);
+            let content = `<span style="text-wrap:wrap;">${cell}</span>`
+            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""} border-top:1px solid black; text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:transparent; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:140px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
+        });
+        tableHTML += '</tr>';
+    });
+
+    // Generate the full-width table footer
+    tableHTML += '<tfoot>';
+    tableHTML += '<tr>';
+    tableHTML += `<td colspan="${tableData.headers.length}" style=" padding:5px; background-color:transparent; color:red !important; text-align:center; width:100%;">${tableData.title}</td>`;
+    tableHTML += '</tr>';
+    tableHTML += '</tfoot>';
+
+    // Close the table tag
+    tableHTML += '</tbody>';
+    tableHTML += '</table>';
+
+    // Send the generated table to the chat
+    sendChat(`character|${charId}`, '/w gm ' + tableHTML);
+}
+function updateAspectsExp(aspects, costs, costsDetails, charId) {
+    try {
+        for (let i = 0; i < aspects.length; i++) {
+            updateAspectExp(aspects[i], costs[i], costsDetails[i][2], charId);
+        }
+    } catch (error) {
+        thaumError(error, "updateAspectsExp");
+    }
+}
+async function updateAspectExp(aspect, cost, reduced, charId) {
+    try {
+        let base = aspectBase + aspect;
+        let profAttr = getAttributeThaum(charId, base + "_aspect_pb");
+        let expAttr = getAttributeThaum(charId, base + "_aspect_exp");
+        let reserveAttr = getAttributeThaum(charId, base + "_aspect_remaining");
+
+        let newReserve = Number(reserveAttr.get("current")) - Number(reduced);
+        let newExp = Number(expAttr.get("current")) + cost;
+        let newPb = aspectProf(newExp);
+        reserveAttr.set("current", Number(newReserve));
+        expAttr.set("current", Number(newExp));
+        profAttr.set("current", Number(newPb));
+    } catch (error) {
+        thaumError(error, "updateAspectExp");
+    }
+
+}
+async function canCastThaumSpells(aspects, costs, charId, allCostDetails) {
+    try {
+        let canCast = true;
+        for (let i = 0; i < aspects.length; i++) {
+            var costDetails = await canCastThaumSpell(aspects[i], costs[i], charId);
+            if (costDetails[1] < costDetails[2]) {
+                canCast = false;
+            }
+            allCostDetails.push(costDetails);
+        }
+        return canCast;
+    } catch (error) {
+        thaumError(error, "canCastThaumSpells");
+    }
+}
+async function canCastThaumSpell(aspect, toExpend, charId) {
+    try {
+        var base = aspectBase + aspect;
+        var reserves = Number(getAttrByName(charId, base + "_aspect_remaining"));
+        let reductionHelper = getAttrByName(charId, base + "_cost_reduction");
+
+        var reduction = await getRollThaum(reductionHelper);
+        var reduced = Number(getCostThaum(toExpend, reduction));
+        return [aspect, reserves, reduced];
+    } catch (error) {
+        thaumError(error, "canCastThaumSpell");
+    }
+
+}
