@@ -659,7 +659,7 @@ function notEnoughAspectError(allCostDetails, charId) {
 
 
     // Generate the table headers dynamically
-    tableHTML += '<tbody style="width:90%; max-width: 100%; margin:5%;">';
+    tableHTML += '<tbody style="width:90%; max-width: 90%; margin:5%;">';
     tableHTML += '<tr >';
     tableData.headers.forEach((header, index) => {
         tableHTML += `<th style="${(index == 1) ? cellTwoBorder : ""} padding:5px; background-color:transparent; width:${columnWidths[index]}%;">${header}</th>`;
@@ -673,7 +673,7 @@ function notEnoughAspectError(allCostDetails, charId) {
         row.forEach((cell, index) => {
             let errorSource = (row[1] < row[2]);
             let content = `<span style="text-wrap:wrap;">${cell}</span>`
-            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""}border-top:1px solid black;text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:${colors[(errorSource)]}; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:140px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
+            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""}border-top:1px solid black;text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:${colors[(errorSource)]}; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:120px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
         });
         tableHTML += '</tr>';
     });
@@ -754,7 +754,7 @@ function successfulCastMessage(allCostDetails, charId, rname, rtype, costs) {
         row.forEach((cell, index) => {
             let colorTheme = (i % 2 == 0);
             let content = `<span style="text-wrap:wrap;">${cell}</span>`
-            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""} border-top:1px solid black; text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:transparent; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:140px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
+            tableHTML += `<td class="thaum-table-cell" style="${(index == 1) ? cellTwoBorder : ""} border-top:1px solid black; text-align:${textAlign[index]}; overflow: clip; text-wrap: nowrap; text-overflow: ellipsis; font-weight:bolder; color: black; background-color:transparent; padding:5px; width:${columnWidths[index]}%;height:28px; max-width:120px;">${(index == 0) ? aspectImg : ""} ${content}</td>`;
         });
         tableHTML += '</tr>';
     });
