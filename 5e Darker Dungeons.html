@@ -6820,10 +6820,10 @@
 											class="sheet-toggle" hidden>
 										<div class="custom-toggle-unchecked">
 											<div class="custom-pc-spell">
-												<button type="roll" title="Use Spell" name="use_aspect_spell" value="!aspectspell |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{character_name}" class="use-aspect-spell-button">
+												<button type="roll" title="Use Spell" name="use_aspect_spell" value="!aspectspell |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{costformula}|@{d20mod}|@{dcmod}|@{character_name}" class="use-aspect-spell-button">
 													<img class="wax-seal-img" src="https://raw.githubusercontent.com/DM1818/ThaumicaSheet5e/refs/heads/main/images/d20seal.png">
 												</button>
-												<button type="roll" title="Spellcard" name="send_spell" value="!aspectspellcard |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{character_name}" class="custom-pc-spell-button">
+												<button type="roll" title="Spellcard" name="send_spell" value="!aspectspellcard |@{innate}|@{spellritual}|@{spellconcentration}|@{spellattackid}|@{spelloutput}|@{spellcomp}|@{spellname}|@{arcaneformula}|@{spellcastingtime}|@{spellrange}|@{spelltarget}|@{spellduration}|@{spell_ability}|@{spelloutput}|@{spellattack}|@{spelldamage}|@{spelldamagetype}|@{spelldamage2}|@{spelldamagetype2}|@{spellhealing}|@{spelldmgmod}|@{spellsave}|@{spellsavesuccess}|@{includedesc}|@{spelldescription}|@{costformula}|@{d20mod}|@{dcmod}|@{character_name}" class="custom-pc-spell-button">
 													<span class="custom-pc-spell-name">
 														<span name="attr_spellname"></span>
 														<input type="hidden" name="attr_innate" value="" class="custom-field-toggle">
@@ -6851,6 +6851,12 @@
 													<div class="sheet-form-group">
 														<label>Arcane Formula:</label>
 														<input type="text" name="attr_arcaneformula">
+													</div>
+													<div class="sheet-form-group">
+														<label>Cost Reductions Formula:</label>
+														<input type="text" name="attr_costformula">
+													</div>
+													<div class="sheet-form-group">
 														<div class="sheet-checkbox-image">
 															<input type="checkbox" name="attr_spellritual"
 																value="{{ritual=1}}">
@@ -6887,14 +6893,17 @@
 														<label>Spellcasting Ability</label>
 														<select name="attr_spell_ability">
 															<option value="0*">&mdash;</option>
-															<option value="spell">SPELL</option>
 															<option value="@{strength_mod}+">STR</option>
 															<option value="@{dexterity_mod}+">DEX</option>
 															<option value="@{constitution_mod}+">CON</option>
 															<option value="@{intelligence_mod}+">INT</option>
 															<option value="@{wisdom_mod}+">WIS</option>
 															<option value="@{charisma_mod}+">CHA</option>
+															<option value="proficiency">PROF ONLY</option>
+															<option value="(@{saveflat})">FLAT MOD</option>
 														</select>
+														<label>Flat:</label>
+														<input type="text" name="attr_saveflat" value="0">
 													</div>
 													<div class="sheet-form-group">
 														<label>Reminder Text:</label>
@@ -6910,12 +6919,13 @@
 														</select>
 													</div>
 													<div class="sheet-form-group">
-														<label>Spell Attack:</label>
+														<label>D20 Roll:</label>
 														<select name="attr_spellattack">
-															<option value="None">None</option>
-															<option value="Melee">Melee</option>
-															<option value="Ranged">Ranged</option>
+															<option value="No">No</option>
+															<option value="Yes">Yes</option>
 														</select>
+														<label>D20 Mod:</label>
+														<input type="text" name="attr_d20mod" value="0">
 													</div>
 													<div class="sheet-form-group">
 														<label>Damage 1:</label>
@@ -6953,6 +6963,10 @@
 															<option value="Wisdom">WIS</option>
 															<option value="Charisma">CHA</option>
 														</select>
+														<label>DC Mod:</label>
+														<input type="text" name="attr_dcmod" value="0">
+													</div>
+													<div class="sheet-form-group">
 														<label>Effect:</label>
 														<input type="text" name="attr_spellsavesuccess">
 													</div>

@@ -189,7 +189,10 @@ const aspectspellThaum = (msg, paramsThaum) => {
     var spellsavesuccess = paramsThaum[23];
     var includedesc = paramsThaum[24];
     var spelldescription = paramsThaum[25];
-    var charname = paramsThaum[26];
+    let costFormula = paramsThaum[26];
+    let d20mod = paramsThaum[27];
+    let dcmod = paramsThaum[28];
+    var charname = paramsThaum[29];
     var character = getThaumChar(charname);
 
     sendChat(`character|${character.id}`, `
@@ -217,6 +220,9 @@ const aspectspellThaum = (msg, paramsThaum) => {
         spellsave = ${spellsave} %NEWLINE%
         spellsavesuccess = ${spellsavesuccess} %NEWLINE%
         includedesc = ${includedesc} %NEWLINE%
+        costFormula = ${costFormula} %NEWLINE%
+        d20mod = ${d20mod} %NEWLINE%
+        dcmod = ${dcmod} %NEWLINE%
         spelldescription = ${spelldescription} %NEWLINE%
                                         ` );
 }
@@ -246,7 +252,10 @@ const aspectspellcardThaum = (msg, paramsThaum) => {
     var spellsavesuccess = paramsThaum[23];
     var includedesc = paramsThaum[24];
     var spelldescription = paramsThaum[25];
-    var charname = paramsThaum[26];
+    let costFormula = paramsThaum[26];
+    let d20mod = paramsThaum[27];
+    let dcmod = paramsThaum[28];
+    var charname = paramsThaum[29];
     var character = getThaumChar(charname);
 
     sendChat(`character|${character.id}`, `
@@ -274,6 +283,9 @@ const aspectspellcardThaum = (msg, paramsThaum) => {
         spellsave = ${spellsave} %NEWLINE%
         spellsavesuccess = ${spellsavesuccess} %NEWLINE%
         includedesc = ${includedesc} %NEWLINE%
+        costFormula = ${costFormula} %NEWLINE%
+        d20mod = ${d20mod} %NEWLINE%
+        dcmod = ${dcmod} %NEWLINE%
         spelldescription = ${spelldescription} %NEWLINE%
                                         ` );
 }
@@ -496,12 +508,12 @@ async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
     }
 
 }
-async function aspectD20Roll(characterName, charId, aspect, rollName, pb, rolltype) {
+async function aspectD20Roll(charId, aspect, rollName, rolltype) {
     try {
-        sendChat("d20", "aspectd20roll start");
         var base = aspectBase + aspect;
         var global = getd20globalAspect(charId, base, rolltype);
-        sendChat("d20Roll", global);
+        let pb = getAttrByName(charId, base + "_aspect_pb");
+        let characterName = getAttrByName(charId, "character_name");
 
         var template = `@{${characterName}|wtype}&{template:atk} {{mod=${pb}}} {{rname=${rollName} *${rolltype}*}} {{rnamec=${rollName} *${rolltype}*}} {{r1=[[@{${characterName}|d20}cs>20 + ${pb}[${aspect} PB]]]}} @{${characterName}|rtype}cs>20 + ${pb}[${aspect} PB]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=${global}}} ammo= @{${characterName}|charname_output}`
         sendChat(`character|${charId}`, template);
@@ -610,7 +622,7 @@ function escapeChars(string) {
     return sanitized;
 }
 
-async function thaumAspectSpell(aspects, costs, charId, rolltype, rname) {
+async function thaumAspectSpell(aspects, costs, charId, rolltype, rname, params) {
     try {
         let allCostDetails = [];
         for (let i = 0; i < costs.length; i++) {
@@ -620,6 +632,14 @@ async function thaumAspectSpell(aspects, costs, charId, rolltype, rname) {
         if (canCast) {
             successfulCastMessage(allCostDetails, charId, rname, rolltype, costs);
             updateAspectsExp(aspects, costs, allCostDetails, charId);
+            if (!params) {
+                if (rolltype != "NONE") {
+                    aspectD20Roll(charId, aspects[0], rname, rolltype);
+                }
+                
+            } else {
+                sendChat("ThaumAspectSpell", "TODO: Spell rolls");
+            }
         } else {
             notEnoughAspectError(allCostDetails, charId);
         }
