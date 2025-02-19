@@ -662,7 +662,7 @@ function aspectDamageRoll(characterName, charId, aspect) {
 
 async function getRollThaum(roll) {
     try {
-        roll = roll.trim();
+        roll = ("" + roll).trim();
         let rollOnce = await new Promise((resolve, reject) => {
             roll = roll ? "[[" + roll + "]]" : "[[" + 0 + "]]";
             sendChat("", roll, function (ops) {
