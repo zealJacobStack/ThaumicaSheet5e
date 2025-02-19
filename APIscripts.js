@@ -622,8 +622,8 @@ function getd20globalAspect(charId, base, rolltype) {
     try {
         var global = getAttributeThaum(charId, "global_" + rolltype + "_mod").get("current");
         var aspectGlobal = getAttributeThaum(charId, base + (rolltype == "attack" ? "_attk_mod" : "_" + rolltype + "_mod")).get("current");
-        var hasGlobal = (global) && (global.indexOf("[[") >= 0);
-        var hasAspectGlobal = (aspectGlobal) && aspectGlobal != 0;
+        var hasGlobal = (!!global) && (global.indexOf("[[") >= 0);
+        var hasAspectGlobal = (!!aspectGlobal) && aspectGlobal != 0;
         var allGlobal = "";
         if (hasGlobal || hasAspectGlobal) {
             allGlobal = "[[";
