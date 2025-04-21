@@ -810,6 +810,7 @@ function notEnoughAspectError(allCostDetails, charId) {
 
     // Send the generated table to the chat
     sendChat(`character|${charId}`, '/w gm ' + tableHTML);
+    sendChat(`character|${charId}`, `/w character|${charId} ` + tableHTML);
 
 }
 function getUnExpendCommand(allCostDetails, costs, charId, rname, rtype) {
@@ -891,6 +892,7 @@ function successfulCastMessage(allCostDetails, charId, rname, rtype, costs) {
 
     // Send the generated table to the chat
     sendChat(`character|${charId}`, '/w gm ' + tableHTML);
+    sendChat(`character|${charId}`, `/w character|${charId} ` + tableHTML);
 }
 function updateAspectsExp(aspects, costs, costsDetails, charId) {
     try {
@@ -911,7 +913,8 @@ async function updateAspectExp(aspect, cost, reduced, charId) {
         let oldPb = Number(profAttr.get("current"));
         let newReserve = Number(reserveAttr.get("current")) - Number(reduced);
         let newExp = Number(expAttr.get("current")) + cost;
-        let newPb = aspectProf(newExp);
+        let rawPb = aspectProf(newExp);
+        let newPb = (rawPb < 3) ? rawPb : (Number(rawPb) + Number(getAttrByName(charId, "pb")));
         reserveAttr.set("current", Number(newReserve));
         expAttr.set("current", Number(newExp));
         profAttr.set("current", Number(newPb));
@@ -919,7 +922,7 @@ async function updateAspectExp(aspect, cost, reduced, charId) {
         //reveal or hide mastery rerolls
         if (oldPb != newPb) {
             let masteryAttr = getAttributeThaum(charId, base + "_mastery");
-            let hasMastery = (newPb >= 6) ? "1" : "0";
+            let hasMastery = (rawPb >= 6) ? "1" : "0";
             masteryAttr.set("current", hasMastery);
         }
     } catch (error) {
