@@ -620,8 +620,10 @@ async function aspectD20Roll(charId, aspect, rollName, rolltype) {
 }
 function getd20globalAspect(charId, base, rolltype) {
     try {
-        var global = getAttributeThaum(charId, "global_" + rolltype + "_mod").get("current");
-        var aspectGlobal = getAttributeThaum(charId, base + (rolltype == "attack" ? "_attk_mod" : "_" + rolltype + "_mod")).get("current");
+        let globalObject = getAttributeThaum(charId, "global_" + rolltype + "_mod");
+        var global = (!!globalObject) ? globalObject.get("current") : false;
+        let aspectGlobalObject = getAttributeThaum(charId, base + (rolltype == "attack" ? "_attk_mod" : "_" + rolltype + "_mod"));
+        var aspectGlobal = (!!aspectGlobalObject) ? aspectGlobalObject.get("current") : false;
         var hasGlobal = (!!global) && (global.indexOf("[[") >= 0);
         var hasAspectGlobal = (!!aspectGlobal) && aspectGlobal != 0;
         var allGlobal = "";
