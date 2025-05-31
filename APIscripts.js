@@ -228,6 +228,30 @@ const aspectspellThaum = (msg, paramsThaum) => {
         dcmod = ${dcmod} %NEWLINE%
         spelldescription = ${spelldescription} %NEWLINE%
                                         ` );
+        try {
+            arcaneformula = arcaneformula.trim();
+            if (!arcaneformula || arcaneformula.length == 0 ) {
+                throw new Error("No Arcane Formula! Please fill out the Arcane Formula %NEWLINE% EX: Ignis 3, Ordo 1")
+            }
+            let aspectsAndCosts = arcaneformula.split(",");
+            if (aspectsAndCosts.length == 0) {
+                throw new Error("No Arcane Formula! Please fill out the Arcane Formula %NEWLINE% EX: Ignis 3, Ordo 1")
+            }
+            let aspectName = [];
+            let toExpend = [];
+            for (let i = 0; i < aspectsAndCosts.length; i++) {
+                let tempArray = aspectsAndCosts[i].trim().split(" ");
+                if (tempArray.length !== 2) {
+                    throw new Error("Error in Arcane Formula: %NEWLINE% Expected to find an Aspect Name and a Cost seperated by a space. %NEWLINE% EX: Ignis 3 %NEWLINE% Instead found: " + aspectsAndCosts[i]);
+                }
+                aspectName.push(tempArray[0]);
+                toExpend.push(tempArray[1]);
+            }
+            thaumAspectSpell(aspectName, toExpend, character.id, spelloutput, spellname, paramsThaum);
+        } catch (error) {
+            thaumError(error, "aspectspellThaum");
+        }
+
 }
 const aspectspellcardThaum = (msg, paramsThaum) => {
     var innate = paramsThaum[1];
@@ -604,6 +628,26 @@ async function aspectBasicAttackRoll(characterName, charId, aspect, rollName) {
     }
 
 }
+function getHighestAspectPb(charId, aspects) {
+    try {
+        if (aspects.length == 0) {
+            throw new Error("No aspects were given");
+        }
+        let aspect = aspects[0];
+        let aspectPb = getAttrByName(charId, (aspectBase + aspect) + "_aspect_pb");
+        for (let i = 1; i < aspects.length; i++) {
+            let newAspect = aspects[i];
+            let newPb = getAttrByName(charId, (aspectBase + newAspect) + "_aspect_pb");
+            if (newPb > aspectPb) {
+                aspect = newAspect;
+                aspectPb = newPb;
+            }
+        }
+        return aspect;
+    } catch (error) {
+        thaumError(error, "GetHighestAspectPb");
+    }
+}
 async function aspectD20Roll(charId, aspect, rollName, rolltype) {
     try {
         var base = aspectBase + aspect;
@@ -617,6 +661,44 @@ async function aspectD20Roll(charId, aspect, rollName, rolltype) {
         thaumError(error, "aspectD20Roll");
     }
 
+}
+async function ritualD20Roll(charId, aspects, rollName, rolltype) {
+    try {
+        let pbs = "";
+    let globals = "";
+    for (let i = 0; i < aspects.length; i++) {
+        let aspect = aspects[i];
+        let base = aspectBase + aspect;
+        let global = getd20globalAspect(charId, base, rolltype);
+        let pb = getAttrByName(charId, base + "_aspect_pb");
+        
+        if (globals && global) {
+            globals = globals + " + " + global; 
+        } else if (global) {
+            globals = global;
+        }
+
+        if (pbs && pb) {
+            pbs = pbs + " + " + pb;
+        } else if (pb) {
+            pbs = pb;
+        }
+
+    }
+    if (pbs) {
+        pbs = "(" + pbs + ") / " + aspects.length;
+    }
+    if (globals) {
+        globals = "(" + globals + ") / " + aspects.length;
+    }
+    let characterName = getAttrByName(charId, "character_name");
+
+    let template = `@{${characterName}|wtype}&{template:atk} {{mod=${pb}}} {{rname=${rollName} *${rolltype}*}} {{rnamec=${rollName} *${rolltype}*}} {{r1=[[@{${characterName}|d20}cs>20 + ${pb}[${aspect} PB]]]}} @{${characterName}|rtype}cs>20 + ${pb}[${aspect} PB]]]}} {{range=}} {{desc=}} {{innate=}} {{globalattack=${global}}} ammo= @{${characterName}|charname_output}`
+    sendChat(`character|${charId}`, template);
+    } catch (error) {
+
+    }
+    
 }
 function getd20globalAspect(charId, base, rolltype) {
     try {
@@ -724,6 +806,7 @@ function escapeChars(string) {
 
 async function thaumAspectSpell(aspects, costs, charId, rolltype, rname, params) {
     try {
+        
         let allCostDetails = [];
         for (let i = 0; i < costs.length; i++) {
             costs[i] = Number(await getRollThaum(costs[i]));
@@ -731,16 +814,52 @@ async function thaumAspectSpell(aspects, costs, charId, rolltype, rname, params)
         let canCast = await canCastThaumSpells(aspects, costs, charId, allCostDetails);
         if (canCast) {
             successfulCastMessage(allCostDetails, charId, rname, rolltype, costs);
-            //Roll Goes here
             updateAspectsExp(aspects, costs, allCostDetails, charId);
+
             if (!params) {
+                //This is where the roll for Aspect Quick Use occurs
                 if (rolltype != "NONE") {
                     aspectD20Roll(charId, aspects[0], rname, rolltype);
                 }
                 
             } else {
-                sendChat("ThaumAspectSpell", "TODO: Spell rolls");
-            }
+                //This is where the roll for Aspect Spells occur
+                sendChat("", "Rolltype: " + rolltype)
+                if (rolltype == "SPELLCARD") {
+
+                } else if (rolltype == "ATTACK") {
+                    sendChat("", "Attack if triggers");
+                    rolltype = "attack";
+                    if (params[2] == 0) {
+                        sendChat("", "Params[2] != 0")
+                        let aspect = getHighestAspectPb(charId, aspects);
+                        if (params[15] == "Yes") {
+                            sendChat("", "Yes triggers");
+                            aspectD20Roll(charId, aspect, rname, rolltype);
+                        }
+                    } else {
+
+                    }
+                } else if (rolltype == "ABILITY") {
+                    rolltype = "skill";
+                    if (params[2] == 0) {
+                        let aspect = getHighestAspectPb(charId, aspects);
+                        aspectD20Roll(charId, aspect, rname, rolltype);
+                    } else {
+
+                    }
+                } else if (rolltype == "SAVE") {
+                    rolltype = "save";
+                    if (params[2] == 0) {
+                        let aspect = getHighestAspectPb(charId, aspects);
+                        aspectD20Roll(charId, aspect, rname, rolltype);
+                    } else {
+
+                    }
+                } else {
+                    throw new Error("Could not resolve spell output type. %NEWLINE% Expected: SPELLCARD, ATTACK, ABILITY, or SAVE %NEWLINE% Found: " + rolltype);
+                }
+            }  
         } else {
             notEnoughAspectError(allCostDetails, charId);
         }
